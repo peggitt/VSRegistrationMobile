@@ -1,0 +1,944 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSNP.App">
+    <!--
+        Define global resources and styles here, that apply to all pages in your app.
+    -->
+    <Application.Resources>
+       
+        <ResourceDictionary>
+          <Color x:Key="Primary">#f2c417</Color>
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#ccc" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            
+
+            <Color x:Key="PrimaryText">#212121</Color>
+            <Color x:Key="SecondaryText">#757575</Color>
+            <Color x:Key="Icons">#FFFFFF</Color>
+            <Color x:Key="Divider">#BDBDBD</Color>
+            <Color x:Key="White">#FFFFFF</Color>
+             <Color x:Key="Orange">#FC7E27</Color>
+            <!--  Fonts  -->
+            <OnPlatform x:Key="BoldFont" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Regular" />
+                <On Platform="iOS" Value="Roboto-Regular" />
+            </OnPlatform>
+            <OnPlatform x:Key="NormalFont" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Roboto-Light.ttf#Roboto-Light" />
+                <On Platform="iOS" Value="Roboto-Light" />
+            </OnPlatform>
+
+            
+
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="White" />
+                <Setter Property="BarTextColor" Value="Black" />
+            </Style>
+
+            <Style x:Key="DefaultFrame" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+                <Setter Property="BorderColor" Value="Transparent" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="HasShadow" Value="{OnPlatform Android=True, iOS=False}" />
+            </Style>
+
+            <Style TargetType="BoxView">
+                <Setter Property="BackgroundColor" Value="#ffffff" />
+                <Setter Property="HeightRequest" Value="1" />
+                <Setter Property="Margin" Value="0,15" />
+            </Style>
+
+            <Style x:Key="PrimaryButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="ContentLayout" Value="Left, 10" />
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="CornerRadius" Value="30" />
+            </Style>
+
+            <Style x:Key="HeadingLabel" TargetType="Label">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="FontSize" Value="35" />
+                <Setter Property="FontFamily" Value="{StaticResource BoldFont}" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+            </Style>
+            <Style x:Key="SubHeadingLabel" TargetType="Label">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontFamily" Value="{StaticResource BoldFont}" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+            </Style>
+
+
+            <Style x:Key="FormLabelStyle" TargetType="Label">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontFamily" Value="{StaticResource BoldFont}" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+            </Style>
+            <!--<Style x:Key="FormLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="Width" Value="100" />
+                <Setter Property="TextColor" Value="{DynamicResource Accent}" />
+                <Setter Property="VerticalOptions" Value="StartAndExpand" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                <Setter Property="LineHeight" Value="{OnPlatform Default=-1, Android=1.8}" />
+                <Setter Property="MaxLines" Value="5" />
+            </Style>-->
+            <Style x:Key="WhiteButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="CornerRadius" Value="30" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="BorderColor" Value="{StaticResource Primary}" />
+                <Setter Property="BorderWidth" Value="2" />
+            </Style>
+
+            <Style x:Key="WhiteButtonSmall" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                <Setter Property="HeightRequest" Value="36" />
+                <Setter Property="CornerRadius" Value="18" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="WidthRequest" Value="80" />
+            </Style>
+
+
+            <OnPlatform x:Key="FontAwesomeRegular" x:TypeArguments="x:String">
+                <On Platform="iOS" Value="FontAwesome5Free-Regular" />
+                <On Platform="Android" Value="fa-regular-400.ttf#Regular" />
+            </OnPlatform>
+            <OnPlatform x:Key="FontAwesomeSolid" x:TypeArguments="x:String">
+                <On Platform="iOS" Value="FontAwesome5Free-Solid" />
+                <On Platform="Android" Value="fa-solid-900.ttf#Solid" />
+            </OnPlatform>
+
+
+
+            <!--  Icons  -->
+            <x:String x:Key="IconHome">&#xf015;</x:String>
+            <x:String x:Key="IconMoney">&#xf0d6;</x:String>
+            <x:String x:Key="IconStatistics">&#xf681;</x:String>
+            <x:String x:Key="IconSettings">&#xf013;</x:String>
+            <x:String x:Key="IconMore">&#xf141;</x:String>
+            <x:String x:Key="IconGlobe">&#xf57d;</x:String>
+            <x:String x:Key="IconUser">&#xf007;</x:String>
+            <x:String x:Key="IconExpenses">&#xf133;</x:String>
+
+            <x:String x:Key="fa500px">&#xf26e;</x:String>
+            <x:String x:Key="faaddressbook">&#xf2b9;</x:String>
+            <x:String x:Key="faaddressbooko">&#xf2ba;</x:String>
+            <x:String x:Key="faaddresscard">&#xf2bb;</x:String>
+            <x:String x:Key="faaddresscardo">&#xf2bc;</x:String>
+            <x:String x:Key="faadjust">&#xf042;</x:String>
+            <x:String x:Key="faadn">&#xf170;</x:String>
+            <x:String x:Key="faaligncenter">&#xf037;</x:String>
+            <x:String x:Key="faalignjustify">&#xf039;</x:String>
+            <x:String x:Key="faalignleft">&#xf036;</x:String>
+            <x:String x:Key="faalignright">&#xf038;</x:String>
+            <x:String x:Key="faamazon">&#xf270;</x:String>
+            <x:String x:Key="faambulance">&#xf0f9;</x:String>
+            <x:String x:Key="faamericansignlanguageinterpreting">&#xf2a3;</x:String>
+            <x:String x:Key="faanchor">&#xf13d;</x:String>
+            <x:String x:Key="faandroid">&#xf17b;</x:String>
+            <x:String x:Key="faangellist">&#xf209;</x:String>
+            <x:String x:Key="faangledoubledown">&#xf103;</x:String>
+            <x:String x:Key="faangledoubleleft">&#xf100;</x:String>
+            <x:String x:Key="faangledoubleright">&#xf101;</x:String>
+            <x:String x:Key="faangledoubleup">&#xf102;</x:String>
+            <x:String x:Key="faangledown">&#xf107;</x:String>
+            <x:String x:Key="faangleleft">&#xf104;</x:String>
+            <x:String x:Key="faangleright">&#xf105;</x:String>
+            <x:String x:Key="faangleup">&#xf106;</x:String>
+            <x:String x:Key="faapple">&#xf179;</x:String>
+            <x:String x:Key="faarchive">&#xf187;</x:String>
+            <x:String x:Key="faareachart">&#xf1fe;</x:String>
+            <x:String x:Key="faarrowcircledown">&#xf0ab;</x:String>
+            <x:String x:Key="faarrowcircleleft">&#xf0a8;</x:String>
+            <x:String x:Key="faarrowcircleodown">&#xf01a;</x:String>
+            <x:String x:Key="faarrowcircleoleft">&#xf190;</x:String>
+            <x:String x:Key="faarrowcircleoright">&#xf18e;</x:String>
+            <x:String x:Key="faarrowcircleoup">&#xf01b;</x:String>
+            <x:String x:Key="faarrowcircleright">&#xf0a9;</x:String>
+            <x:String x:Key="faarrowcircleup">&#xf0aa;</x:String>
+            <x:String x:Key="faarrowdown">&#xf063;</x:String>
+            <x:String x:Key="faarrowleft">&#xf060;</x:String>
+            <x:String x:Key="faarrowright">&#xf061;</x:String>
+            <x:String x:Key="faarrowup">&#xf062;</x:String>
+            <x:String x:Key="faarrows">&#xf047;</x:String>
+            <x:String x:Key="faarrowsalt">&#xf0b2;</x:String>
+            <x:String x:Key="faarrowsh">&#xf07e;</x:String>
+            <x:String x:Key="faarrowsv">&#xf07d;</x:String>
+            <x:String x:Key="faaslinterpreting">&#xf2a3;</x:String>
+            <x:String x:Key="faassistivelisteningsystems">&#xf2a2;</x:String>
+            <x:String x:Key="faasterisk">&#xf069;</x:String>
+            <x:String x:Key="faat">&#xf1fa;</x:String>
+            <x:String x:Key="faaudiodescription">&#xf29e;</x:String>
+            <x:String x:Key="faautomobile">&#xf1b9;</x:String>
+            <x:String x:Key="fabackward">&#xf04a;</x:String>
+            <x:String x:Key="fabalancescale">&#xf24e;</x:String>
+            <x:String x:Key="faban">&#xf05e;</x:String>
+            <x:String x:Key="fabandcamp">&#xf2d5;</x:String>
+            <x:String x:Key="fabank">&#xf19c;</x:String>
+            <x:String x:Key="fabarchart">&#xf080;</x:String>
+            <x:String x:Key="fabarcharto">&#xf080;</x:String>
+            <x:String x:Key="fabarcode">&#xf02a;</x:String>
+            <x:String x:Key="fabars">&#xf0c9;</x:String>
+            <x:String x:Key="fabath">&#xf2cd;</x:String>
+            <x:String x:Key="fabathtub">&#xf2cd;</x:String>
+            <x:String x:Key="fabattery">&#xf240;</x:String>
+            <x:String x:Key="fabattery0">&#xf244;</x:String>
+            <x:String x:Key="fabattery1">&#xf243;</x:String>
+            <x:String x:Key="fabattery2">&#xf242;</x:String>
+            <x:String x:Key="fabattery3">&#xf241;</x:String>
+            <x:String x:Key="fabattery4">&#xf240;</x:String>
+            <x:String x:Key="fabatteryempty">&#xf244;</x:String>
+            <x:String x:Key="fabatteryfull">&#xf240;</x:String>
+            <x:String x:Key="fabatteryhalf">&#xf242;</x:String>
+            <x:String x:Key="fabatteryquarter">&#xf243;</x:String>
+            <x:String x:Key="fabatterythreequarters">&#xf241;</x:String>
+            <x:String x:Key="fabed">&#xf236;</x:String>
+            <x:String x:Key="fabeer">&#xf0fc;</x:String>
+            <x:String x:Key="fabehance">&#xf1b4;</x:String>
+            <x:String x:Key="fabehancesquare">&#xf1b5;</x:String>
+            <x:String x:Key="fabell">&#xf0f3;</x:String>
+            <x:String x:Key="fabello">&#xf0a2;</x:String>
+            <x:String x:Key="fabellslash">&#xf1f6;</x:String>
+            <x:String x:Key="fabellslasho">&#xf1f7;</x:String>
+            <x:String x:Key="fabicycle">&#xf206;</x:String>
+            <x:String x:Key="fabinoculars">&#xf1e5;</x:String>
+            <x:String x:Key="fabirthdaycake">&#xf1fd;</x:String>
+            <x:String x:Key="fabitbucket">&#xf171;</x:String>
+            <x:String x:Key="fabitbucketsquare">&#xf172;</x:String>
+            <x:String x:Key="fabitcoin">&#xf15a;</x:String>
+            <x:String x:Key="fablacktie">&#xf27e;</x:String>
+            <x:String x:Key="fablind">&#xf29d;</x:String>
+            <x:String x:Key="fabluetooth">&#xf293;</x:String>
+            <x:String x:Key="fabluetoothb">&#xf294;</x:String>
+            <x:String x:Key="fabold">&#xf032;</x:String>
+            <x:String x:Key="fabolt">&#xf0e7;</x:String>
+            <x:String x:Key="fabomb">&#xf1e2;</x:String>
+            <x:String x:Key="fabook">&#xf02d;</x:String>
+            <x:String x:Key="fabookmark">&#xf02e;</x:String>
+            <x:String x:Key="fabookmarko">&#xf097;</x:String>
+            <x:String x:Key="fabraille">&#xf2a1;</x:String>
+            <x:String x:Key="fabriefcase">&#xf0b1;</x:String>
+            <x:String x:Key="fabtc">&#xf15a;</x:String>
+            <x:String x:Key="fabug">&#xf188;</x:String>
+            <x:String x:Key="fabuilding">&#xf1ad;</x:String>
+            <x:String x:Key="fabuildingo">&#xf0f7;</x:String>
+            <x:String x:Key="fabullhorn">&#xf0a1;</x:String>
+            <x:String x:Key="fabullseye">&#xf140;</x:String>
+            <x:String x:Key="fabus">&#xf207;</x:String>
+            <x:String x:Key="fabuysellads">&#xf20d;</x:String>
+            <x:String x:Key="facab">&#xf1ba;</x:String>
+            <x:String x:Key="facalculator">&#xf1ec;</x:String>
+            <x:String x:Key="facalendar">&#xf073;</x:String>
+            <x:String x:Key="facalendarchecko">&#xf274;</x:String>
+            <x:String x:Key="facalendarminuso">&#xf272;</x:String>
+            <x:String x:Key="facalendaro">&#xf133;</x:String>
+            <x:String x:Key="facalendarpluso">&#xf271;</x:String>
+            <x:String x:Key="facalendartimeso">&#xf273;</x:String>
+            <x:String x:Key="facamera">&#xf030;</x:String>
+            <x:String x:Key="facameraretro">&#xf083;</x:String>
+            <x:String x:Key="facar">&#xf1b9;</x:String>
+            <x:String x:Key="facaretdown">&#xf0d7;</x:String>
+            <x:String x:Key="facaretleft">&#xf0d9;</x:String>
+            <x:String x:Key="facaretright">&#xf0da;</x:String>
+            <x:String x:Key="facaretsquareodown">&#xf150;</x:String>
+            <x:String x:Key="facaretsquareoleft">&#xf191;</x:String>
+            <x:String x:Key="facaretsquareoright">&#xf152;</x:String>
+            <x:String x:Key="facaretsquareoup">&#xf151;</x:String>
+            <x:String x:Key="facaretup">&#xf0d8;</x:String>
+            <x:String x:Key="facartarrowdown">&#xf218;</x:String>
+            <x:String x:Key="facartplus">&#xf217;</x:String>
+            <x:String x:Key="facc">&#xf20a;</x:String>
+            <x:String x:Key="faccamex">&#xf1f3;</x:String>
+            <x:String x:Key="faccdinersclub">&#xf24c;</x:String>
+            <x:String x:Key="faccdiscover">&#xf1f2;</x:String>
+            <x:String x:Key="faccjcb">&#xf24b;</x:String>
+            <x:String x:Key="faccmastercard">&#xf1f1;</x:String>
+            <x:String x:Key="faccpaypal">&#xf1f4;</x:String>
+            <x:String x:Key="faccstripe">&#xf1f5;</x:String>
+            <x:String x:Key="faccvisa">&#xf1f0;</x:String>
+            <x:String x:Key="facertificate">&#xf0a3;</x:String>
+            <x:String x:Key="fachain">&#xf0c1;</x:String>
+            <x:String x:Key="fachainbroken">&#xf127;</x:String>
+            <x:String x:Key="facheck">&#xf00c;</x:String>
+            <x:String x:Key="facheckcircle">&#xf058;</x:String>
+            <x:String x:Key="facheckcircleo">&#xf05d;</x:String>
+            <x:String x:Key="fachecksquare">&#xf14a;</x:String>
+            <x:String x:Key="fachecksquareo">&#xf046;</x:String>
+            <x:String x:Key="fachevroncircledown">&#xf13a;</x:String>
+            <x:String x:Key="fachevroncircleleft">&#xf137;</x:String>
+            <x:String x:Key="fachevroncircleright">&#xf138;</x:String>
+            <x:String x:Key="fachevroncircleup">&#xf139;</x:String>
+            <x:String x:Key="fachevrondown">&#xf078;</x:String>
+            <x:String x:Key="fachevronleft">&#xf053;</x:String>
+            <x:String x:Key="fachevronright">&#xf054;</x:String>
+            <x:String x:Key="fachevronup">&#xf077;</x:String>
+            <x:String x:Key="fachild">&#xf1ae;</x:String>
+            <x:String x:Key="fachrome">&#xf268;</x:String>
+            <x:String x:Key="facircle">&#xf111;</x:String>
+            <x:String x:Key="facircleo">&#xf10c;</x:String>
+            <x:String x:Key="facircleonotch">&#xf1ce;</x:String>
+            <x:String x:Key="facirclethin">&#xf1db;</x:String>
+            <x:String x:Key="faclipboard">&#xf0ea;</x:String>
+            <x:String x:Key="faclocko">&#xf017;</x:String>
+            <x:String x:Key="faclone">&#xf24d;</x:String>
+            <x:String x:Key="faclose">&#xf00d;</x:String>
+            <x:String x:Key="facloud">&#xf0c2;</x:String>
+            <x:String x:Key="faclouddownload">&#xf0ed;</x:String>
+            <x:String x:Key="facloudupload">&#xf0ee;</x:String>
+            <x:String x:Key="facny">&#xf157;</x:String>
+            <x:String x:Key="facode">&#xf121;</x:String>
+            <x:String x:Key="facodefork">&#xf126;</x:String>
+            <x:String x:Key="facodepen">&#xf1cb;</x:String>
+            <x:String x:Key="facodiepie">&#xf284;</x:String>
+            <x:String x:Key="facoffee">&#xf0f4;</x:String>
+            <x:String x:Key="facog">&#xf013;</x:String>
+            <x:String x:Key="facogs">&#xf085;</x:String>
+            <x:String x:Key="facolumns">&#xf0db;</x:String>
+            <x:String x:Key="facomment">&#xf075;</x:String>
+            <x:String x:Key="facommento">&#xf0e5;</x:String>
+            <x:String x:Key="facommenting">&#xf27a;</x:String>
+            <x:String x:Key="facommentingo">&#xf27b;</x:String>
+            <x:String x:Key="facomments">&#xf086;</x:String>
+            <x:String x:Key="facommentso">&#xf0e6;</x:String>
+            <x:String x:Key="facompass">&#xf14e;</x:String>
+            <x:String x:Key="facompress">&#xf066;</x:String>
+            <x:String x:Key="faconnectdevelop">&#xf20e;</x:String>
+            <x:String x:Key="facontao">&#xf26d;</x:String>
+            <x:String x:Key="facopy">&#xf0c5;</x:String>
+            <x:String x:Key="facopyright">&#xf1f9;</x:String>
+            <x:String x:Key="facreativecommons">&#xf25e;</x:String>
+            <x:String x:Key="facreditcard">&#xf09d;</x:String>
+            <x:String x:Key="facreditcardalt">&#xf283;</x:String>
+            <x:String x:Key="facrop">&#xf125;</x:String>
+            <x:String x:Key="facrosshairs">&#xf05b;</x:String>
+            <x:String x:Key="facss3">&#xf13c;</x:String>
+            <x:String x:Key="facube">&#xf1b2;</x:String>
+            <x:String x:Key="facubes">&#xf1b3;</x:String>
+            <x:String x:Key="facut">&#xf0c4;</x:String>
+            <x:String x:Key="facutlery">&#xf0f5;</x:String>
+            <x:String x:Key="fadashboard">&#xf0e4;</x:String>
+            <x:String x:Key="fadashcube">&#xf210;</x:String>
+            <x:String x:Key="fadatabase">&#xf1c0;</x:String>
+            <x:String x:Key="fadeaf">&#xf2a4;</x:String>
+            <x:String x:Key="fadeafness">&#xf2a4;</x:String>
+            <x:String x:Key="fadedent">&#xf03b;</x:String>
+            <x:String x:Key="fadelicious">&#xf1a5;</x:String>
+            <x:String x:Key="fadesktop">&#xf108;</x:String>
+            <x:String x:Key="fadeviantart">&#xf1bd;</x:String>
+            <x:String x:Key="fadiamond">&#xf219;</x:String>
+            <x:String x:Key="fadigg">&#xf1a6;</x:String>
+            <x:String x:Key="fadollar">&#xf155;</x:String>
+            <x:String x:Key="fadotcircleo">&#xf192;</x:String>
+            <x:String x:Key="fadownload">&#xf019;</x:String>
+            <x:String x:Key="fadribbble">&#xf17d;</x:String>
+            <x:String x:Key="fadriverslicense">&#xf2c2;</x:String>
+            <x:String x:Key="fadriverslicenseo">&#xf2c3;</x:String>
+            <x:String x:Key="fadropbox">&#xf16b;</x:String>
+            <x:String x:Key="fadrupal">&#xf1a9;</x:String>
+            <x:String x:Key="faedge">&#xf282;</x:String>
+            <x:String x:Key="faedit">&#xf044;</x:String>
+            <x:String x:Key="faeercast">&#xf2da;</x:String>
+            <x:String x:Key="faeject">&#xf052;</x:String>
+            <x:String x:Key="faellipsish">&#xf141;</x:String>
+            <x:String x:Key="faellipsisv">&#xf142;</x:String>
+            <x:String x:Key="faempire">&#xf1d1;</x:String>
+            <x:String x:Key="faenvelope">&#xf0e0;</x:String>
+            <x:String x:Key="faenvelopeo">&#xf003;</x:String>
+            <x:String x:Key="faenvelopeopen">&#xf2b6;</x:String>
+            <x:String x:Key="faenvelopeopeno">&#xf2b7;</x:String>
+            <x:String x:Key="faenvelopesquare">&#xf199;</x:String>
+            <x:String x:Key="faenvira">&#xf299;</x:String>
+            <x:String x:Key="faeraser">&#xf12d;</x:String>
+            <x:String x:Key="faetsy">&#xf2d7;</x:String>
+            <x:String x:Key="faeur">&#xf153;</x:String>
+            <x:String x:Key="faeuro">&#xf153;</x:String>
+            <x:String x:Key="faexchange">&#xf0ec;</x:String>
+            <x:String x:Key="faexclamation">&#xf12a;</x:String>
+            <x:String x:Key="faexclamationcircle">&#xf06a;</x:String>
+            <x:String x:Key="faexclamationtriangle">&#xf071;</x:String>
+            <x:String x:Key="faexpand">&#xf065;</x:String>
+            <x:String x:Key="faexpeditedssl">&#xf23e;</x:String>
+            <x:String x:Key="faexternallink">&#xf08e;</x:String>
+            <x:String x:Key="faexternallinksquare">&#xf14c;</x:String>
+            <x:String x:Key="faeye">&#xf06e;</x:String>
+            <x:String x:Key="faeyeslash">&#xf070;</x:String>
+            <x:String x:Key="faeyedropper">&#xf1fb;</x:String>
+            <x:String x:Key="fafa">&#xf2b4;</x:String>
+            <x:String x:Key="fafacebook">&#xf09a;</x:String>
+            <x:String x:Key="fafacebookf">&#xf09a;</x:String>
+            <x:String x:Key="fafacebookofficial">&#xf230;</x:String>
+            <x:String x:Key="fafacebooksquare">&#xf082;</x:String>
+            <x:String x:Key="fafastbackward">&#xf049;</x:String>
+            <x:String x:Key="fafastforward">&#xf050;</x:String>
+            <x:String x:Key="fafax">&#xf1ac;</x:String>
+            <x:String x:Key="fafeed">&#xf09e;</x:String>
+            <x:String x:Key="fafemale">&#xf182;</x:String>
+            <x:String x:Key="fafighterjet">&#xf0fb;</x:String>
+            <x:String x:Key="fafile">&#xf15b;</x:String>
+            <x:String x:Key="fafilearchiveo">&#xf1c6;</x:String>
+            <x:String x:Key="fafileaudioo">&#xf1c7;</x:String>
+            <x:String x:Key="fafilecodeo">&#xf1c9;</x:String>
+            <x:String x:Key="fafileexcelo">&#xf1c3;</x:String>
+            <x:String x:Key="fafileimageo">&#xf1c5;</x:String>
+            <x:String x:Key="fafilemovieo">&#xf1c8;</x:String>
+            <x:String x:Key="fafileo">&#xf016;</x:String>
+            <x:String x:Key="fafilepdfo">&#xf1c1;</x:String>
+            <x:String x:Key="fafilephotoo">&#xf1c5;</x:String>
+            <x:String x:Key="fafilepictureo">&#xf1c5;</x:String>
+            <x:String x:Key="fafilepowerpointo">&#xf1c4;</x:String>
+            <x:String x:Key="fafilesoundo">&#xf1c7;</x:String>
+            <x:String x:Key="fafiletext">&#xf15c;</x:String>
+            <x:String x:Key="fafiletexto">&#xf0f6;</x:String>
+            <x:String x:Key="fafilevideoo">&#xf1c8;</x:String>
+            <x:String x:Key="fafilewordo">&#xf1c2;</x:String>
+            <x:String x:Key="fafilezipo">&#xf1c6;</x:String>
+            <x:String x:Key="fafileso">&#xf0c5;</x:String>
+            <x:String x:Key="fafilm">&#xf008;</x:String>
+            <x:String x:Key="fafilter">&#xf0b0;</x:String>
+            <x:String x:Key="fafire">&#xf06d;</x:String>
+            <x:String x:Key="fafireextinguisher">&#xf134;</x:String>
+            <x:String x:Key="fafirefox">&#xf269;</x:String>
+            <x:String x:Key="fafirstorder">&#xf2b0;</x:String>
+            <x:String x:Key="faflag">&#xf024;</x:String>
+            <x:String x:Key="faflagcheckered">&#xf11e;</x:String>
+            <x:String x:Key="faflago">&#xf11d;</x:String>
+            <x:String x:Key="faflash">&#xf0e7;</x:String>
+            <x:String x:Key="faflask">&#xf0c3;</x:String>
+            <x:String x:Key="faflickr">&#xf16e;</x:String>
+            <x:String x:Key="fafloppyo">&#xf0c7;</x:String>
+            <x:String x:Key="fafolder">&#xf07b;</x:String>
+            <x:String x:Key="fafoldero">&#xf114;</x:String>
+            <x:String x:Key="fafolderopen">&#xf07c;</x:String>
+            <x:String x:Key="fafolderopeno">&#xf115;</x:String>
+            <x:String x:Key="fafont">&#xf031;</x:String>
+            <x:String x:Key="fafontawesome">&#xf2b4;</x:String>
+            <x:String x:Key="fafonticons">&#xf280;</x:String>
+            <x:String x:Key="fafortawesome">&#xf286;</x:String>
+            <x:String x:Key="faforumbee">&#xf211;</x:String>
+            <x:String x:Key="faforward">&#xf04e;</x:String>
+            <x:String x:Key="fafoursquare">&#xf180;</x:String>
+            <x:String x:Key="fafreecodecamp">&#xf2c5;</x:String>
+            <x:String x:Key="fafrowno">&#xf119;</x:String>
+            <x:String x:Key="fafutbolo">&#xf1e3;</x:String>
+            <x:String x:Key="fagamepad">&#xf11b;</x:String>
+            <x:String x:Key="fagavel">&#xf0e3;</x:String>
+            <x:String x:Key="fagbp">&#xf154;</x:String>
+            <x:String x:Key="fage">&#xf1d1;</x:String>
+            <x:String x:Key="fagear">&#xf013;</x:String>
+            <x:String x:Key="fagears">&#xf085;</x:String>
+            <x:String x:Key="fagenderless">&#xf22d;</x:String>
+            <x:String x:Key="fagetpocket">&#xf265;</x:String>
+            <x:String x:Key="fagg">&#xf260;</x:String>
+            <x:String x:Key="faggcircle">&#xf261;</x:String>
+            <x:String x:Key="fagift">&#xf06b;</x:String>
+            <x:String x:Key="fagit">&#xf1d3;</x:String>
+            <x:String x:Key="fagitsquare">&#xf1d2;</x:String>
+            <x:String x:Key="fagithub">&#xf09b;</x:String>
+            <x:String x:Key="fagithubalt">&#xf113;</x:String>
+            <x:String x:Key="fagithubsquare">&#xf092;</x:String>
+            <x:String x:Key="fagitlab">&#xf296;</x:String>
+            <x:String x:Key="fagittip">&#xf184;</x:String>
+            <x:String x:Key="faglass">&#xf000;</x:String>
+            <x:String x:Key="faglide">&#xf2a5;</x:String>
+            <x:String x:Key="faglideg">&#xf2a6;</x:String>
+            <x:String x:Key="faglobe">&#xf0ac;</x:String>
+            <x:String x:Key="fagoogle">&#xf1a0;</x:String>
+            <x:String x:Key="fagoogleplus">&#xf0d5;</x:String>
+            <x:String x:Key="fagooglepluscircle">&#xf2b3;</x:String>
+            <x:String x:Key="fagoogleplusofficial">&#xf2b3;</x:String>
+            <x:String x:Key="fagoogleplussquare">&#xf0d4;</x:String>
+            <x:String x:Key="fagooglewallet">&#xf1ee;</x:String>
+            <x:String x:Key="fagraduationcap">&#xf19d;</x:String>
+            <x:String x:Key="fagratipay">&#xf184;</x:String>
+            <x:String x:Key="fagrav">&#xf2d6;</x:String>
+            <x:String x:Key="fagroup">&#xf0c0;</x:String>
+            <x:String x:Key="fahsquare">&#xf0fd;</x:String>
+            <x:String x:Key="fahackernews">&#xf1d4;</x:String>
+            <x:String x:Key="fahandgrabo">&#xf255;</x:String>
+            <x:String x:Key="fahandlizardo">&#xf258;</x:String>
+            <x:String x:Key="fahandodown">&#xf0a7;</x:String>
+            <x:String x:Key="fahandoleft">&#xf0a5;</x:String>
+            <x:String x:Key="fahandoright">&#xf0a4;</x:String>
+            <x:String x:Key="fahandoup">&#xf0a6;</x:String>
+            <x:String x:Key="fahandpapero">&#xf256;</x:String>
+            <x:String x:Key="fahandpeaceo">&#xf25b;</x:String>
+            <x:String x:Key="fahandpointero">&#xf25a;</x:String>
+            <x:String x:Key="fahandrocko">&#xf255;</x:String>
+            <x:String x:Key="fahandscissorso">&#xf257;</x:String>
+            <x:String x:Key="fahandspocko">&#xf259;</x:String>
+            <x:String x:Key="fahandstopo">&#xf256;</x:String>
+            <x:String x:Key="fahandshakeo">&#xf2b5;</x:String>
+            <x:String x:Key="fahardofhearing">&#xf2a4;</x:String>
+            <x:String x:Key="fahashtag">&#xf292;</x:String>
+            <x:String x:Key="fahddo">&#xf0a0;</x:String>
+            <x:String x:Key="faheader">&#xf1dc;</x:String>
+            <x:String x:Key="faheadphones">&#xf025;</x:String>
+            <x:String x:Key="faheart">&#xf004;</x:String>
+            <x:String x:Key="fahearto">&#xf08a;</x:String>
+            <x:String x:Key="faheartbeat">&#xf21e;</x:String>
+            <x:String x:Key="fahistory">&#xf1da;</x:String>
+            <x:String x:Key="fahome">&#xf015;</x:String>
+            <x:String x:Key="fahospitalo">&#xf0f8;</x:String>
+            <x:String x:Key="fahotel">&#xf236;</x:String>
+            <x:String x:Key="fahourglass">&#xf254;</x:String>
+            <x:String x:Key="fahourglass1">&#xf251;</x:String>
+            <x:String x:Key="fahourglass2">&#xf252;</x:String>
+            <x:String x:Key="fahourglass3">&#xf253;</x:String>
+            <x:String x:Key="fahourglassend">&#xf253;</x:String>
+            <x:String x:Key="fahourglasshalf">&#xf252;</x:String>
+            <x:String x:Key="fahourglasso">&#xf250;</x:String>
+            <x:String x:Key="fahourglassstart">&#xf251;</x:String>
+            <x:String x:Key="fahouzz">&#xf27c;</x:String>
+            <x:String x:Key="fahtml5">&#xf13b;</x:String>
+            <x:String x:Key="faicursor">&#xf246;</x:String>
+            <x:String x:Key="faidbadge">&#xf2c1;</x:String>
+            <x:String x:Key="faidcard">&#xf2c2;</x:String>
+            <x:String x:Key="faidcardo">&#xf2c3;</x:String>
+            <x:String x:Key="fails">&#xf20b;</x:String>
+            <x:String x:Key="faimage">&#xf03e;</x:String>
+            <x:String x:Key="faimdb">&#xf2d8;</x:String>
+            <x:String x:Key="fainbox">&#xf01c;</x:String>
+            <x:String x:Key="faindent">&#xf03c;</x:String>
+            <x:String x:Key="faindustry">&#xf275;</x:String>
+            <x:String x:Key="fainfo">&#xf129;</x:String>
+            <x:String x:Key="fainfocircle">&#xf05a;</x:String>
+            <x:String x:Key="fainr">&#xf156;</x:String>
+            <x:String x:Key="fainstagram">&#xf16d;</x:String>
+            <x:String x:Key="fainstitution">&#xf19c;</x:String>
+            <x:String x:Key="fainternetexplorer">&#xf26b;</x:String>
+            <x:String x:Key="faintersex">&#xf224;</x:String>
+            <x:String x:Key="faioxhost">&#xf208;</x:String>
+            <x:String x:Key="faitalic">&#xf033;</x:String>
+            <x:String x:Key="fajoomla">&#xf1aa;</x:String>
+            <x:String x:Key="fajpy">&#xf157;</x:String>
+            <x:String x:Key="fajsfiddle">&#xf1cc;</x:String>
+            <x:String x:Key="fakey">&#xf084;</x:String>
+            <x:String x:Key="fakeyboardo">&#xf11c;</x:String>
+            <x:String x:Key="fakrw">&#xf159;</x:String>
+            <x:String x:Key="falanguage">&#xf1ab;</x:String>
+            <x:String x:Key="falaptop">&#xf109;</x:String>
+            <x:String x:Key="falastfm">&#xf202;</x:String>
+            <x:String x:Key="falastfmsquare">&#xf203;</x:String>
+            <x:String x:Key="faleaf">&#xf06c;</x:String>
+            <x:String x:Key="faleanpub">&#xf212;</x:String>
+            <x:String x:Key="falegal">&#xf0e3;</x:String>
+            <x:String x:Key="falemono">&#xf094;</x:String>
+            <x:String x:Key="faleveldown">&#xf149;</x:String>
+            <x:String x:Key="falevelup">&#xf148;</x:String>
+            <x:String x:Key="falifebouy">&#xf1cd;</x:String>
+            <x:String x:Key="falifebuoy">&#xf1cd;</x:String>
+            <x:String x:Key="falifering">&#xf1cd;</x:String>
+            <x:String x:Key="falifesaver">&#xf1cd;</x:String>
+            <x:String x:Key="falightbulbo">&#xf0eb;</x:String>
+            <x:String x:Key="falinechart">&#xf201;</x:String>
+            <x:String x:Key="falink">&#xf0c1;</x:String>
+            <x:String x:Key="falinkedin">&#xf0e1;</x:String>
+            <x:String x:Key="falinkedinsquare">&#xf08c;</x:String>
+            <x:String x:Key="falinode">&#xf2b8;</x:String>
+            <x:String x:Key="falinux">&#xf17c;</x:String>
+            <x:String x:Key="falist">&#xf03a;</x:String>
+            <x:String x:Key="falistalt">&#xf022;</x:String>
+            <x:String x:Key="falistol">&#xf0cb;</x:String>
+            <x:String x:Key="falistul">&#xf0ca;</x:String>
+            <x:String x:Key="falocationarrow">&#xf124;</x:String>
+            <x:String x:Key="falock">&#xf023;</x:String>
+            <x:String x:Key="falongarrowdown">&#xf175;</x:String>
+            <x:String x:Key="falongarrowleft">&#xf177;</x:String>
+            <x:String x:Key="falongarrowright">&#xf178;</x:String>
+            <x:String x:Key="falongarrowup">&#xf176;</x:String>
+            <x:String x:Key="falowvision">&#xf2a8;</x:String>
+            <x:String x:Key="famagic">&#xf0d0;</x:String>
+            <x:String x:Key="famagnet">&#xf076;</x:String>
+            <x:String x:Key="famailforward">&#xf064;</x:String>
+            <x:String x:Key="famailreply">&#xf112;</x:String>
+            <x:String x:Key="famailreplyall">&#xf122;</x:String>
+            <x:String x:Key="famale">&#xf183;</x:String>
+            <x:String x:Key="famap">&#xf279;</x:String>
+            <x:String x:Key="famapmarker">&#xf041;</x:String>
+            <x:String x:Key="famapo">&#xf278;</x:String>
+            <x:String x:Key="famappin">&#xf276;</x:String>
+            <x:String x:Key="famapsigns">&#xf277;</x:String>
+            <x:String x:Key="famars">&#xf222;</x:String>
+            <x:String x:Key="famarsdouble">&#xf227;</x:String>
+            <x:String x:Key="famarsstroke">&#xf229;</x:String>
+            <x:String x:Key="famarsstrokeh">&#xf22b;</x:String>
+            <x:String x:Key="famarsstrokev">&#xf22a;</x:String>
+            <x:String x:Key="famaxcdn">&#xf136;</x:String>
+            <x:String x:Key="fameanpath">&#xf20c;</x:String>
+            <x:String x:Key="famedium">&#xf23a;</x:String>
+            <x:String x:Key="famedkit">&#xf0fa;</x:String>
+            <x:String x:Key="fameetup">&#xf2e0;</x:String>
+            <x:String x:Key="fameho">&#xf11a;</x:String>
+            <x:String x:Key="famercury">&#xf223;</x:String>
+            <x:String x:Key="famicrochip">&#xf2db;</x:String>
+            <x:String x:Key="famicrophone">&#xf130;</x:String>
+            <x:String x:Key="famicrophoneslash">&#xf131;</x:String>
+            <x:String x:Key="faminus">&#xf068;</x:String>
+            <x:String x:Key="faminuscircle">&#xf056;</x:String>
+            <x:String x:Key="faminussquare">&#xf146;</x:String>
+            <x:String x:Key="faminussquareo">&#xf147;</x:String>
+            <x:String x:Key="famixcloud">&#xf289;</x:String>
+            <x:String x:Key="famobile">&#xf10b;</x:String>
+            <x:String x:Key="famobilephone">&#xf10b;</x:String>
+            <x:String x:Key="famodx">&#xf285;</x:String>
+            <x:String x:Key="famoney">&#xf0d6;</x:String>
+            <x:String x:Key="famoono">&#xf186;</x:String>
+            <x:String x:Key="famortarboard">&#xf19d;</x:String>
+            <x:String x:Key="famotorcycle">&#xf21c;</x:String>
+            <x:String x:Key="famousepointer">&#xf245;</x:String>
+            <x:String x:Key="famusic">&#xf001;</x:String>
+            <x:String x:Key="fanavicon">&#xf0c9;</x:String>
+            <x:String x:Key="faneuter">&#xf22c;</x:String>
+            <x:String x:Key="fanewspapero">&#xf1ea;</x:String>
+            <x:String x:Key="faobjectgroup">&#xf247;</x:String>
+            <x:String x:Key="faobjectungroup">&#xf248;</x:String>
+            <x:String x:Key="faodnoklassniki">&#xf263;</x:String>
+            <x:String x:Key="faodnoklassnikisquare">&#xf264;</x:String>
+            <x:String x:Key="faopencart">&#xf23d;</x:String>
+            <x:String x:Key="faopenid">&#xf19b;</x:String>
+            <x:String x:Key="faopera">&#xf26a;</x:String>
+            <x:String x:Key="faoptinmonster">&#xf23c;</x:String>
+            <x:String x:Key="faoutdent">&#xf03b;</x:String>
+            <x:String x:Key="fapagelines">&#xf18c;</x:String>
+            <x:String x:Key="fapaintbrush">&#xf1fc;</x:String>
+            <x:String x:Key="fapaperplane">&#xf1d8;</x:String>
+            <x:String x:Key="fapaperplaneo">&#xf1d9;</x:String>
+            <x:String x:Key="fapaperclip">&#xf0c6;</x:String>
+            <x:String x:Key="faparagraph">&#xf1dd;</x:String>
+            <x:String x:Key="fapaste">&#xf0ea;</x:String>
+            <x:String x:Key="fapause">&#xf04c;</x:String>
+            <x:String x:Key="fapausecircle">&#xf28b;</x:String>
+            <x:String x:Key="fapausecircleo">&#xf28c;</x:String>
+            <x:String x:Key="fapaw">&#xf1b0;</x:String>
+            <x:String x:Key="fapaypal">&#xf1ed;</x:String>
+            <x:String x:Key="fapencil">&#xf040;</x:String>
+            <x:String x:Key="fapencilsquare">&#xf14b;</x:String>
+            <x:String x:Key="fapencilsquareo">&#xf044;</x:String>
+            <x:String x:Key="fapercent">&#xf295;</x:String>
+            <x:String x:Key="faphone">&#xf095;</x:String>
+            <x:String x:Key="faphonesquare">&#xf098;</x:String>
+            <x:String x:Key="faphoto">&#xf03e;</x:String>
+            <x:String x:Key="fapictureo">&#xf03e;</x:String>
+            <x:String x:Key="fapiechart">&#xf200;</x:String>
+            <x:String x:Key="fapiedpiper">&#xf2ae;</x:String>
+            <x:String x:Key="fapiedpiperalt">&#xf1a8;</x:String>
+            <x:String x:Key="fapiedpiperpp">&#xf1a7;</x:String>
+            <x:String x:Key="fapinterest">&#xf0d2;</x:String>
+            <x:String x:Key="fapinterestp">&#xf231;</x:String>
+            <x:String x:Key="fapinterestsquare">&#xf0d3;</x:String>
+            <x:String x:Key="faplane">&#xf072;</x:String>
+            <x:String x:Key="faplay">&#xf04b;</x:String>
+            <x:String x:Key="faplaycircle">&#xf144;</x:String>
+            <x:String x:Key="faplaycircleo">&#xf01d;</x:String>
+            <x:String x:Key="faplug">&#xf1e6;</x:String>
+            <x:String x:Key="faplus">&#xf067;</x:String>
+            <x:String x:Key="fapluscircle">&#xf055;</x:String>
+            <x:String x:Key="faplussquare">&#xf0fe;</x:String>
+            <x:String x:Key="faplussquareo">&#xf196;</x:String>
+            <x:String x:Key="fapodcast">&#xf2ce;</x:String>
+            <x:String x:Key="fapoweroff">&#xf011;</x:String>
+            <x:String x:Key="faprint">&#xf02f;</x:String>
+            <x:String x:Key="faproducthunt">&#xf288;</x:String>
+            <x:String x:Key="fapuzzlepiece">&#xf12e;</x:String>
+            <x:String x:Key="faqq">&#xf1d6;</x:String>
+            <x:String x:Key="faqrcode">&#xf029;</x:String>
+            <x:String x:Key="faquestion">&#xf128;</x:String>
+            <x:String x:Key="faquestioncircle">&#xf059;</x:String>
+            <x:String x:Key="faquestioncircleo">&#xf29c;</x:String>
+            <x:String x:Key="faquora">&#xf2c4;</x:String>
+            <x:String x:Key="faquoteleft">&#xf10d;</x:String>
+            <x:String x:Key="faquoteright">&#xf10e;</x:String>
+            <x:String x:Key="fara">&#xf1d0;</x:String>
+            <x:String x:Key="farandom">&#xf074;</x:String>
+            <x:String x:Key="faravelry">&#xf2d9;</x:String>
+            <x:String x:Key="farebel">&#xf1d0;</x:String>
+            <x:String x:Key="farecycle">&#xf1b8;</x:String>
+            <x:String x:Key="fareddit">&#xf1a1;</x:String>
+            <x:String x:Key="faredditalien">&#xf281;</x:String>
+            <x:String x:Key="faredditsquare">&#xf1a2;</x:String>
+            <x:String x:Key="farefresh">&#xf021;</x:String>
+            <x:String x:Key="faregistered">&#xf25d;</x:String>
+            <x:String x:Key="faremove">&#xf00d;</x:String>
+            <x:String x:Key="farenren">&#xf18b;</x:String>
+            <x:String x:Key="fareorder">&#xf0c9;</x:String>
+            <x:String x:Key="farepeat">&#xf01e;</x:String>
+            <x:String x:Key="fareply">&#xf112;</x:String>
+            <x:String x:Key="fareplyall">&#xf122;</x:String>
+            <x:String x:Key="faresistance">&#xf1d0;</x:String>
+            <x:String x:Key="faretweet">&#xf079;</x:String>
+            <x:String x:Key="farmb">&#xf157;</x:String>
+            <x:String x:Key="faroad">&#xf018;</x:String>
+            <x:String x:Key="farocket">&#xf135;</x:String>
+            <x:String x:Key="farotateleft">&#xf0e2;</x:String>
+            <x:String x:Key="farotateright">&#xf01e;</x:String>
+            <x:String x:Key="farouble">&#xf158;</x:String>
+            <x:String x:Key="farss">&#xf09e;</x:String>
+            <x:String x:Key="farsssquare">&#xf143;</x:String>
+            <x:String x:Key="farub">&#xf158;</x:String>
+            <x:String x:Key="faruble">&#xf158;</x:String>
+            <x:String x:Key="farupee">&#xf156;</x:String>
+            <x:String x:Key="fas15">&#xf2cd;</x:String>
+            <x:String x:Key="fasafari">&#xf267;</x:String>
+            <x:String x:Key="fasave">&#xf0c7;</x:String>
+            <x:String x:Key="fascissors">&#xf0c4;</x:String>
+            <x:String x:Key="fascribd">&#xf28a;</x:String>
+            <x:String x:Key="fasearch">&#xf002;</x:String>
+            <x:String x:Key="fasearchminus">&#xf010;</x:String>
+            <x:String x:Key="fasearchplus">&#xf00e;</x:String>
+            <x:String x:Key="fasellsy">&#xf213;</x:String>
+            <x:String x:Key="fasend">&#xf1d8;</x:String>
+            <x:String x:Key="fasendo">&#xf1d9;</x:String>
+            <x:String x:Key="faserver">&#xf233;</x:String>
+            <x:String x:Key="fashare">&#xf064;</x:String>
+            <x:String x:Key="fasharealt">&#xf1e0;</x:String>
+            <x:String x:Key="fasharealtsquare">&#xf1e1;</x:String>
+            <x:String x:Key="fasharesquare">&#xf14d;</x:String>
+            <x:String x:Key="fasharesquareo">&#xf045;</x:String>
+            <x:String x:Key="fashekel">&#xf20b;</x:String>
+            <x:String x:Key="fasheqel">&#xf20b;</x:String>
+            <x:String x:Key="fashield">&#xf132;</x:String>
+            <x:String x:Key="faship">&#xf21a;</x:String>
+            <x:String x:Key="fashirtsinbulk">&#xf214;</x:String>
+            <x:String x:Key="fashoppingbag">&#xf290;</x:String>
+            <x:String x:Key="fashoppingbasket">&#xf291;</x:String>
+            <x:String x:Key="fashoppingcart">&#xf07a;</x:String>
+            <x:String x:Key="fashower">&#xf2cc;</x:String>
+            <x:String x:Key="fasignin">&#xf090;</x:String>
+            <x:String x:Key="fasignlanguage">&#xf2a7;</x:String>
+            <x:String x:Key="fasignout">&#xf08b;</x:String>
+            <x:String x:Key="fasignal">&#xf012;</x:String>
+            <x:String x:Key="fasigning">&#xf2a7;</x:String>
+            <x:String x:Key="fasimplybuilt">&#xf215;</x:String>
+            <x:String x:Key="fasitemap">&#xf0e8;</x:String>
+            <x:String x:Key="faskyatlas">&#xf216;</x:String>
+            <x:String x:Key="faskype">&#xf17e;</x:String>
+            <x:String x:Key="faslack">&#xf198;</x:String>
+            <x:String x:Key="fasliders">&#xf1de;</x:String>
+            <x:String x:Key="faslideshare">&#xf1e7;</x:String>
+            <x:String x:Key="fasmileo">&#xf118;</x:String>
+            <x:String x:Key="fasnapchat">&#xf2ab;</x:String>
+            <x:String x:Key="fasnapchatghost">&#xf2ac;</x:String>
+            <x:String x:Key="fasnapchatsquare">&#xf2ad;</x:String>
+            <x:String x:Key="fasnowflakeo">&#xf2dc;</x:String>
+            <x:String x:Key="fasoccerballo">&#xf1e3;</x:String>
+            <x:String x:Key="fasort">&#xf0dc;</x:String>
+            <x:String x:Key="fasortalphaasc">&#xf15d;</x:String>
+            <x:String x:Key="fasortalphadesc">&#xf15e;</x:String>
+            <x:String x:Key="fasortamountasc">&#xf160;</x:String>
+            <x:String x:Key="fasortamountdesc">&#xf161;</x:String>
+            <x:String x:Key="fasortasc">&#xf0de;</x:String>
+            <x:String x:Key="fasortdesc">&#xf0dd;</x:String>
+            <x:String x:Key="fasortdown">&#xf0dd;</x:String>
+            <x:String x:Key="fasortnumericasc">&#xf162;</x:String>
+            <x:String x:Key="fasortnumericdesc">&#xf163;</x:String>
+            <x:String x:Key="fasortup">&#xf0de;</x:String>
+            <x:String x:Key="fasoundcloud">&#xf1be;</x:String>
+            <x:String x:Key="faspaceshuttle">&#xf197;</x:String>
+            <x:String x:Key="faspinner">&#xf110;</x:String>
+            <x:String x:Key="faspoon">&#xf1b1;</x:String>
+            <x:String x:Key="faspotify">&#xf1bc;</x:String>
+            <x:String x:Key="fasquare">&#xf0c8;</x:String>
+            <x:String x:Key="fasquareo">&#xf096;</x:String>
+            <x:String x:Key="fastackexchange">&#xf18d;</x:String>
+            <x:String x:Key="fastackoverflow">&#xf16c;</x:String>
+            <x:String x:Key="fastar">&#xf005;</x:String>
+            <x:String x:Key="fastarhalf">&#xf089;</x:String>
+            <x:String x:Key="fastarhalfempty">&#xf123;</x:String>
+            <x:String x:Key="fastarhalffull">&#xf123;</x:String>
+            <x:String x:Key="fastarhalfo">&#xf123;</x:String>
+            <x:String x:Key="fastaro">&#xf006;</x:String>
+            <x:String x:Key="fasteam">&#xf1b6;</x:String>
+            <x:String x:Key="fasteamsquare">&#xf1b7;</x:String>
+            <x:String x:Key="fastepbackward">&#xf048;</x:String>
+            <x:String x:Key="fastepforward">&#xf051;</x:String>
+            <x:String x:Key="fastethoscope">&#xf0f1;</x:String>
+            <x:String x:Key="fastickynote">&#xf249;</x:String>
+            <x:String x:Key="fastickynoteo">&#xf24a;</x:String>
+            <x:String x:Key="fastop">&#xf04d;</x:String>
+            <x:String x:Key="fastopcircle">&#xf28d;</x:String>
+            <x:String x:Key="fastopcircleo">&#xf28e;</x:String>
+            <x:String x:Key="fastreetview">&#xf21d;</x:String>
+            <x:String x:Key="fastrikethrough">&#xf0cc;</x:String>
+            <x:String x:Key="fastumbleupon">&#xf1a4;</x:String>
+            <x:String x:Key="fastumbleuponcircle">&#xf1a3;</x:String>
+            <x:String x:Key="fasubscript">&#xf12c;</x:String>
+            <x:String x:Key="fasubway">&#xf239;</x:String>
+            <x:String x:Key="fasuitcase">&#xf0f2;</x:String>
+            <x:String x:Key="fasuno">&#xf185;</x:String>
+            <x:String x:Key="fasuperpowers">&#xf2dd;</x:String>
+            <x:String x:Key="fasuperscript">&#xf12b;</x:String>
+            <x:String x:Key="fasupport">&#xf1cd;</x:String>
+            <x:String x:Key="fatable">&#xf0ce;</x:String>
+            <x:String x:Key="fatablet">&#xf10a;</x:String>
+            <x:String x:Key="fatachometer">&#xf0e4;</x:String>
+            <x:String x:Key="fatag">&#xf02b;</x:String>
+            <x:String x:Key="fatags">&#xf02c;</x:String>
+            <x:String x:Key="fatasks">&#xf0ae;</x:String>
+            <x:String x:Key="fataxi">&#xf1ba;</x:String>
+            <x:String x:Key="fatelegram">&#xf2c6;</x:String>
+            <x:String x:Key="fatelevision">&#xf26c;</x:String>
+            <x:String x:Key="fatencentweibo">&#xf1d5;</x:String>
+            <x:String x:Key="faterminal">&#xf120;</x:String>
+            <x:String x:Key="fatextheight">&#xf034;</x:String>
+            <x:String x:Key="fatextwidth">&#xf035;</x:String>
+            <x:String x:Key="fath">&#xf00a;</x:String>
+            <x:String x:Key="fathlarge">&#xf009;</x:String>
+            <x:String x:Key="fathlist">&#xf00b;</x:String>
+            <x:String x:Key="fathemeisle">&#xf2b2;</x:String>
+            <x:String x:Key="fathermometer">&#xf2c7;</x:String>
+            <x:String x:Key="fathermometer0">&#xf2cb;</x:String>
+            <x:String x:Key="fathermometer1">&#xf2ca;</x:String>
+            <x:String x:Key="fathermometer2">&#xf2c9;</x:String>
+            <x:String x:Key="fathermometer3">&#xf2c8;</x:String>
+            <x:String x:Key="fathermometer4">&#xf2c7;</x:String>
+            <x:String x:Key="fathermometerempty">&#xf2cb;</x:String>
+            <x:String x:Key="fathermometerfull">&#xf2c7;</x:String>
+            <x:String x:Key="fathermometerhalf">&#xf2c9;</x:String>
+            <x:String x:Key="fathermometerquarter">&#xf2ca;</x:String>
+            <x:String x:Key="fathermometerthreequarters">&#xf2c8;</x:String>
+            <x:String x:Key="fathumbtack">&#xf08d;</x:String>
+            <x:String x:Key="fathumbsdown">&#xf165;</x:String>
+            <x:String x:Key="fathumbsodown">&#xf088;</x:String>
+            <x:String x:Key="fathumbsoup">&#xf087;</x:String>
+            <x:String x:Key="fathumbsup">&#xf164;</x:String>
+            <x:String x:Key="faticket">&#xf145;</x:String>
+            <x:String x:Key="fatimes">&#xf00d;</x:String>
+            <x:String x:Key="fatimescircle">&#xf057;</x:String>
+            <x:String x:Key="fatimescircleo">&#xf05c;</x:String>
+            <x:String x:Key="fatimesrectangle">&#xf2d3;</x:String>
+            <x:String x:Key="fatimesrectangleo">&#xf2d4;</x:String>
+            <x:String x:Key="fatint">&#xf043;</x:String>
+            <x:String x:Key="fatoggledown">&#xf150;</x:String>
+            <x:String x:Key="fatoggleleft">&#xf191;</x:String>
+            <x:String x:Key="fatoggleoff">&#xf204;</x:String>
+            <x:String x:Key="fatoggleon">&#xf205;</x:String>
+            <x:String x:Key="fatoggleright">&#xf152;</x:String>
+            <x:String x:Key="fatoggleup">&#xf151;</x:String>
+            <x:String x:Key="fatrademark">&#xf25c;</x:String>
+            <x:String x:Key="fatrain">&#xf238;</x:String>
+            <x:String x:Key="fatransgender">&#xf224;</x:String>
+            <x:String x:Key="fatransgenderalt">&#xf225;</x:String>
+            <x:String x:Key="fatrash">&#xf1f8;</x:String>
+            <x:String x:Key="fatrasho">&#xf014;</x:String>
+            <x:String x:Key="fatree">&#xf1bb;</x:String>
+            <x:String x:Key="fatrello">&#xf181;</x:String>
+            <x:String x:Key="fatripadvisor">&#xf262;</x:String>
+            <x:String x:Key="fatrophy">&#xf091;</x:String>
+            <x:String x:Key="fatruck">&#xf0d1;</x:String>
+            <x:String x:Key="fatry">&#xf195;</x:String>
+            <x:String x:Key="fatty">&#xf1e4;</x:String>
+            <x:String x:Key="fatumblr">&#xf173;</x:String>
+            <x:String x:Key="fatumblrsquare">&#xf174;</x:String>
+            <x:String x:Key="faturkishlira">&#xf195;</x:String>
+            <x:String x:Key="fatv">&#xf26c;</x:String>
+            <x:String x:Key="fatwitch">&#xf1e8;</x:String>
+            <x:String x:Key="fatwitter">&#xf099;</x:String>
+            <x:String x:Key="fatwittersquare">&#xf081;</x:String>
+            <x:String x:Key="faumbrella">&#xf0e9;</x:String>
+            <x:String x:Key="faunderline">&#xf0cd;</x:String>
+            <x:String x:Key="faundo">&#xf0e2;</x:String>
+            <x:String x:Key="fauniversalaccess">&#xf29a;</x:String>
+            <x:String x:Key="fauniversity">&#xf19c;</x:String>
+            <x:String x:Key="faunlink">&#xf127;</x:String>
+            <x:String x:Key="faunlock">&#xf09c;</x:String>
+            <x:String x:Key="faunlockalt">&#xf13e;</x:String>
+            <x:String x:Key="faunsorted">&#xf0dc;</x:String>
+            <x:String x:Key="faupload">&#xf093;</x:String>
+            <x:String x:Key="fausb">&#xf287;</x:String>
+            <x:String x:Key="fausd">&#xf155;</x:String>
+            <x:String x:Key="fauser">&#xf007;</x:String>
+            <x:String x:Key="fausercircle">&#xf2bd;</x:String>
+            <x:String x:Key="fausercircleo">&#xf2be;</x:String>
+            <x:String x:Key="fausermd">&#xf0f0;</x:String>
+            <x:String x:Key="fausero">&#xf2c0;</x:String>
+            <x:String x:Key="fauserplus">&#xf234;</x:String>
+            <x:String x:Key="fausersecret">&#xf21b;</x:String>
+            <x:String x:Key="fausertimes">&#xf235;</x:String>
+            <x:String x:Key="fausers">&#xf0c0;</x:String>
+            <x:String x:Key="favcard">&#xf2bb;</x:String>
+            <x:String x:Key="favcardo">&#xf2bc;</x:String>
+            <x:String x:Key="favenus">&#xf221;</x:String>
+            <x:String x:Key="favenusdouble">&#xf226;</x:String>
+            <x:String x:Key="favenusmars">&#xf228;</x:String>
+            <x:String x:Key="faviacoin">&#xf237;</x:String>
+            <x:String x:Key="faviadeo">&#xf2a9;</x:String>
+            <x:String x:Key="faviadeosquare">&#xf2aa;</x:String>
+            <x:String x:Key="favideocamera">&#xf03d;</x:String>
+            <x:String x:Key="favimeo">&#xf27d;</x:String>
+            <x:String x:Key="favimeosquare">&#xf194;</x:String>
+            <x:String x:Key="favine">&#xf1ca;</x:String>
+            <x:String x:Key="favk">&#xf189;</x:String>
+            <x:String x:Key="favolumecontrolphone">&#xf2a0;</x:String>
+            <x:String x:Key="favolumedown">&#xf027;</x:String>
+            <x:String x:Key="favolumeoff">&#xf026;</x:String>
+            <x:String x:Key="favolumeup">&#xf028;</x:String>
+            <x:String x:Key="fawarning">&#xf071;</x:String>
+            <x:String x:Key="fawechat">&#xf1d7;</x:String>
+            <x:String x:Key="faweibo">&#xf18a;</x:String>
+            <x:String x:Key="faweixin">&#xf1d7;</x:String>
+            <x:String x:Key="fawhatsapp">&#xf232;</x:String>
+            <x:String x:Key="fawheelchair">&#xf193;</x:String>
+            <x:String x:Key="fawheelchairalt">&#xf29b;</x:String>
+            <x:String x:Key="fawifi">&#xf1eb;</x:String>
+            <x:String x:Key="fawikipediaw">&#xf266;</x:String>
+            <x:String x:Key="fawindowclose">&#xf2d3;</x:String>
+            <x:String x:Key="fawindowcloseo">&#xf2d4;</x:String>
+            <x:String x:Key="fawindowmaximize">&#xf2d0;</x:String>
+            <x:String x:Key="fawindowminimize">&#xf2d1;</x:String>
+            <x:String x:Key="fawindowrestore">&#xf2d2;</x:String>
+            <x:String x:Key="fawindows">&#xf17a;</x:String>
+            <x:String x:Key="fawon">&#xf159;</x:String>
+            <x:String x:Key="fawordpress">&#xf19a;</x:String>
+            <x:String x:Key="fawpbeginner">&#xf297;</x:String>
+            <x:String x:Key="fawpexplorer">&#xf2de;</x:String>
+            <x:String x:Key="fawpforms">&#xf298;</x:String>
+            <x:String x:Key="fawrench">&#xf0ad;</x:String>
+            <x:String x:Key="faxing">&#xf168;</x:String>
+            <x:String x:Key="faxingsquare">&#xf169;</x:String>
+            <x:String x:Key="faycombinator">&#xf23b;</x:String>
+            <x:String x:Key="faycombinatorsquare">&#xf1d4;</x:String>
+            <x:String x:Key="fayahoo">&#xf19e;</x:String>
+            <x:String x:Key="fayc">&#xf23b;</x:String>
+            <x:String x:Key="faycsquare">&#xf1d4;</x:String>
+            <x:String x:Key="fayelp">&#xf1e9;</x:String>
+            <x:String x:Key="fayen">&#xf157;</x:String>
+            <x:String x:Key="fayoast">&#xf2b1;</x:String>
+            <x:String x:Key="fayoutube">&#xf167;</x:String>
+            <x:String x:Key="fayoutubeplay">&#xf16a;</x:String>
+            <x:String x:Key="fayoutubesquare">&#xf166;</x:String>
+
+
+        </ResourceDictionary>
+   
+        
+    </Application.Resources>
+</Application>
