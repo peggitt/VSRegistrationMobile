@@ -1,0 +1,18 @@
+﻿^contentpage {
+    padding: 20;
+}
+label {
+    margin: 0,10;
+}
+entry {
+    margin: 0;
+}
+button {
+    margin: 0,10;
+}
+
+.heading {
+    font-size: 18;
+    color: #f2c417;
+    font-weight:bold;
+}

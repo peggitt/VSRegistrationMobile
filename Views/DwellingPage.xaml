@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSNP.Mobile.Views.DwellingPage"
+             Title="Household Dwelling">
+    <VerticalStackLayout>
+
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.01) How many habitable ROOMS does this dwelling unit contain?" />
+                        <Label
+                            x:Name="HabitableRooms"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.HabitableRooms}" />
+                        <Label HorizontalTextAlignment="Start" Text="(2.02 a) Is it Owner Occupied ?" />
+                        <Label
+                            x:Name="IsOwnerOccupied"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.IsOwned.Description}" />
+                        <Label Text="(2.02 b) TENURE status of the dwelling unit and/or surrounding terrain/land" />
+                        <Label
+                            x:Name="TenureStatus"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.TenureStatus.Description}" />
+                        <Label Text="Dominant construction material of the main Dwelling unit " />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.03) ROOF ?" />
+                        <Label
+                            x:Name="RoofConstructionMaterial"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.RoofConstructionMaterial.Description}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.04) WALL ?" />
+                        <Label
+                            x:Name="WallConstructionMaterial"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.WallConstructionMaterial.Description}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.05) FLOOR ?" />
+                        <Label
+                            x:Name="FloorConstructionMaterial"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.FloorConstructionMaterial.Description}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.06)The dwelling unit is at RISK of:?" />
+                        <Label
+                            x:Name="DwellingUnitRisk"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.DwellingUnitRisk.Description}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.07)Main source of WATER?" />
+                        <Label
+                            x:Name="WaterSource"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.WaterSource.Description}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.08) Main mode of HUMAN WASTE DISPOSAL?" />
+                        <Label
+                            x:Name="WasteDisposalMode"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.WasteDisposalMode.Description}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.09) Main type of COOKING FUEL" />
+                        <Label
+                            x:Name="CookingFuelType"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.CookingFuelType.Description}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.10) Main type of LIGHTING FUEL:" />
+                        <Label
+                            x:Name="LightingFuelType"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.LightingFuelType.Description}" />
+                        <Label Style="{StaticResource BolHalfMediumDark}" Text="Does the household OWN any of the following items?" />
+                        <Label
+                            FontSize="Medium"
+                            Style="{StaticResource BolHalfMedium}"
+                            Text="(2.11) Television" />
+                        <Label
+                            x:Name="IsTelevision"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.IsTelevision.Description}" />
+                        <Label
+                            FontSize="Medium"
+                            Style="{StaticResource BolHalfMedium}"
+                            Text="(2.12) Motorcycle" />
+                        <Label
+                            x:Name="IsMotorcycle"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.IsMotorcycle.Description}" />
+                        <Label
+                            FontSize="Medium"
+                            Style="{StaticResource BolHalfMedium}"
+                            Text="(2.13) Tuk-Tuk" />
+                        <Label
+                            x:Name="IsTukTuk"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.IsTukTuk.Description}" />
+                        <Label
+                            FontSize="Medium"
+                            Style="{StaticResource BolHalfMedium}"
+                            Text="(2.14) Refrigerator" />
+                        <Label
+                            x:Name="IsRefrigerator"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.IsRefrigerator.Description}" />
+                        <Label
+                            FontSize="Medium"
+                            Style="{StaticResource BolHalfMedium}"
+                            Text="(2.15) Car" />
+                        <Label
+                            x:Name="IsCar"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.IsCar.Description}" />
+                        <Label
+                            FontSize="Medium"
+                            Style="{StaticResource BolHalfMedium}"
+                            Text="(2.16) Mobile phone" />
+                        <Label
+                            x:Name="IsMobilePhone"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.IsMobilePhone.Description}" />
+                        <Label
+                            FontSize="Medium"
+                            Style="{StaticResource BolHalfMedium}"
+                            Text="(2.17) Bicycle" />
+                        <Label
+                            x:Name="IsBicycle"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.IsBicycle.Description}" />
+                        <Label Text="How many of each of the following livestock are currently owned" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.18) Exotic cattle" />
+                        <Label
+                            x:Name="ExoticCattle"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.ExoticCattle}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.19) Indigenous cattle" />
+                        <Label
+                            x:Name="IndigenousCattle"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.IndigenousCattle}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.20) Sheep" />
+                        <Label
+                            x:Name="Sheep"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.Sheep}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.21) Goats" />
+                        <Label
+                            x:Name="Goats"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.Goats}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.22) Camels" />
+                        <Label
+                            x:Name="Camels"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.Camels}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.23) Donkeys" />
+                        <Label
+                            x:Name="Donkeys"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.Donkeys}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.24) Pigs" />
+                        <Label
+                            x:Name="Pigs"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.Pigs}" />
+                        <Label Style="{StaticResource BolHalfMedium}" Text="(2.25) Chicken" />
+                        <Label
+                            x:Name="Chicken"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.Chicken}" />
+                        <Label Text="(2.26) How many LIVE BIRTHS occurred in this household in the last 12 months?" />
+                        <Label
+                            x:Name="LiveBirths"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.LiveBirths}" />
+                        <Label Text="(2.27) How many DEATHS occurred in this household in the last 12 months?" />
+                        <Label
+                            x:Name="Deaths"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.Deaths}" />
+                        <Label Text="(2.28) Currently, the CONDITIONS of your household are ?" />
+                        <Label
+                            x:Name="HouseHoldConditionId"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.HouseHoldCondition.Description}" />
+                        <Label Text="(2.29) In the past 7 days, did anyone in this household cut the size of the meals or skip meals because of the lack of enough money?" />
+                        <Label
+                            x:Name="IsSkippedMeal"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.IsSkippedMeal.Description}" />
+                        <Label Text="BENEFITS FROM SOCIAL ASSISTANCE PROGRAMMES" />
+                        <Label Text="(2.30 A) Is anyone in the household receiving benefits from any NSNP?" />
+                        <Label
+                            x:Name="OtherProgrammesId"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.OtherProgrammes.Description}" />
+
+                        <StackLayout IsVisible="{Binding HasBenefitsFromOtherProgrammes}">
+                            <Label Text="(2.30 B) Other Programmes:" />
+                            <ListView
+                                x:Name="NsNpProgs"
+                                HeightRequest="150"
+                                ItemsSource="{Binding LoadedProgrammes}"
+                                VerticalOptions="StartAndExpand">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+
+                                            <StackLayout Padding="20,0,0,0" VerticalOptions="Center">
+                                                <!--<Switch  IsToggled="{Binding IsSelected}" IsEnabled="False"  />-->
+                                                <Label
+                                                    Margin="0"
+                                                    Style="{StaticResource BolHalfLite}"
+                                                    Text="{Binding Item.Description, StringFormat='{0:-}'}" />
+                                            </StackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+
+                        <Label Text="(2.31) Is anyone in this household receiving benefits from any other Social Assistance Programme or any other external support?" />
+                        <Label
+                            x:Name="IsReceivingSocialId"
+                            Style="{StaticResource BolHalfLite}"
+                            Text="{Binding Registration.IsReceivingSocial.Description}" />
+
+                        <StackLayout IsVisible="{Binding IsReceivingSocialBenefit}">
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.32) Other Programmes(Names) If Any" />
+                            <Label
+                                x:Name="OtherProgrammeNames"
+                                Style="{StaticResource BolHalfLite}"
+                                Text="{Binding Registration.OtherProgrammeNames}" />
+
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.33) What type of BENEFIT do you receive?" />
+                            <Label
+                                x:Name="BenefitTypeId"
+                                Style="{StaticResource BolHalfLite}"
+                                Text="{Binding Registration.BenefitType.Description}" />
+
+                            <StackLayout IsVisible="{Binding IsNotInKind}">
+                                <Label Text="(2.34) How MUCH was the benefit in the last receipt? (KSHs)" />
+                                <Label
+                                    x:Name="LastReceiptAmount"
+                                    Style="{StaticResource BolHalfLite}"
+                                    Text="{Binding Registration.LastReceiptAmount}" />
+                            </StackLayout>
+
+                            <StackLayout IsVisible="{Binding IsInKind}">
+                                <Label Text="(2.35) Specify IN-KIND of benefit:" />
+                                <Label
+                                    x:Name="InKindBenefitId"
+                                    Style="{StaticResource BolHalfLite}"
+                                    Text="{Binding Registration.InKindBenefit.Description}" />
+                            </StackLayout>
+                        </StackLayout>
+
+                        <Label Text="(2.10) INTERVIEW RESULTS" />
+                        <StackLayout Padding="20,0,0,0">
+                            <Label Style="{StaticResource BolHalfMedium}" Text=" Interview Status" />
+                            <Label
+                                x:Name="InterviewStatusId"
+                                Style="{StaticResource BolHalfLite}"
+                                Text="{Binding Registration.InterviewStatus.Description}" />
+
+                            <Label Style="{StaticResource BolHalfMedium}" Text=" Interview Result" />
+                            <Label
+                                x:Name="InterviewResultId"
+                                Style="{StaticResource BolHalfLite}"
+                                Text="{Binding Registration.InterviewResult.Description}" />
+                        </StackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+	x:Class="HSNP.Mobile.AppShell"
+	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:views="clr-namespace:HSNP.Mobile.Views"
+	 xmlns:fa="clr-namespace:HSNP.Mobile.Helpers">
+
+    <FlyoutItem Route="menus"  
+            Title="Menus"  
+            FlyoutDisplayOptions="AsMultipleItems">
+
+        <ShellContent Title="Home" ContentTemplate="{DataTemplate views:MainPage}">
+            <ShellContent.Icon>
+                <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.HomeAccount}"/>
+            </ShellContent.Icon>
+        </ShellContent>
+        <Tab Title="Registration">
+            <Tab.Icon>
+                <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
+            </Tab.Icon>
+            <ShellContent Title="New" ContentTemplate="{DataTemplate views:RegistrationPage}">
+                <ShellContent.Icon>
+                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
+                </ShellContent.Icon>
+            </ShellContent>
+            <ShellContent Title="In Progress" ContentTemplate="{DataTemplate views:RegistrationPage}">
+                <ShellContent.Icon>
+                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
+                </ShellContent.Icon>
+            </ShellContent>
+            <ShellContent Title="Complete" ContentTemplate="{DataTemplate views:RegistrationPage}">
+                <ShellContent.Icon>
+                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
+                </ShellContent.Icon>
+            </ShellContent>
+        </Tab>
+
+        <ShellContent Title="Updates" ContentTemplate="{DataTemplate views:UpdatesPage}">
+            <ShellContent.Icon>
+                <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.FileAccount}"/>
+            </ShellContent.Icon>
+        </ShellContent>
+       
+        <ShellContent Title="Sync" ContentTemplate="{DataTemplate views:SyncPage}">
+            <ShellContent.Icon>
+                <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.Refresh}"/>
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent Title="Logout" ContentTemplate="{DataTemplate views:LogoutPage}">
+            <ShellContent.Icon>
+                <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.Logout}"/>
+            </ShellContent.Icon>
+        </ShellContent>
+    </FlyoutItem>
+</Shell>

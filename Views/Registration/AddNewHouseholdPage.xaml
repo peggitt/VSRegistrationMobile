@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSNP.Mobile.Views.Registration.AddNewHouseholdPage"
+             Title="Add Household">
+    <ScrollView VerticalOptions="FillAndExpand">
+        <VerticalStackLayout VerticalOptions="FillAndExpand">
+
+            <Label Text="PROGRAMME"/>
+            <Picker  Title="Select" ItemsSource="{Binding Programme}"
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding County}" />
+
+            <Label StyleClass="heading" Text="I. GEOGRAPHIC IDENTIFICATION" />
+            <Label Text="COUNTY"/>
+            <Label Text="{Binding CountyName}"/>
+            <Label Text="CONSTITUENCY"/>
+            <Picker  Title="Select" ItemsSource="{Binding Constituencies}"
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Constituency}" />
+            <Label Text="SUB-LOCATION"/>
+            <Picker  Title="Select" ItemsSource="{Binding SubLocations}"
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SubLocation}" />
+            <Label Text="VILLAGE"/>
+            <Picker  Title="Select" ItemsSource="{Binding Villages}"
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Village}" />
+            <Label Text="PHYSICAL ADDRESS"/>
+            <Entry Text="{Binding HouseholdAddress}"></Entry>
+            <Label Text="DURATION OF RESIDENCE IN THIS PLACE"/>
+            <HorizontalStackLayout HorizontalOptions="FillAndExpand" >
+                <Label Text="YEARS:"/>
+                <Entry Text="{Binding DurationYears}"  WidthRequest="200" HorizontalOptions="EndAndExpand" Keyboard="Numeric"></Entry>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="FillAndExpand">
+                <Label Text="MONTHS:"/>
+                <Entry Text="{Binding DurationYears}" WidthRequest="200" HorizontalOptions="FillAndExpand" Keyboard="Numeric"></Entry>
+            </HorizontalStackLayout>
+            <Label Text="NEAREST CHURCH/MOSQUE"/>
+            <Entry Text="{Binding NearestChurchMqs}"></Entry>
+            <Label Text="NEAREST SCHOOL"/>
+            <Entry Text="{Binding NearestSchool}"></Entry>
+
+            <Label Text="AREA TYPE"/>
+            <Picker  Title="Select" ItemsSource="{Binding AreaTypes}"
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding AreaType}" />
+            <Button Text="Next" BackgroundColor="#cca102" TextColor="Black" Clicked="Next_Clicked" ></Button>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

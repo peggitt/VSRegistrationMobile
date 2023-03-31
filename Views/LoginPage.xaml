@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSNP.Mobile.Views.LoginPage"
+             Title="LoginPage" Padding="20"  NavigationPage.HasNavigationBar="False">
+    <VerticalStackLayout VerticalOptions="FillAndExpand">
+          <StackLayout IsVisible="{Binding IsBusy}" Margin="10" VerticalOptions="StartAndExpand">
+                            <ActivityIndicator IsRunning="{Binding IsBusy}" />
+                            <Label TextColor="#FC7E27" FontAttributes="None" Text="" HorizontalOptions="Center" />
+                        </StackLayout>
+        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Start" Margin="0,0,0,30">
+              <Image Source="hsnp_logo" Margin="0,0,10,0" HorizontalOptions="CenterAndExpand"  HeightRequest="100" />
+               <Image Source="ndma_logo" HorizontalOptions="CenterAndExpand" HeightRequest="90" />
+        </HorizontalStackLayout>
+        <StackLayout VerticalOptions="Center">
+             <Label Text="Email"></Label>
+                        <Entry Text="{Binding Email}" Keyboard="Email"></Entry>
+                        <Label Text="Password"></Label>
+                        <Entry  Text="{Binding Password}" IsPassword="True"></Entry>
+                        <Button Text="Log in" BackgroundColor="#cca102" TextColor="Black" Command="{Binding LoginCommand}" ></Button>
+                        <Label Text="Forgot PIN?"  FontAttributes="None" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand"
+                               StyleClass="subLabel"  TextColor="#FC7E27" Margin="0,30,0,30">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ForgotPinTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                      
+                    
+        </StackLayout>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSNP.Mobile.Views.MembersPage"
+             xmlns:dataGrid="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"  
+             Title="Household Members">
+      <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="AddNew_OnClicked" Text="+ New"  />
+    </ContentPage.ToolbarItems>
+  
+    <VerticalStackLayout>
+                <dataGrid:DataGrid x:Name="SalesGrid" IsVisible="{Binding IsOwner}"
+                                                   ItemsSource="{Binding Households}" 
+                                                   SelectionEnabled="True" SelectedItem="SelectedSale"
+                                                   HeaderHeight="50" BorderColor="#CCCCCC" 
+                                                   HeaderBackground="#FC7E27"
+                                                   MinimumHeightRequest="200"
+                                                   HeightRequest="{Binding HeightRequest}"
+                                                   VerticalOptions="StartAndExpand" 
+                                                   HorizontalOptions="FillAndExpand">
+                                   
+                                    <dataGrid:DataGrid.Columns>
+                                        <dataGrid:DataGridColumn Title="Name" PropertyName="Name"/>
+                 <dataGrid:DataGridColumn Title="Constituency" PropertyName="Constituency" />
+                                        <dataGrid:DataGridColumn Title="Village" PropertyName="Village" />
+                                       
+                                    </dataGrid:DataGrid.Columns>
+                                    <dataGrid:DataGrid.RowsBackgroundColorPalette>
+                                        <dataGrid:PaletteCollection>
+                                            <Color>#F2F2F2</Color>
+                                            <Color>#FFFFFF</Color>
+                                        </dataGrid:PaletteCollection>
+                                    </dataGrid:DataGrid.RowsBackgroundColorPalette>
+                                </dataGrid:DataGrid>
+
+    </VerticalStackLayout>
+</ContentPage>

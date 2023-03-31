@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSNP.Mobile.Views.DwellingAddEditPage"
+              xmlns:convertors="clr-namespace:HSNP.Mobile.Convertors"
+             Title="Household Dwelling">
+      <ContentPage.Resources>
+        <ResourceDictionary>
+            <convertors:BooleanConvertor x:Key="BooleanConvertor" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+     <ScrollView VerticalOptions="FillAndExpand">
+    <VerticalStackLayout>
+                        <Label
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            StyleClass="heading" 
+                            Text="SECTION II. DWELLING AND HOUSEHOLD" />
+        <!--
+                        <Label
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="(This section is  answered by the Head of the Household)" />
+        -->
+                        <StackLayout>
+                            <Label Text="(2.01) How many Members are in this Household" />
+                            <Entry
+                                x:Name="HouseholdMembers"
+                                Keyboard="Numeric"
+                                Text="{Binding Registration.HouseholdMembers}" />
+
+                            <Label Text="(2.01) How many habitable ROOMS does this dwelling unit contain?" />
+                            <Entry
+                                x:Name="HabitableRooms"
+                                Keyboard="Numeric"
+                                Text="{Binding Registration.HabitableRooms}" />
+                            <Label Text="(2.02) TENURE status of the dwelling unit and/or surrounding terrain/land" />
+                            <Label Text="(a) Is dwelling unit and/or surrounding terrain/land Owner Occupied?" />
+                            <Picker
+                                x:Name="IsOwnerOccupiedId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedOwnershipOptions}"
+                                SelectedItem="{Binding SelectedOwnershipOption}" />
+                            <Label Text="(2.02 b) TENURE status" />
+
+                            <Picker
+                                x:Name="TenureStatusId"
+                                Title="Select tenure status"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedTenureStatuses}"
+                                SelectedItem="{Binding SelectedTenureStatus}" />
+                            <Entry
+                                IsVisible="{Binding SelectedTenureStatus, Converter={StaticResource IntBooleanConvertor}}"
+                                Placeholder="Other Tenure Status"
+                                Text="{Binding Registration.TenureStatusOther}" />
+
+                            <Label Text="DOMINANT CONSTRUCTION MATERIAL OF THE MAIN DWELLING UNIT" />
+
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.03) ROOF ?" />
+                            <Picker
+                                x:Name="RoofConstructionMaterialId"
+                                Title="Status"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedRoofConstructionMaterials}"
+                                SelectedItem="{Binding SelectedRoofConstructionMaterial}"
+                                Style="{StaticResource BolHalfMedium}" />
+                            <Entry MaxLength="100"
+                                IsVisible="{Binding SelectedRoofConstructionMaterial, Converter={StaticResource IntBooleanConvertor}}"
+                                Placeholder="Other Roof Material"
+                                Text="{Binding Registration.RoofConstructionMaterialOther}" />
+
+
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.04) WALL ?" />
+                            <Picker
+                                x:Name="WallConstructionMaterialId"
+                                Title="Status"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedWallConstructionMaterials}"
+                                SelectedItem="{Binding SelectedWallConstructionMaterial}"
+                                Style="{StaticResource BolHalfMedium}" />
+                            <Entry MaxLength="100"
+                                IsVisible="{Binding SelectedWallConstructionMaterial, Converter={StaticResource IntBooleanConvertor}}"
+                                Placeholder="Other Wall Material"
+                                Text="{Binding Registration.WallConstructionMaterialOther}" />
+
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.05) FLOOR ?" />
+                            <Picker
+                                x:Name="FloorConstructionMaterialId"
+                                Title="Floor "
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedFloorConstructionMaterials}"
+                                SelectedItem="{Binding SelectedFloorConstructionMaterial}"
+                                Style="{StaticResource BolHalfMedium}" />
+                            <Entry MaxLength="100"
+                                IsVisible="{Binding SelectedFloorConstructionMaterial, Converter={StaticResource IntBooleanConvertor}}"
+                                Placeholder="Other Floor Material"
+                                Text="{Binding Registration.FloorConstructionMaterialOther}" />
+
+                            <Label Text="(2.06)The dwelling unit is at RISK of:?" />
+                            <Picker
+                                x:Name="DwellingUnitRiskId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedDwellingRisks}"
+                                SelectedItem="{Binding SelectedDwellingRisk}" />
+                            <Entry MaxLength="100"
+                                IsVisible="{Binding SelectedDwellingRisk, Converter={StaticResource IntBooleanConvertor}}"
+                                Placeholder="Other Dwelling Unit Risk"
+                                Text="{Binding Registration.DwellingRiskOther}" />
+
+                            <Label Text="(2.07)Main source of WATER?" />
+                            <Picker
+                                x:Name="WaterSourceId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedWaterSources}"
+                                SelectedItem="{Binding SelectedWaterSource}" />
+                            <Entry MaxLength="100"
+                                IsVisible="{Binding SelectedWaterSource, Converter={StaticResource IntBooleanConvertor}}"
+                                Placeholder="Other Water Source"
+                                Text="{Binding Registration.WaterSourceOther}" />
+
+                            <Label Text="(2.08) Main mode of HUMAN WASTE DISPOSAL?" />
+                            <Picker
+                                x:Name="WasteDisposalModeId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedWasteDisposals}"
+                                SelectedItem="{Binding SelectedWasteDisposal}" />
+                            <Entry MaxLength="100"
+                                IsVisible="{Binding SelectedWasteDisposal, Converter={StaticResource IntBooleanConvertor}}"
+                                Placeholder="Other Waste Disposal Mode"
+                                Text="{Binding Registration.WasteDisposalModeOther}" />
+
+                            <Label Text="(2.09) Main type of COOKING FUEL" />
+                            <Picker
+                                x:Name="CookingFuelTypeId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedCookingFuels}"
+                                SelectedItem="{Binding SelectedCookingFuel}" />
+                            <Entry MaxLength="100"
+                                IsVisible="{Binding SelectedCookingFuel, Converter={StaticResource IntBooleanConvertor}}"
+                                Placeholder="Other Cooking Fuel"
+                                Text="{Binding Registration.CookingFuelOther}" />
+
+                            <Label Text="(2.10) Main type of LIGHTING FUEL:" />
+                            <Picker
+                                x:Name="LightingFuelTypeId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedLightingFuels}"
+                                SelectedItem="{Binding SelectedLightingFuel}" />
+                            <Entry MaxLength="100"
+                                IsVisible="{Binding SelectedLightingFuel, Converter={StaticResource IntBooleanConvertor}}"
+                                Placeholder="Other Lighting Fuel"
+                                Text="{Binding Registration.LightingFuelOther}" />
+
+                            <Label Text="Does the household OWN any of the following items?" />
+
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.11) Television" />
+                            <Picker
+                                x:Name="IsTelevisionId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedIsTelevisions}"
+                                SelectedItem="{Binding SelectedIsTelevision}" />
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.12) Motorcycle" />
+                            <Picker
+                                x:Name="IsMotorcycleId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedIsMotorcycles}"
+                                SelectedItem="{Binding SelectedIsMotorcycle}" />
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.13) Tuk-Tuk" />
+                            <Picker
+                                x:Name="IsTukTukId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedIsTukTuks}"
+                                SelectedItem="{Binding SelectedIsTukTuk}" />
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.14) Refrigerator" />
+                            <Picker
+                                x:Name="IsRefrigeratorId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedIsRefrigerators}"
+                                SelectedItem="{Binding SelectedIsRefrigerator}" />
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.15) Car" />
+                            <Picker
+                                x:Name="IsCarId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedIsCars}"
+                                SelectedItem="{Binding SelectedIsCar}" />
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.16) Mobile phone" />
+                            <Picker
+                                x:Name="IsMobilePhoneId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedIsMobilePhones}"
+                                SelectedItem="{Binding SelectedIsMobilePhone}" />
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.17) Bicycle" />
+                            <Picker
+                                x:Name="IsBicycleId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedIsBicycles}"
+                                SelectedItem="{Binding SelectedIsBicycle}" />
+
+                            <Label Text="How many of each of the following livestock are currently owned" />
+
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.18) Exotic cattle" />
+                            <Entry
+                                x:Name="ExoticCattle"
+                                Keyboard="Numeric"
+                                Text="{Binding Registration.ExoticCattle}" />
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.19) Indigenous cattle" />
+                            <Entry
+                                x:Name="IndigenousCattle"
+                                Keyboard="Numeric"
+                                Text="{Binding Registration.IndigenousCattle}" />
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.20) Sheep" />
+                            <Entry
+                                x:Name="Sheep"
+                                Keyboard="Numeric"
+                                Text="{Binding Registration.Sheep}" />
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.21) Goats" />
+                            <Entry
+                                x:Name="Goats"
+                                Keyboard="Numeric"
+                                Text="{Binding Registration.Goats}" />
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.22) Camels" />
+                            <Entry
+                                x:Name="Camels"
+                                Keyboard="Numeric"
+                                Text="{Binding Registration.Camels}" />
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.23) Donkeys" />
+                            <Entry
+                                x:Name="Donkeys"
+                                Keyboard="Numeric"
+                                Text="{Binding Registration.Donkeys}" />
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.24) Pigs" />
+                            <Entry
+                                x:Name="Pigs"
+                                Keyboard="Numeric"
+                                Text="{Binding Registration.Pigs}" />
+                            <Label Style="{StaticResource BolHalfMedium}" Text="(2.25) Chicken" />
+                            <Entry
+                                x:Name="Chicken"
+                                Keyboard="Numeric"
+                                Text="{Binding Registration.Chicken}" />
+
+                            <Label Text="(2.26) How many LIVE BIRTHS occurred in this household in the last 12 months?" />
+                            <Entry
+                                x:Name="LiveBirths" MaxLength="2"
+                                Keyboard="Numeric"
+                                Text="{Binding Registration.LiveBirths}" />
+                            <Label Text="(2.27) How many DEATHS occurred in this household in the last 12 months?" />
+                            <Entry
+                                x:Name="Deaths"
+                                Keyboard="Numeric" MaxLength="2"
+                                Text="{Binding Registration.Deaths}" />
+                            <Label Text="(2.28) Currently, the CONDITIONS of your household are ?" />
+                            <Picker
+                                x:Name="HouseHoldConditionId"
+                                Title="Status"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedHouseholdConditions}"
+                                SelectedItem="{Binding SelectedHouseholdConditions}" />
+                            <Label Text="(2.29) In the past 7 days, did anyone in this household cut the size of the meals or skip meals because of the lack of enough money?" />
+                            <Picker
+                                x:Name="IsSkippedId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedSkippedMeals}"
+                                SelectedItem="{Binding SelectedSkippedMeal}" />
+                            <Label Text="(2.30) Is anyone in the household receiving benefits from any NSNP?" />
+                            <Picker
+                                x:Name="OtherProgrammesId"
+                                Title="Status"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedOtherProgrammes}"
+                                SelectedItem="{Binding SelectedOtherProgramme}" />
+                            <StackLayout
+                                Margin="0"
+                                Padding="0"
+                                IsVisible="{Binding IsOtherProgramme}"
+                                VerticalOptions="StartAndExpand">
+                                <Label Text="Select up to 3 Programmes " />
+                                <ListView
+                                    x:Name="NsNpProgs"
+                                    HeightRequest="250"
+                                    ItemsSource="{Binding LoadedProgrammes}"
+                                    VerticalOptions="StartAndExpand">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <FlexLayout
+                                                    Margin="0"
+                                                    HeightRequest="0"
+                                                    Wrap="Wrap">
+                                                    <Switch IsToggled="{Binding IsSelected}" />
+                                                    <Label Margin="0" Text="{Binding Item.Description}" />
+                                                </FlexLayout>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackLayout>
+
+                            <Label Text="(2.31) Is anyone in this household receiving benefits from any other Social Assistance Programme or any other external support?" />
+                            <Picker
+                                x:Name="IsReceivingSocialId"
+                                Title="Select"
+                                ItemDisplayBinding="{Binding Description}"
+                                ItemsSource="{Binding LoadedIsReceivingSocials}"
+                                SelectedItem="{Binding SelectedIsReceivingSocial}" />
+
+                            <StackLayout IsVisible="{Binding IsRecievingSocialItem}">
+                                <Label Text="(2.32) Name of the Programmes Above " />
+                                <Entry MaxLength="100" x:Name="OtherProgrammeNames" Text="{Binding Registration.OtherProgrammeNames}" />
+                                <Label Text="(2.33) What type of BENEFIT do you receive?" />
+                                <Picker
+                                    x:Name="BenefitTypeId"
+                                    Title="Status"
+                                    ItemDisplayBinding="{Binding Description}"
+                                    ItemsSource="{Binding LoadedBenefitTypes}"
+                                    SelectedItem="{Binding SelectedBenefitType}" />
+
+                            </StackLayout>
+
+                            <StackLayout IsVisible="{Binding IsNotInKind}">
+                                <Label Text="(2.34) How MUCH was the benefit in the last receipt? (KSHs)" />
+                                <Entry
+                                    x:Name="LastReceiptAmount" MaxLength="6"
+                                    Keyboard="Numeric"
+                                    Text="{Binding Registration.LastReceiptAmount}" />
+
+                            </StackLayout>
+
+                            <StackLayout IsVisible="{Binding IsInKind}">
+                                <Label Text="(2.35) Specify the benefit:" />
+                                <Entry MaxLength="100" x:Name="InKindBenefit" Text="{Binding Registration.InKindBenefit}" />
+
+                            </StackLayout>
+
+                          
+                                <Button IsVisible="{Binding IsBusy, Converter={StaticResource BooleanConvertor}}"
+                                    Command="{Binding SaveHouseHoldCommand}"
+                                    Text="Next" />
+
+                     <StackLayout IsVisible="{Binding IsBusy}" Margin="10" VerticalOptions="StartAndExpand">
+                            <ActivityIndicator IsRunning="{Binding IsBusy}" />
+                            <Label TextColor="#FC7E27" FontAttributes="None" Text="" HorizontalOptions="Center" />
+                        </StackLayout>
+
+                            </StackLayout>
+                       
+    </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

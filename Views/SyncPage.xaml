@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSNP.Mobile.Views.SyncPage"
+             Title="Sync" Padding="20">
+    <VerticalStackLayout>
+         <StackLayout IsVisible="{Binding IsBusy}" Margin="10" VerticalOptions="StartAndExpand">
+                            <ActivityIndicator IsRunning="{Binding IsBusy}" />
+                            <Label TextColor="#FC7E27" FontAttributes="None"
+                                   Text="{Binding CurrentStatus}" HorizontalOptions="Center" />
+
+        </StackLayout>
+        
+		<Button Text="Update App Settings"  Command="{Binding DownloadCommand}" />
+        <Button Text="Upload Households"  Command="{Binding DownloadCommand}" />
+        <Button  Text="Download Households"  Command="{Binding DownloadCommand}" />
+        <Button Text="Upload Updates"  Command="{Binding DownloadCommand}" />
+
+    </VerticalStackLayout>
+</ContentPage>
