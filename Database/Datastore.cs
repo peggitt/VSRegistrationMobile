@@ -33,6 +33,7 @@ namespace HSNP.Database
             _database.CreateTableAsync<SubLocation>().Wait();
             _database.CreateTableAsync<Village>().Wait();
             _database.CreateTableAsync<Household>().Wait();
+            _database.CreateTableAsync<HouseholdMember>().Wait();
 
         }
         public virtual void DeleteTableData<TEntity>() where TEntity : class

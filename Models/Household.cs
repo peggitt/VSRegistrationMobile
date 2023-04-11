@@ -6,9 +6,10 @@ namespace HSNP.Models
     {
         [PrimaryKey]
         public string HouseholdId { get; set; }
+        public string ApplicantId { get; set; }
         public string UserName { get; set; }
-        public string Village_ID { get; set; }
-        public string Entry_Date { get; set; }
+        public string VillageId { get; set; }
+        public string EntryDate { get; set; }
         public int IsBeneficiaryHH { get; set; }
         public string BeneficiaryGroup { get; set; }
         public int CTOVC { get; set; }
@@ -42,6 +43,19 @@ namespace HSNP.Models
         public int MarkForDownload { get; set; }
         public string HHIDText { get; set; }
         public string PotentialDuplicate { get; set; }
-    }
 
+        public int AreaTypeId { get; set; }
+    }
+    public class HouseholdMember
+    {
+        [PrimaryKey]
+
+        public string Id { get; set; }
+
+        public string HouseholdId { get; set; }
+
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string Surname { get; set; }
+    }
 }

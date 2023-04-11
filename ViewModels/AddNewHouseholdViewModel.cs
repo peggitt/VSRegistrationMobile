@@ -3,6 +3,7 @@ using HSNP.Interfaces;
 using HSNP.Mobile.Views.Registration;
 using HSNP.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using static Android.Content.ClipData;
 
 namespace HSNP.Mobile.ViewModels
 {
@@ -13,7 +14,16 @@ namespace HSNP.Mobile.ViewModels
         {
             _api = api;
             GetItems();
+            Household = new Household { HouseholdId = Guid.NewGuid().ToString() };
+            HouseholdMember = new HouseholdMember { HouseholdId = Guid.NewGuid().ToString() };
+            Household.ApplicantId = householdMember.Id;
         }
+
+        [ObservableProperty]
+        private Household household;
+
+        [ObservableProperty]
+        private HouseholdMember householdMember;
 
         [ObservableProperty]
         private List<County> counties;
@@ -25,10 +35,23 @@ namespace HSNP.Mobile.ViewModels
         private List<Village> villages;
 
         [ObservableProperty]
+        private Village village;
+
+        [ObservableProperty]
         private List<SystemCodeDetail> areaTypes;
         [ObservableProperty]
         private SystemCodeDetail areaType;
 
+
+        [ObservableProperty]
+        private List<SystemCodeDetail> booleanAnswers;
+        [ObservableProperty]
+        private SystemCodeDetail isBeneficiaryHH;
+
+        [ObservableProperty]
+        private SystemCodeDetail programme;
+
+        
         [ObservableProperty]
         private string countyName;
 
@@ -58,6 +81,7 @@ namespace HSNP.Mobile.ViewModels
             }
             var test= await App.db.Table<SystemCodeDetail>().ToListAsync();
             AreaTypes = await App.db.Table<SystemCodeDetail>().Where(i=>i.ComboCode== "RuralUrban").ToListAsync();
+            BooleanAnswers = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "YesNo").ToListAsync();
         }
         public async void GetSubLocations(int id)
         {
@@ -71,6 +95,29 @@ namespace HSNP.Mobile.ViewModels
         [RelayCommand]
         async void SaveHouseHold()
         {
+            string errors = "";
+           // if (Programme == null)
+               // errors += "Programme is required";
+
+            if (IsBeneficiaryHH == null)
+                errors += "Is Applicant Household Head is required\n";
+            if (Village == null)
+                errors += "Village is required\n";
+            if (AreaType == null)
+                errors += "Area Type is required\n";
+            if (!string.IsNullOrEmpty(errors))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", errors, "OK");
+                return;
+            }
+                
+
+            Household.IsBeneficiaryHH = IsBeneficiaryHH.Id;
+            Household.VillageId = Village.Id;
+            Household.AreaTypeId = AreaType.Id;
+            
+            App.Database.AddOrUpdate(Household);
+            App.Database.AddOrUpdate(HouseholdMember);
             await Navigation.PushAsync(new MembersPage());
         }
 	}

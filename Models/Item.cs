@@ -88,6 +88,7 @@ namespace HSNP.Models
     public class SystemCodeDetail
     {
         [PrimaryKey]
+        public string IdComboCode { get; set; }
         public int Id { get; set; }
         public string Details { get; set; }
         public string ComboCode { get; set; }

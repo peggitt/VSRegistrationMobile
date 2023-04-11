@@ -6,11 +6,30 @@
     <ScrollView VerticalOptions="FillAndExpand">
         <VerticalStackLayout VerticalOptions="FillAndExpand">
 
-            <Label Text="PROGRAMME"/>
-            <Picker  Title="Select" ItemsSource="{Binding Programme}"
-                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding County}" />
+           <Label StyleClass="heading" Text="APPLICANT DETAILS" />
+            <Label Text="Is Applicant Household Head"/>
+            <Picker  Title="Select" ItemsSource="{Binding BooleanAnswers}"
+                        ItemDisplayBinding="{Binding Details}" SelectedItem="{Binding IsBeneficiaryHH}" />
 
-            <Label StyleClass="heading" Text="I. GEOGRAPHIC IDENTIFICATION" />
+           
+
+             <Label Text="FIRST NAME"/>
+             <Entry Text="{Binding HouseholdMember.FirstName}"></Entry>
+
+            <Label Text="MIDDLE NAME"/>
+             <Entry Text="{Binding HouseholdMember.MiddleName}"></Entry>
+
+             <Label Text="SURNAME"/>
+             <Entry Text="{Binding HouseholdMember.Surname}"></Entry>
+
+             <Label Text="ID No."/>
+             <Entry Text="{Binding HouseholdMember.FirstName}"></Entry>
+
+             <Label Text="PROGRAMME"/>
+            <Picker  Title="Select" ItemsSource="{Binding Programmes}"
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Programme}" />
+
+            <Label StyleClass="heading" Text="GEOGRAPHIC IDENTIFICATION" />
             <Label Text="COUNTY"/>
             <Label Text="{Binding CountyName}"/>
             <Label Text="CONSTITUENCY"/>
@@ -27,20 +46,20 @@
             <Label Text="DURATION OF RESIDENCE IN THIS PLACE"/>
             <HorizontalStackLayout HorizontalOptions="FillAndExpand" >
                 <Label Text="YEARS:"/>
-                <Entry Text="{Binding DurationYears}"  WidthRequest="200" HorizontalOptions="EndAndExpand" Keyboard="Numeric"></Entry>
+                <Entry Text="{Binding Household.DurationYears}"  WidthRequest="200" HorizontalOptions="EndAndExpand" Keyboard="Numeric"></Entry>
             </HorizontalStackLayout>
             <HorizontalStackLayout HorizontalOptions="FillAndExpand">
                 <Label Text="MONTHS:"/>
-                <Entry Text="{Binding DurationYears}" WidthRequest="200" HorizontalOptions="FillAndExpand" Keyboard="Numeric"></Entry>
+                <Entry Text="{Binding Household.DurationMonths}" WidthRequest="200" HorizontalOptions="FillAndExpand" Keyboard="Numeric"></Entry>
             </HorizontalStackLayout>
             <Label Text="NEAREST CHURCH/MOSQUE"/>
-            <Entry Text="{Binding NearestChurchMqs}"></Entry>
+            <Entry Text="{Binding Household.NearestChurchMqs}"></Entry>
             <Label Text="NEAREST SCHOOL"/>
-            <Entry Text="{Binding NearestSchool}"></Entry>
+            <Entry Text="{Binding Household.NearestSchool}"></Entry>
 
             <Label Text="AREA TYPE"/>
             <Picker  Title="Select" ItemsSource="{Binding AreaTypes}"
-                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding AreaType}" />
+                        ItemDisplayBinding="{Binding Details}" SelectedItem="{Binding AreaType}" />
             <Button Text="Next" BackgroundColor="#cca102" TextColor="Black" Clicked="Next_Clicked" ></Button>
         </VerticalStackLayout>
     </ScrollView>
