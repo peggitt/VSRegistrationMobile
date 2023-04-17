@@ -34,6 +34,7 @@ namespace HSNP.Database
             _database.CreateTableAsync<Village>().Wait();
             _database.CreateTableAsync<Household>().Wait();
             _database.CreateTableAsync<HouseholdMember>().Wait();
+            _database.CreateTableAsync<HouseholdCharacteristic>().Wait();
 
         }
         public virtual void DeleteTableData<TEntity>() where TEntity : class

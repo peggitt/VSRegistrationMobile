@@ -5,33 +5,50 @@
              Title="Add Household">
     <ScrollView VerticalOptions="FillAndExpand">
         <VerticalStackLayout VerticalOptions="FillAndExpand">
-
-           <Label StyleClass="heading" Text="APPLICANT DETAILS" />
+            <Label Text="PROGRAMME"/>
+            <Picker  Title="Select" ItemsSource="{Binding Programmes}"
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Programme}" />
+            <Label StyleClass="heading" Text="APPLICANT DETAILS" />
             <Label Text="Is Applicant Household Head"/>
             <Picker  Title="Select" ItemsSource="{Binding BooleanAnswers}"
                         ItemDisplayBinding="{Binding Details}" SelectedItem="{Binding IsBeneficiaryHH}" />
 
-           
+            <Label Text="First Name"/>
+            <Entry Text="{Binding HouseholdMember.FirstName}"></Entry>
 
-             <Label Text="FIRST NAME"/>
-             <Entry Text="{Binding HouseholdMember.FirstName}"></Entry>
+            <Label Text="Middle Name"/>
+            <Entry Text="{Binding HouseholdMember.MiddleName}"></Entry>
 
-            <Label Text="MIDDLE NAME"/>
-             <Entry Text="{Binding HouseholdMember.MiddleName}"></Entry>
+            <Label Text="Surname"/>
+            <Entry Text="{Binding HouseholdMember.Surname}"></Entry>
 
-             <Label Text="SURNAME"/>
-             <Entry Text="{Binding HouseholdMember.Surname}"></Entry>
+            <Label Text="Phone Number" />
+            <Entry Text="{Binding Member.PhoneNumber}"></Entry>
 
-             <Label Text="ID No."/>
-             <Entry Text="{Binding HouseholdMember.FirstName}"></Entry>
+            <Label Text="Type of Identification Document" />
+            <Picker Title="Select " x:Name="IdentificationDocumentTypeId" ItemsSource="{Binding IdentificationDocumentTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedIdentificationDocumentType}" />
 
-             <Label Text="PROGRAMME"/>
-            <Picker  Title="Select" ItemsSource="{Binding Programmes}"
-                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Programme}" />
+            <StackLayout Padding="0" Margin="0" IsVisible="{Binding IsDocument}">
+                <Label Text="(3.02 B)Identification Number" />
+                <Entry Text="{Binding Member.IdNumber}"/>
+            </StackLayout>
+
+            <Label Text="(3.03)What is the Member's relationship to the head of this household?" />
+            <Picker  Title="Select " x:Name="RelationshipIdX1" ItemsSource="{Binding Relationships}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedRelationship}" />
+
+            <Label Text="(3.04)What is the Member's sex?" />
+            <Picker  Title="Select " x:Name="SexId" ItemsSource="{Binding Sexes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedSex}" />
+
+            <Label Text="(3.05)What is the Member's Date Of Birth?" />
+            <DatePicker StyleClass="half" x:Name="DateOfBirth" VerticalOptions="CenterAndExpand"  Date="{Binding DateOfBirth}">
+                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+            </DatePicker>
+
+            <Label Text="How many Members are in this Household" />
+			<Entry x:Name="HouseholdMembers" Keyboard="Numeric" Text="{Binding Registration.HouseholdMembers}" />
 
             <Label StyleClass="heading" Text="GEOGRAPHIC IDENTIFICATION" />
-            <Label Text="COUNTY"/>
-            <Label Text="{Binding CountyName}"/>
+
             <Label Text="CONSTITUENCY"/>
             <Picker  Title="Select" ItemsSource="{Binding Constituencies}"
                         ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Constituency}" />
@@ -60,7 +77,8 @@
             <Label Text="AREA TYPE"/>
             <Picker  Title="Select" ItemsSource="{Binding AreaTypes}"
                         ItemDisplayBinding="{Binding Details}" SelectedItem="{Binding AreaType}" />
-            <Button Text="Next" BackgroundColor="#cca102" TextColor="Black" Clicked="Next_Clicked" ></Button>
+
+            <Button Text="Next" BackgroundColor="#cca102" TextColor="Black" Command="{Binding SaveCommand}" ></Button>
         </VerticalStackLayout>
     </ScrollView>
 

@@ -42,7 +42,7 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup> 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="5.1.0" />
 	  <PackageReference Include="CommunityToolkit.MVVM" Version="8.1.0" />
 	  <PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.1" />
 	  <PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.1" />
@@ -57,6 +57,8 @@
 	  <PackageReference Include="SQLitePCLRaw.provider.sqlite3" Version="2.1.4" />
 	  <PackageReference Include="Acr.UserDialogs" Version="8.0.1" />
 	  <PackageReference Include="akgul.Maui.DataGrid" Version="2.0.0" />
+	  <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+	  <PackageReference Include="FluentValidation" Version="11.5.2" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Styles\Colors.xaml">
@@ -94,6 +96,7 @@
 	  <Folder Include="Views\Registration\" />
 	  <Folder Include="Views\Updates\" />
 	  <Folder Include="Convertors\" />
+	  <Folder Include="Validators\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Interfaces\" />
@@ -104,6 +107,7 @@
 	  <None Remove="Views\Registration\" />
 	  <None Remove="Views\Updates\" />
 	  <None Remove="Convertors\" />
+	  <None Remove="Validators\" />
 	</ItemGroup>
 	<PropertyGroup Label="MauiAppAccelerator">
 		<wizardVersion>v1.2.2</wizardVersion>

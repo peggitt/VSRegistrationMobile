@@ -92,6 +92,7 @@ namespace HSNP.Models
         public int Id { get; set; }
         public string Details { get; set; }
         public string ComboCode { get; set; }
+        public string Description => Details;
     }
 
     public class SettingsVm

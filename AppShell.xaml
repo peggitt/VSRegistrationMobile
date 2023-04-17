@@ -6,7 +6,7 @@
 	xmlns:views="clr-namespace:HSNP.Mobile.Views"
 	 xmlns:fa="clr-namespace:HSNP.Mobile.Helpers">
 
-    <FlyoutItem Route="menus"  
+    <FlyoutItem 
             Title="Menus"  
             FlyoutDisplayOptions="AsMultipleItems">
 
@@ -19,23 +19,34 @@
             <Tab.Icon>
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
             </Tab.Icon>
-            <ShellContent Title="New" ContentTemplate="{DataTemplate views:RegistrationPage}">
+            <ShellContent Title="New" ContentTemplate="{DataTemplate views:RegistrationPage}" Route="RegistrationPage">
                 <ShellContent.Icon>
                     <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
                 </ShellContent.Icon>
             </ShellContent>
-            <ShellContent Title="In Progress" ContentTemplate="{DataTemplate views:RegistrationPage}">
-                <ShellContent.Icon>
-                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
-                </ShellContent.Icon>
-            </ShellContent>
-            <ShellContent Title="Complete" ContentTemplate="{DataTemplate views:RegistrationPage}">
+            <ShellContent Title="Complete" ContentTemplate="{DataTemplate views:RegistrationPage}"  Route="CompleteRegistrationPage">
                 <ShellContent.Icon>
                     <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
                 </ShellContent.Icon>
             </ShellContent>
         </Tab>
-
+        <Tab Title="Registration Details" FlyoutItemIsVisible="False" IsVisible="False" Route="registrationdetails">
+            <ShellContent Title="Household Details" ContentTemplate="{DataTemplate views:RegistrationPage}" Route="HouseholdDetails">
+                <ShellContent.Icon>
+                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
+                </ShellContent.Icon>
+            </ShellContent>
+            <ShellContent Title="Dwelling Characteristics" ContentTemplate="{DataTemplate views:DwellingPage}"  Route="Dwelling">
+                <ShellContent.Icon>
+                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
+                </ShellContent.Icon>
+            </ShellContent>
+            <ShellContent Title="Household Demographics" ContentTemplate="{DataTemplate views:MembersPage}"  Route="Members">
+                <ShellContent.Icon>
+                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
+                </ShellContent.Icon>
+            </ShellContent>
+        </Tab>
         <ShellContent Title="Updates" ContentTemplate="{DataTemplate views:UpdatesPage}">
             <ShellContent.Icon>
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.FileAccount}"/>

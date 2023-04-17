@@ -12,7 +12,7 @@ public partial class AddNewHouseholdPage : ContentPage
 
 	async void Next_Clicked(System.Object sender, System.EventArgs e)
 	{
-		await Navigation.PushAsync(new DwellingAddEditPage());
+		//await Navigation.PushAsync(new DwellingAddEditPage());
 
 	}
 }

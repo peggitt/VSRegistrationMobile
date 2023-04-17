@@ -14,9 +14,10 @@ namespace HSNP.Mobile.ViewModels
         {
             _api = api;
             GetItems();
-            Household = new Household { HouseholdId = Guid.NewGuid().ToString() };
-            HouseholdMember = new HouseholdMember { HouseholdId = Guid.NewGuid().ToString() };
+            Household = new Household { HouseholdId = Guid.NewGuid().ToString(),CreatedOn=DateTime.UtcNow };
+            HouseholdMember = new HouseholdMember { Id = Guid.NewGuid().ToString(),IsApplicant=true, CreatedOn = DateTime.UtcNow };
             Household.ApplicantId = householdMember.Id;
+            HouseholdMember.HouseholdId = Household.HouseholdId;
         }
 
         [ObservableProperty]
@@ -69,10 +70,22 @@ namespace HSNP.Mobile.ViewModels
             GetVillages(value.Id);
         }
 
+
+        [ObservableProperty]
+        private List<SystemCodeDetail> identificationDocumentTypes;
+        [ObservableProperty]
+        private SystemCodeDetail identificationDocumentType;
+
+        [ObservableProperty]
+        private List<SystemCodeDetail> sexes;
+        [ObservableProperty]
+        private SystemCodeDetail sex;
+
         public async void GetItems()
         {
             CountyName = App.User.CountyId.ToString();
             Constituencies = await App.db.Table<Constituency>().ToListAsync();
+            Villages = await App.db.Table<Village>().ToListAsync();
             if (Constituencies == null || !Constituencies.Any())
             {
                 await Application.Current.MainPage.DisplayAlert("Geo locations missing", "Go to Sync page and update Apps settings", "OK");
@@ -82,6 +95,9 @@ namespace HSNP.Mobile.ViewModels
             var test= await App.db.Table<SystemCodeDetail>().ToListAsync();
             AreaTypes = await App.db.Table<SystemCodeDetail>().Where(i=>i.ComboCode== "RuralUrban").ToListAsync();
             BooleanAnswers = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "YesNo").ToListAsync();
+
+            IdentificationDocumentTypes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "YesNo").ToListAsync();
+            Sexes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "YesNo").ToListAsync();
         }
         public async void GetSubLocations(int id)
         {
@@ -89,22 +105,21 @@ namespace HSNP.Mobile.ViewModels
         }
         public async void GetVillages(int id)
         {
-            var test = await App.db.Table<Village>().ToListAsync();
             Villages = await App.db.Table<Village> ().Where(i => i.SubLocationId == id).ToListAsync();
         }
         [RelayCommand]
-        async void SaveHouseHold()
+        async void Save()
         {
             string errors = "";
            // if (Programme == null)
                // errors += "Programme is required";
 
             if (IsBeneficiaryHH == null)
-                errors += "Is Applicant Household Head is required\n";
+                errors += "- Is Applicant Household Head is required\n";
             if (Village == null)
-                errors += "Village is required\n";
+                errors += "- Village is required\n";
             if (AreaType == null)
-                errors += "Area Type is required\n";
+                errors += "- Area Type is required\n";
             if (!string.IsNullOrEmpty(errors))
             {
                 await Application.Current.MainPage.DisplayAlert("Error", errors, "OK");
@@ -118,7 +133,8 @@ namespace HSNP.Mobile.ViewModels
             
             App.Database.AddOrUpdate(Household);
             App.Database.AddOrUpdate(HouseholdMember);
-            await Navigation.PushAsync(new MembersPage());
+           // await Navigation.PushAsync(new MembersPage(Household.HouseholdId));
+             await Shell.Current.GoToAsync($"/{nameof(MembersPage)}?HouseholdId={Household.HouseholdId}");
         }
 	}
 }

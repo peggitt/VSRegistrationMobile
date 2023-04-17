@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Core;
+using FluentValidation.Results;
 using HSNP.Mobile.Droid;
 using HSNP.Mobile.Interfaces;
 using HSNP.Services;
@@ -94,6 +95,12 @@ public partial class BaseViewModel : ObservableObject
         // IsNotConnected = e.NetworkAccess != NetworkAccess.Internet;
     }
     // protected IToast Toast { get; } = DependencyService.Get<IToast>();
+
+    protected string GetErrorListFromValidationResult(ValidationResult validationResult)
+    {
+        var errorList = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
+        return String.Join("\n", errorList.ToArray()); ;
+    }
 
 }
 public static class ObservableCollectionExtensions

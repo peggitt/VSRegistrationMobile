@@ -8,6 +8,6 @@ public partial class DwellingAddEditPage : ContentPage
 	public DwellingAddEditPage()
 	{
 		InitializeComponent();
-        BindingContext = new DwellingAddEditViewModel(ApiService.Instance, Navigation);
+        BindingContext = new DwellingAddEditViewModel(Navigation);
     }
 }

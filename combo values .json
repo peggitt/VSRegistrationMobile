@@ -1,0 +1,572 @@
+{
+    "status": 202,
+    "detail": "",
+    "ReturnPKey": "All",
+    "returnDetails": [
+        {
+            "Id": 1,
+            "Details": "Rural",
+            "ComboCode": "RuralUrban"
+        },
+        {
+            "Id": 2,
+            "Details": "Urban",
+            "ComboCode": "RuralUrban"
+        },
+        {
+            "Id": 0,
+            "Details": "No",
+            "ComboCode": "YesNo"
+        },
+        {
+            "Id": 1,
+            "Details": "Yes",
+            "ComboCode": "YesNo"
+        },
+        {
+            "Id": 1,
+            "Details": "Electricity",
+            "ComboCode": "Cooking_Fuel"
+        },
+        {
+            "Id": 2,
+            "Details": "Paraffin",
+            "ComboCode": "Cooking_Fuel"
+        },
+        {
+            "Id": 3,
+            "Details": "LPG (Liquefied Petrorium Gas)",
+            "ComboCode": "Cooking_Fuel"
+        },
+        {
+            "Id": 4,
+            "Details": "Biogas",
+            "ComboCode": "Cooking_Fuel"
+        },
+        {
+            "Id": 5,
+            "Details": "Firewood",
+            "ComboCode": "Cooking_Fuel"
+        },
+        {
+            "Id": 6,
+            "Details": "Charcoal",
+            "ComboCode": "Cooking_Fuel"
+        },
+        {
+            "Id": 7,
+            "Details": "Solar",
+            "ComboCode": "Cooking_Fuel"
+        },
+        {
+            "Id": 8,
+            "Details": "Other None",
+            "ComboCode": "Cooking_Fuel"
+        },
+        {
+            "Id": 1,
+            "Details": "Pond",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 2,
+            "Details": "Dam",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 3,
+            "Details": "Lake",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 4,
+            "Details": "Stream/River",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 5,
+            "Details": "Protected Spring Water",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 6,
+            "Details": "Unprotected Spring Water",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 7,
+            "Details": "Protected Well",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 8,
+            "Details": "Unprotected Well",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 9,
+            "Details": "Borehole",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 10,
+            "Details": "Piped into Dwelling",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 11,
+            "Details": "Piped",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 12,
+            "Details": "Jabia",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 13,
+            "Details": "Rain Harvested",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 14,
+            "Details": "Water Vendor",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 15,
+            "Details": "Other/None",
+            "ComboCode": "Drinking_Water"
+        },
+        {
+            "Id": 1,
+            "Details": "Main Sewer",
+            "ComboCode": "Latrine"
+        },
+        {
+            "Id": 2,
+            "Details": "Septic Tank",
+            "ComboCode": "Latrine"
+        },
+        {
+            "Id": 3,
+            "Details": "Cess Pool",
+            "ComboCode": "Latrine"
+        },
+        {
+            "Id": 4,
+            "Details": "VIP Pit Latrine",
+            "ComboCode": "Latrine"
+        },
+        {
+            "Id": 5,
+            "Details": "Pit Latrine covered",
+            "ComboCode": "Latrine"
+        },
+        {
+            "Id": 6,
+            "Details": "Pit Latrine Uncovered",
+            "ComboCode": "Latrine"
+        },
+        {
+            "Id": 7,
+            "Details": "Bucket Latrine",
+            "ComboCode": "Latrine"
+        },
+        {
+            "Id": 8,
+            "Details": "Bush",
+            "ComboCode": "Latrine"
+        },
+        {
+            "Id": 9,
+            "Details": "Other/None",
+            "ComboCode": "Latrine"
+        },
+        {
+            "Id": 1,
+            "Details": "Electricity",
+            "ComboCode": "Lighting_Fuel"
+        },
+        {
+            "Id": 2,
+            "Details": "Pressure Lamp",
+            "ComboCode": "Lighting_Fuel"
+        },
+        {
+            "Id": 3,
+            "Details": "lantern",
+            "ComboCode": "Lighting_Fuel"
+        },
+        {
+            "Id": 4,
+            "Details": "Tin Lamp",
+            "ComboCode": "Lighting_Fuel"
+        },
+        {
+            "Id": 5,
+            "Details": "Gas lamp",
+            "ComboCode": "Lighting_Fuel"
+        },
+        {
+            "Id": 6,
+            "Details": "Firewood",
+            "ComboCode": "Lighting_Fuel"
+        },
+        {
+            "Id": 7,
+            "Details": "Solar",
+            "ComboCode": "Lighting_Fuel"
+        },
+        {
+            "Id": 8,
+            "Details": "Other/None",
+            "ComboCode": "Lighting_Fuel"
+        },
+        {
+            "Id": 1,
+            "Details": "Corrugated iron sheet",
+            "ComboCode": "Roof_Material"
+        },
+        {
+            "Id": 2,
+            "Details": "Tiles",
+            "ComboCode": "Roof_Material"
+        },
+        {
+            "Id": 3,
+            "Details": "Concrete",
+            "ComboCode": "Roof_Material"
+        },
+        {
+            "Id": 4,
+            "Details": "Asbestos sheets",
+            "ComboCode": "Roof_Material"
+        },
+        {
+            "Id": 5,
+            "Details": "Grass/dasse",
+            "ComboCode": "Roof_Material"
+        },
+        {
+            "Id": 6,
+            "Details": "Makuti",
+            "ComboCode": "Roof_Material"
+        },
+        {
+            "Id": 7,
+            "Details": "Tin",
+            "ComboCode": "Roof_Material"
+        },
+        {
+            "Id": 8,
+            "Details": "Mud/Dung",
+            "ComboCode": "Roof_Material"
+        },
+        {
+            "Id": 9,
+            "Details": "Other",
+            "ComboCode": "Roof_Material"
+        },
+        {
+            "Id": 1,
+            "Details": "Stone",
+            "ComboCode": "Wall_Material"
+        },
+        {
+            "Id": 2,
+            "Details": "Brick/block/cement",
+            "ComboCode": "Wall_Material"
+        },
+        {
+            "Id": 3,
+            "Details": "Mud/wood",
+            "ComboCode": "Wall_Material"
+        },
+        {
+            "Id": 4,
+            "Details": "Mud/cement",
+            "ComboCode": "Wall_Material"
+        },
+        {
+            "Id": 5,
+            "Details": "Wood only",
+            "ComboCode": "Wall_Material"
+        },
+        {
+            "Id": 6,
+            "Details": "Corrugated iron sheet",
+            "ComboCode": "Wall_Material"
+        },
+        {
+            "Id": 7,
+            "Details": "Grass/sticks/dasse/makuti",
+            "ComboCode": "Wall_Material"
+        },
+        {
+            "Id": 8,
+            "Details": "Tin",
+            "ComboCode": "Wall_Material"
+        },
+        {
+            "Id": 9,
+            "Details": "Other",
+            "ComboCode": "Wall_Material"
+        },
+        {
+            "Id": 1,
+            "Details": "Main Provider",
+            "ComboCode": "Member_Relationship"
+        },
+        {
+            "Id": 2,
+            "Details": "Spouse",
+            "ComboCode": "Member_Relationship"
+        },
+        {
+            "Id": 3,
+            "Details": "Son/Daughter",
+            "ComboCode": "Member_Relationship"
+        },
+        {
+            "Id": 4,
+            "Details": "Grandchild",
+            "ComboCode": "Member_Relationship"
+        },
+        {
+            "Id": 5,
+            "Details": "Brother/Sister",
+            "ComboCode": "Member_Relationship"
+        },
+        {
+            "Id": 6,
+            "Details": "Father/Mother",
+            "ComboCode": "Member_Relationship"
+        },
+        {
+            "Id": 7,
+            "Details": "Nephew/Niece",
+            "ComboCode": "Member_Relationship"
+        },
+        {
+            "Id": 8,
+            "Details": "In law",
+            "ComboCode": "Member_Relationship"
+        },
+        {
+            "Id": 9,
+            "Details": "GrandParent",
+            "ComboCode": "Member_Relationship"
+        },
+        {
+            "Id": 10,
+            "Details": "Other Relative",
+            "ComboCode": "Member_Relationship"
+        },
+        {
+            "Id": 11,
+            "Details": "Non-Relative",
+            "ComboCode": "Member_Relationship"
+        },
+        {
+            "Id": 12,
+            "Details": "Employee",
+            "ComboCode": "Member_Relationship"
+        },
+        {
+            "Id": 13,
+            "Details": "Dont Know",
+            "ComboCode": "Member_Relationship"
+        },
+        {
+            "Id": 0,
+            "Details": "Pre-School",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 1,
+            "Details": "Standard 1",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 2,
+            "Details": "Standard 2",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 3,
+            "Details": "Standard 3",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 4,
+            "Details": "Standard 4",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 5,
+            "Details": "Standard 5",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 6,
+            "Details": "Standard 6",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 7,
+            "Details": "Standard 7",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 8,
+            "Details": "Standard 8",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 9,
+            "Details": "Form 1",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 10,
+            "Details": "Form 2",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 11,
+            "Details": "Form 3",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 12,
+            "Details": "Form 4",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 13,
+            "Details": "Form 5",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 14,
+            "Details": "Form 6",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 15,
+            "Details": "University 1",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 16,
+            "Details": "University 2",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 17,
+            "Details": "University 3",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 18,
+            "Details": "University 4",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 19,
+            "Details": "University 5 & above",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 20,
+            "Details": "Vocational training",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 21,
+            "Details": "Other",
+            "ComboCode": "Member_School_Grade"
+        },
+        {
+            "Id": 1,
+            "Details": "Male",
+            "ComboCode": "Member_Sex"
+        },
+        {
+            "Id": 2,
+            "Details": "Female",
+            "ComboCode": "Member_Sex"
+        },
+        {
+            "Id": 0,
+            "Details": "skip",
+            "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 1,
+            "Details": "Worked for pay",
+            "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 2,
+            "Details": "On leave",
+            "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 3,
+            "Details": "Sick leave",
+            "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 4,
+            "Details": "Worked on own/family business",
+            "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 5,
+            "Details": "Intern",
+            "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 6,
+            "Details": "Volunteer",
+            "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 7,
+            "Details": "Seeking Work",
+            "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 8,
+            "Details": "No Work Available",
+            "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 9,
+            "Details": "Retired With Pension",
+            "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 10,
+            "Details": "Homemaker",
+            "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 11,
+            "Details": "Full-Time Student",
+            "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 12,
+            "Details": "OthIncapacitateder",
+            "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 13,
+            "Details": "other",
+            "ComboCode": "Member_Work_last_7days"
+        }
+    ]
+}
