@@ -4,6 +4,9 @@
 label {
     margin: 0,5;
 }
+.input-form label {
+   font-weight:bold;
+}
 entry {
     margin: 0;
 }
@@ -16,3 +19,4 @@ button {
     color: #f2c417;
     font-weight:bold;
 }
+

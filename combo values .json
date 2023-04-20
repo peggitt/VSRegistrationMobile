@@ -567,6 +567,236 @@
             "Id": 13,
             "Details": "other",
             "ComboCode": "Member_Work_last_7days"
+        },
+        {
+            "Id": 1,
+            "Details": "National ID Card",
+            "ComboCode": "Member_Identification"
+        },
+        {
+            "Id": 2,
+            "Details": "Registration of Birth",
+            "ComboCode": "Member_Identification"
+        },
+        {
+            "Id": 3,
+            "Details": "Passport",
+            "ComboCode": "Member_Identification"
+        },
+        {
+            "Id": 4,
+            "Details": "Other",
+            "ComboCode": "Member_Identification"
+        },
+        {
+            "Id": 5,
+            "Details": "None",
+            "ComboCode": "Member_Identification"
+        },
+        {
+            "Id": 1,
+            "Details": "Never Married",
+            "ComboCode": "Member_Marital"
+        },
+        {
+            "Id": 2,
+            "Details": "Married - Monogamous",
+            "ComboCode": "Member_Marital"
+        },
+        {
+            "Id": 3,
+            "Details": "Married - Polygamous",
+            "ComboCode": "Member_Marital"
+        },
+        {
+            "Id": 4,
+            "Details": "Widowed",
+            "ComboCode": "Member_Marital"
+        },
+        {
+            "Id": 5,
+            "Details": "Divorced",
+            "ComboCode": "Member_Marital"
+        },
+        {
+            "Id": 1,
+            "Details": "Visual",
+            "ComboCode": "Member_Disability"
+        },
+        {
+            "Id": 2,
+            "Details": "Hearing",
+            "ComboCode": "Member_Disability"
+        },
+        {
+            "Id": 3,
+            "Details": "Speech",
+            "ComboCode": "Member_Disability"
+        },
+        {
+            "Id": 4,
+            "Details": "Physical",
+            "ComboCode": "Member_Disability"
+        },
+        {
+            "Id": 5,
+            "Details": "Mental",
+            "ComboCode": "Member_Disability"
+        },
+        {
+            "Id": 6,
+            "Details": "Self-Care",
+            "ComboCode": "Member_Disability"
+        },
+        {
+            "Id": 7,
+            "Details": "Other",
+            "ComboCode": "Member_Disability"
+        },
+        {
+            "Id": 8,
+            "Details": "None",
+            "ComboCode": "Member_Disability"
+        },
+        {
+            "Id": 1,
+            "Details": "At school or learing Institution",
+            "ComboCode": "Member_School"
+        },
+        {
+            "Id": 2,
+            "Details": "Left School or Learning Institution",
+            "ComboCode": "Member_School"
+        },
+        {
+            "Id": 3,
+            "Details": "Never went to school or learning Institution",
+            "ComboCode": "Member_School"
+        },
+        {
+            "Id": 4,
+            "Details": "Ok",
+            "ComboCode": "Member_School"
+        },
+        {
+            "Id": 1,
+            "Details": "Cement",
+            "ComboCode": "HH_Floor_material"
+        },
+        {
+            "Id": 2,
+            "Details": "Tiles",
+            "ComboCode": "HH_Floor_material"
+        },
+        {
+            "Id": 3,
+            "Details": "Wood",
+            "ComboCode": "HH_Floor_material"
+        },
+        {
+            "Id": 4,
+            "Details": "Earth",
+            "ComboCode": "HH_Floor_material"
+        },
+        {
+            "Id": 5,
+            "Details": "Other",
+            "ComboCode": "HH_Floor_material"
+        },
+        {
+            "Id": 1,
+            "Details": "NONE",
+            "ComboCode": "HH_DwellingRisk"
+        },
+        {
+            "Id": 2,
+            "Details": "LANDSLIDE",
+            "ComboCode": "HH_DwellingRisk"
+        },
+        {
+            "Id": 3,
+            "Details": "FLOODING",
+            "ComboCode": "HH_DwellingRisk"
+        },
+        {
+            "Id": 4,
+            "Details": "AVALANCHE",
+            "ComboCode": "HH_DwellingRisk"
+        },
+        {
+            "Id": 5,
+            "Details": "OTHER",
+            "ComboCode": "HH_DwellingRisk"
+        },
+        {
+            "Id": 1,
+            "Details": "Purchased",
+            "ComboCode": "HH_Tenure"
+        },
+        {
+            "Id": 2,
+            "Details": "COnstructed",
+            "ComboCode": "HH_Tenure"
+        },
+        {
+            "Id": 3,
+            "Details": "Inherited",
+            "ComboCode": "HH_Tenure"
+        },
+        {
+            "Id": 4,
+            "Details": "Government",
+            "ComboCode": "HH_Tenure"
+        },
+        {
+            "Id": 5,
+            "Details": "Local Authority",
+            "ComboCode": "HH_Tenure"
+        },
+        {
+            "Id": 6,
+            "Details": "Parastatal",
+            "ComboCode": "HH_Tenure"
+        },
+        {
+            "Id": 7,
+            "Details": "Private Company",
+            "ComboCode": "HH_Tenure"
+        },
+        {
+            "Id": 8,
+            "Details": "Individual",
+            "ComboCode": "HH_Tenure"
+        },
+        {
+            "Id": 9,
+            "Details": "Faith Based Organization",
+            "ComboCode": "HH_Tenure"
+        },
+        {
+            "Id": 10,
+            "Details": "Other Form",
+            "ComboCode": "HH_Tenure"
+        },
+        {
+            "Id": 1,
+            "Details": "POOR",
+            "ComboCode": "HH_Condition"
+        },
+        {
+            "Id": 2,
+            "Details": "FAIR",
+            "ComboCode": "HH_Condition"
+        },
+        {
+            "Id": 3,
+            "Details": "GOOD",
+            "ComboCode": "HH_Condition"
+        },
+        {
+            "Id": 4,
+            "Details": "VERY GOOD",
+            "ComboCode": "HH_Condition"
         }
     ]
 }

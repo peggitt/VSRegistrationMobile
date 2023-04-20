@@ -2,7 +2,7 @@
 using Acr.UserDialogs;
 using HSNP.Interfaces;
 using HSNP.Mobile.Validators;
-using HSNP.Mobile.Views.Registration;
+using HSNP.Mobile.Views;
 using HSNP.Models;
 using Kotlin.Jvm.Internal;
 
@@ -94,6 +94,7 @@ namespace HSNP.Mobile.ViewModels
         public DwellingAddEditViewModel(INavigation navigation) : base(navigation)
         {
             GetItems();
+            HouseholdId = App.HouseholdId;
             _validator = new HouseholdCharacteristicValidator();
             _householdValidator = new HouseholdValidator();
         }
@@ -101,11 +102,11 @@ namespace HSNP.Mobile.ViewModels
         {
             HouseholdCharacteristic = await App.db.Table<HouseholdCharacteristic>().FirstOrDefaultAsync(i=>i.HouseholdId==HouseholdId);
             Household = await App.db.Table<Household>().FirstOrDefaultAsync(i => i.HouseholdId == HouseholdId);
-            OwnershipOptions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "RuralUrban").ToListAsync();
+            OwnershipOptions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Tenure").ToListAsync();
             RoofMaterials = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Roof_Material").ToListAsync();
             WallMaterials = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Wall_Material").ToListAsync();
-            FloorMaterials = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Floor_Material").ToListAsync();
-            WaterSources = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Floor_Material").ToListAsync();
+            FloorMaterials = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Floor_material").ToListAsync();
+            WaterSources = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Drinking_Water").ToListAsync();
             WasteDisposals = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Latrine").ToListAsync();
             CookingFuels = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Cooking_Fuel").ToListAsync();
             LightingFuels = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Lighting_Fuel").ToListAsync();

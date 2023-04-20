@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSNP.Mobile.Views.HouseholdPage"
+             xmlns:views="clr-namespace:HSNP.Mobile.Views"
+             Title="HouseholdPage">
+     <ContentPage Title="Tab 1" />  
+     <ContentPage Title="Tab 2" />  
+     <ContentPage Title="Tab 3" />  
+   
+   
+</TabbedPage>

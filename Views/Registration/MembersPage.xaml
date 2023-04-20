@@ -10,6 +10,7 @@
     </ContentPage.ToolbarItems>
   
     <VerticalStackLayout>
+        <Label HorizontalOptions="CenterAndExpand" StyleClass="heading" Text="{Binding MembersCount}"></Label>
        <dataGrid:DataGrid 
     ItemsSource="{Binding HouseholdMembers}" 
     SelectionEnabled="True" 

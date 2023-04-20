@@ -49,6 +49,8 @@ namespace HSNP.Models
         public int? AreaTypeId { get; set; }
 
         public DateTime CreatedOn { get; set; }
+        public int? HouseholdMembers { get; set; }
+        
     }
     public class HouseholdMember
     {
@@ -64,9 +66,59 @@ namespace HSNP.Models
         public bool IsComplete { get; set; }
         public DateTime CreatedOn { get; set; }
         public string Name => $"{FirstName} {MiddleName} {Surname}";
+
+
+        public string Username { get; set; }
+
+        public string HhmemberRosterID => Id;
+
+
+        public int? RelationshipId { get; set; }
+        public int? SexId { get; set; }
+        public string BirthCertificate { get; set; }
+        public int? YearOfBirth { get; set; }
+        public int? FatherAliveId { get; set; }
+        public int? MotherAliveId { get; set; }
+        public int? HighestGradeCodeId { get; set; }
+        public int? WorkLast7daysId { get; set; }
+        public int? ChronicIllnessId { get; set; }
+        public int? ChronicIllYrs { get; set; }
+        public int? ChronicIllMths { get; set; }
+        public bool VisualDisability { get; set; }
+        public bool HearingDisability { get; set; }
+        public bool SpeechDisability { get; set; }
+        public bool MentalDisability { get; set; }
+        public bool SelfcareDisability { get; set; }
+        public bool Need24HrCare { get; set; }
+        public string EntryDate { get; set; }
+        public string Idno { get; set; }
+        public string RetypedIdno { get; set; }
+        public bool IDIprsvalid { get; set; }
+        public string Usercode { get; set; }
+        public bool IsNominatedAccHoloder { get; set; }
+        public int? MaritalStatusId { get; set; }
+        public string SpouseId { get; set; }
+        public string MobileNo { get; set; }
+        public string CaregiverId { get; set; }
+        public int? DisabilityId { get; set; }
+        public int? LearningInstitutionId { get; set; }
+        public int? MonthEarnings { get; set; }
+        public int? SpouseStatusId { get; set; }
+        public bool MarkForDownload { get; set; }
+        public string RegisteredBy { get; set; }
+        //(3.17) Does Member's work on a formal job, teaching, public sector, NGO/FBO?
+        public int? WorkingInFormalJobId { get; set; }
+        public string Working { get; set; }
+        public string Serialno { get; set; }
+        public string WaitingCardNo { get; set; }
+        public string PspaccountId { get; set; }
+
+       
+        
+        
     }
 
-    
+
     public class HouseholdCharacteristic
     {
         [PrimaryKey]

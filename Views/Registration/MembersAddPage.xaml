@@ -21,7 +21,7 @@
                 <Entry Text="{Binding Member.Surname}"/>
 
                 <Label Text="(3.02 A)Type of Identification Document" />
-                <Picker Title="Select " x:Name="IdentificationDocumentTypeId" ItemsSource="{Binding LoadedIdentificationDocumentTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedIdentificationDocumentType}" />
+                <Picker Title="Select " x:Name="IdentificationDocumentTypeId" ItemsSource="{Binding IdentificationDocumentTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding IdentificationDocumentType}" />
 
                 <StackLayout   Padding="0" Margin="0" IsVisible="{Binding IsDocument}">
                     <Label Text="(3.02 B)Identification Number" />
@@ -29,10 +29,10 @@
                 </StackLayout>
 
                 <Label Text="(3.03)What is the Member's relationship to the head of this household?" />
-                <Picker  Title="Select " x:Name="RelationshipIdX1" ItemsSource="{Binding LoadedRelationships}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedRelationship}" />
+                <Picker  Title="Select " x:Name="RelationshipIdX1" ItemsSource="{Binding Relationships}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding Relationship}" />
 
                 <Label Text="(3.04)What is the Member's sex?" />
-                <Picker  Title="Select " x:Name="SexId" ItemsSource="{Binding LoadedSexs}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedSex}" />
+                <Picker  Title="Select " x:Name="SexId" ItemsSource="{Binding Sexs}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding Sex}" />
                 <Label Text="(3.05)What is the Member's Date Of Birth?" />
                 <DatePicker StyleClass="half" x:Name="DateOfBirth" VerticalOptions="CenterAndExpand"  Date="{Binding DateOfBirth}">
                     <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
@@ -50,7 +50,7 @@
                 <Label Text="{Binding Member.PhoneNumber}"/>
 
                 <Label Text="(3.02 A) Type of Identification Document?"  />
-                <Label Text="{Binding SelectedIdentificationDocumentType.Description}" />
+                <Label Text="{Binding IdentificationDocumentType.Description}" />
 
                 <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsDocument}">
                     <Label Text="(3.02 B)Identification Number" />
@@ -58,39 +58,39 @@
                 </StackLayout>
 
                 <Label Text="(3.03)What is the Member's relationship to the head of this Household?"  />
-                <Picker  Title="Select " ItemsSource="{Binding Relationships}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedRelationship}" />
+                <Picker  Title="Select " ItemsSource="{Binding Relationships}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding Relationship}" />
 
                 <Label Text="(3.04)What is the Member's sex?" />
-                <Label Text="{Binding SelectedSex.Description}" />
+                <Label Text="{Binding Sex.Description}" />
 
                 <Label Text="(3.05)What is the Member's Date Of Birth?" />
                 <Label Text="{Binding Member.DateOfBirth}"/>
             </VerticalStackLayout>
 
             <Label IsVisible="{Binding IsOver5}" Text="(3.06)What is the Member's Marital Status?" />
-            <Picker  IsVisible="{Binding IsOver5}"  Title="Select " ItemsSource="{Binding LoadedMaritalStatuses}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedMaritalStatus}" />
+            <Picker  IsVisible="{Binding IsOver5}"  Title="Select " ItemsSource="{Binding MaritalStatuses}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding MaritalStatus}" />
 
             <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsMarried}">
                 <Label Text="(3.07 A)Does the member's spouse live in this household?"  />
-                <Picker Title="Select " ItemsSource="{Binding LoadedSpouseInHouseholds}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedSpouseInHousehold}" />
+                <Picker Title="Select " ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SpouseInHousehold}" />
                 <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsSpouseInHH}">
                     <Label Text="(3.07 B)Select Spouse"  />
                     <Label Text="(If you haven't entered the Spouse details, select the member as the spouse and come back and edit.)" StyleClass="full,medium,multiline" />
-                    <Picker Title="Select " ItemsSource="{Binding LoadedSpouses}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding SelectedSpouse}" />
+                    <Picker Title="Select " ItemsSource="{Binding Spouses}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding Spouse}" />
                 </StackLayout>
             </StackLayout>
             <Label Text="(3.08)Is the Father Alive?" />
-            <Picker Title="Select" ItemsSource="{Binding LoadedFatherAliveOptions}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedFatherAliveOption}" />
+            <Picker Title="Select" ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding FatherAlive}" />
             <Label Text="(3.09)Is the Mother Alive?" />
-            <Picker Title="Select" ItemsSource="{Binding LoadedMotherAliveOptions}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedMotherAliveOption}" />
+            <Picker Title="Select" ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding MotherAlive}" />
             <Label Text="(3.10)Does the Member  suffer from a chronic illness?"  />
-            <Picker Title="Select " ItemsSource="{Binding LoadedChronicIllnessOptions}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedChronicIllnessOption}" />
+            <Picker Title="Select " ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding ChronicIllness}" />
             <Label Text="(3.11)Does the Member  have a disability? "  />
-            <Picker Title="Select " ItemsSource="{Binding LoadedDisabilityTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedDisabilityType}" />
+            <Picker Title="Select " ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding HasDisability}" />
 
             <StackLayout StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding IsDisabled}">
                 <Label  Text="What Type of Disability does the member have?" />
-                <ListView RowHeight="60" HasUnevenRows="False" Margin="0"  ItemsSource="{Binding LoadedDisabilities}">
+                <ListView RowHeight="60" HasUnevenRows="False" Margin="0"  ItemsSource="{Binding Disabilities}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -104,30 +104,28 @@
                 </ListView>
 
                 <Label Text="(3.12) Does the disability require 24-hour care?"  />
-                <Picker Title="Select " ItemsSource="{Binding LoadedDisabilityCareStatuses}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedDisabilityCareStatus}" />
+                <Picker Title="Select " ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding DisabilityCareStatus}" />
 
                 <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsNeedCare}">
                     <Label Text="(3.13)(CHECK 3.05 (DOB), if AGE is between 0 and 17 OR older than 65, AND check 3.12 if answer is YES, then ask…)"  />
                     <Label  Text="Who is the Member's main Care giver? (LINE NUMBER) (If NONE, Leave BLANK)" />
-                    <Picker Title="Select "  ItemsSource="{Binding LoadedCaregivers}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding SelectedCg}" />
+                    <Picker Title="Select "  ItemsSource="{Binding Caregivers}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding CareGiver}" />
                 </StackLayout>
             </StackLayout>
             <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsOver3}">
                 <Label Text="(3.14)What is the school or learning institution attendance status of Member? (for all members  aged 3 and older) "  />
-                <Picker Title="Select " ItemsSource="{Binding LoadedLearningStatuses}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedLearningStatus}" />
+                <Picker Title="Select " ItemsSource="{Binding LearningStatuses}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding LearningStatus}" />
             </StackLayout>
             <StackLayout  Padding="0" Margin="0" IsVisible="{Binding WentToSchool}">
-                <Label Text="(3.15 a)What is the highest Std/Form/Level reached by Member?"  />
-                <Picker Title="Select "  ItemsSource="{Binding LoadedEducationLevels}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedEducationLevel}" />
-                <Label Text="(3.15 b) Is the school Public or Private? "  />
-                <Picker Title="Select "  ItemsSource="{Binding LoadedSchoolTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedSchoolType}" />
+                <Label Text="(3.15) What is the highest Std/Form/Level reached by Member?"  />
+                <Picker Title="Select "  ItemsSource="{Binding EducationLevels}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding EducationLevel}" />
             </StackLayout>
 
             <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsOver5}">
-                <Label Text="(3.16)What was Member's mainly doing during the last seven days? (for all aged 5 and older)?"  />
-                <Picker Title="Select " ItemsSource="{Binding LoadedWorkTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedWorkType}" />
-                <Label Text="(3.17)Does Member's work on a formal job, teaching, public sector, NGO/FBO?"  />
-                <Picker Title="Select " ItemsSource="{Binding LoadedJobOptions}" ItemDisplayBinding="{Binding Description}"   SelectedItem="{Binding SelectedJobOption}" />
+                <Label Text="(3.16) What was Member's mainly doing during the last seven days? (for all aged 5 and older)?"  />
+                <Picker Title="Select " ItemsSource="{Binding WorkTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding WorkType}" />
+                <Label Text="(3.17) Does Member's work on a formal job, teaching, public sector, NGO/FBO?"  />
+                <Picker Title="Select " ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}"   SelectedItem="{Binding JobOption}" />
             </StackLayout>
             <StackLayout StyleClass="StandardSpacing, StandardPadding">
                 <Button IsVisible="{Binding IsBusy, Converter={StaticResource BooleanConvertor}}"

@@ -8,6 +8,8 @@ namespace HSNP.Mobile;
 public partial class App : Application
 {
     public static User User;
+    public static string HouseholdId;
+    public static string MemberId;
     public static SQLiteAsyncConnection db;
     public static DataStore Database { get; private set; }
     public App()

@@ -30,10 +30,10 @@
 				<Entry IsVisible="{Binding TenureStatus, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Tenure Status" Text="{Binding HouseholdCharacteristic.TenureStatusOther}" />
 				<Label Text="DOMINANT  MATERIAL OF THE MAIN DWELLING UNIT" />
 				<Label Style="{StaticResource BolHalfMedium}" Text="(2.03) ROOF?" />
-				<Picker Title="Status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding RoofMaterials}" SelectedItem="{Binding RoofMaterial}" Style="{StaticResource BolHalfMedium}" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding RoofMaterials}" SelectedItem="{Binding RoofMaterial}" Style="{StaticResource BolHalfMedium}" />
 				<Entry MaxLength="100" IsVisible="{Binding RoofMaterial, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Roof Material" Text="{Binding HouseholdCharacteristic.RoofMaterialOther}" />
 				<Label Style="{StaticResource BolHalfMedium}" Text="(2.04) WALL ?" />
-				<Picker Title="Status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding WallMaterials}" SelectedItem="{Binding WallMaterial}" Style="{StaticResource BolHalfMedium}" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding WallMaterials}" SelectedItem="{Binding WallMaterial}" Style="{StaticResource BolHalfMedium}" />
 				<Entry MaxLength="100" IsVisible="{Binding WallMaterial, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Wall Material" Text="{Binding HouseholdCharacteristic.WallMaterialOther}" />
 				<Label Style="{StaticResource BolHalfMedium}" Text="(2.05) FLOOR ?" />
 				<Picker Title="Floor " ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding FloorMaterials}" SelectedItem="{Binding FloorMaterial}" Style="{StaticResource BolHalfMedium}" />

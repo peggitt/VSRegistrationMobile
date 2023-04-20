@@ -60,7 +60,7 @@ namespace HSNP.ViewModels
                     await App.Database._database.DeleteAllAsync<SystemCodeDetail>();
                     response.returnDetails.ForEach(i => i.IdComboCode = $"{i.Id}{i.ComboCode}");
                     
-                    foreach (var item in response.returnDetails)
+                    foreach (var item in response.returnDetails.OrderBy(i=>i.Id))
                     {
                         App.Database.AddOrUpdate(item);
                     }

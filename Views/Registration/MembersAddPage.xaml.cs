@@ -26,10 +26,8 @@ public partial class MembersAddPage : ContentPage
     public MembersAddPage()
 	{
 		InitializeComponent();
-      
-    }
-    protected override void OnAppearing()
-    {
         BindingContext = new AddMemberViewModel(Navigation, ApiService.Instance, hhId, memberId);
     }
+  
+   
 }

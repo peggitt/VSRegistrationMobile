@@ -1,6 +1,6 @@
 ﻿using HSNP.Services;
 
-namespace HSNP.Mobile.Views.Registration;
+namespace HSNP.Mobile.Views;
 
 public partial class AddNewHouseholdPage : ContentPage
 {

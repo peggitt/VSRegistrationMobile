@@ -13,10 +13,12 @@ public partial class MembersViewModel : BaseViewModel
     [ObservableProperty]
     private string householdId;
 
+    [ObservableProperty]
+    private string membersCount;
 
-    public MembersViewModel(string id) 
+    public MembersViewModel() 
     {
-        HouseholdId = id;
+        HouseholdId = App.HouseholdId;
         GetItems();
     }
 
@@ -27,5 +29,9 @@ public partial class MembersViewModel : BaseViewModel
     {
         HouseholdMembers = await App.db.Table<HouseholdMember>().Where(i => i.HouseholdId == HouseholdId).ToListAsync();
         HeightRequest = 100 + HouseholdMembers.Count() * 50;
+
+        var current = HouseholdMembers.Count();
+        var total = (await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == HouseholdId)).HouseholdMembers;
+        MembersCount = $"{current} / {total}";
     }
 }

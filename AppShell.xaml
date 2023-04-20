@@ -6,16 +6,17 @@
 	xmlns:views="clr-namespace:HSNP.Mobile.Views"
 	 xmlns:fa="clr-namespace:HSNP.Mobile.Helpers">
 
-    <FlyoutItem 
+
+    <FlyoutItem  x:Name="shelltabbar"
             Title="Menus"  
             FlyoutDisplayOptions="AsMultipleItems">
 
-        <ShellContent Title="Home" ContentTemplate="{DataTemplate views:MainPage}">
+        <ShellContent x:Name="shelltab_0" Title="Home" ContentTemplate="{DataTemplate views:MainPage}">
             <ShellContent.Icon>
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.HomeAccount}"/>
             </ShellContent.Icon>
         </ShellContent>
-        <Tab Title="Registration">
+        <Tab Title="Registration"  x:Name="shelltab_1">
             <Tab.Icon>
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
             </Tab.Icon>
@@ -30,23 +31,7 @@
                 </ShellContent.Icon>
             </ShellContent>
         </Tab>
-        <Tab Title="Registration Details" FlyoutItemIsVisible="False" IsVisible="False" Route="registrationdetails">
-            <ShellContent Title="Household Details" ContentTemplate="{DataTemplate views:RegistrationPage}" Route="HouseholdDetails">
-                <ShellContent.Icon>
-                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
-                </ShellContent.Icon>
-            </ShellContent>
-            <ShellContent Title="Dwelling Characteristics" ContentTemplate="{DataTemplate views:DwellingPage}"  Route="Dwelling">
-                <ShellContent.Icon>
-                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
-                </ShellContent.Icon>
-            </ShellContent>
-            <ShellContent Title="Household Demographics" ContentTemplate="{DataTemplate views:MembersPage}"  Route="Members">
-                <ShellContent.Icon>
-                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
-                </ShellContent.Icon>
-            </ShellContent>
-        </Tab>
+       
         <ShellContent Title="Updates" ContentTemplate="{DataTemplate views:UpdatesPage}">
             <ShellContent.Icon>
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.FileAccount}"/>
@@ -64,5 +49,24 @@
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.Logout}"/>
             </ShellContent.Icon>
         </ShellContent>
+         <Tab  x:Name="shelltab_2" Title="Registration Details" FlyoutItemIsVisible="False" Route="Household">
+            <ShellContent Title="Household Details" ContentTemplate="{DataTemplate views:AddNewHouseholdPage}" Route="HouseholdDetails">
+                <ShellContent.Icon>
+                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
+                </ShellContent.Icon>
+            </ShellContent>
+            <ShellContent Title="Dwelling Characteristics" ContentTemplate="{DataTemplate views:DwellingAddEditPage}"  Route="Dwelling">
+                <ShellContent.Icon>
+                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
+                </ShellContent.Icon>
+            </ShellContent>
+            <ShellContent Title="Household Demographics" ContentTemplate="{DataTemplate views:MembersPage}"  Route="Members">
+                <ShellContent.Icon>
+                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
+                </ShellContent.Icon>
+            </ShellContent>
+        </Tab>
+
     </FlyoutItem>
+
 </Shell>

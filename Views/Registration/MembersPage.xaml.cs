@@ -1,4 +1,4 @@
-﻿using HSNP.Mobile.Views.Registration;
+﻿using HSNP.Mobile.Views;
 using HSNP.Models;
 using HSNP.Services;
 using static Java.Util.Jar.Attributes;
@@ -23,18 +23,21 @@ public partial class MembersPage : ContentPage
     
     protected override void OnAppearing()
     {
-        BindingContext = new MembersViewModel(hhId);
+        BindingContext = new MembersViewModel();
     }
     private void AddNew_OnClicked(object sender, EventArgs e)
     {
+        App.MemberId = null;
         Navigation.PushAsync(new MembersAddPage());
     }
     async void DataGrid_ItemSelected(Object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.Count() == 0) { return; }
         HouseholdMember selected = (HouseholdMember)e.CurrentSelection.FirstOrDefault();
-
-        await Shell.Current.GoToAsync($"{nameof(MembersAddPage)}?HouseholdId={selected.HouseholdId}&MemberId={selected.Id}");
+        App.HouseholdId = selected.HouseholdId;
+        App.MemberId = selected.Id;
+        await  Navigation.PushAsync(new MembersAddPage());
+     //   await Shell.Current.GoToAsync(nameof(MembersAddPage));
         //  ((DataGrid)sender).SelectedItem = null;
     }
 }
