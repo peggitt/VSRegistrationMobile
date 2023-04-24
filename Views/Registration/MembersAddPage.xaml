@@ -11,7 +11,7 @@
     </ContentPage.Resources>
     <ScrollView>
         <VerticalStackLayout>
-            <VerticalStackLayout   StyleClass="registration-form"  Padding="0" Margin="0" IsVisible="{Binding IsApplicant, Converter={StaticResource BooleanConvertor}}">
+            <VerticalStackLayout   StyleClass="registration-form"  Padding="0" Margin="0">
 
                 <Label Text="(3.01) First Name" />
                 <Entry Text="{Binding Member.FirstName}"/>
@@ -32,41 +32,13 @@
                 <Picker  Title="Select " x:Name="RelationshipIdX1" ItemsSource="{Binding Relationships}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding Relationship}" />
 
                 <Label Text="(3.04)What is the Member's sex?" />
-                <Picker  Title="Select " x:Name="SexId" ItemsSource="{Binding Sexs}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding Sex}" />
+                <Picker  Title="Select " x:Name="SexId" ItemsSource="{Binding Sexes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding Sex}" />
                 <Label Text="(3.05)What is the Member's Date Of Birth?" />
                 <DatePicker StyleClass="half" x:Name="DateOfBirth" VerticalOptions="CenterAndExpand"  Date="{Binding DateOfBirth}">
                     <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
                 </DatePicker>
             </VerticalStackLayout>
-            <VerticalStackLayout  Padding="0" Margin="0" IsVisible="{Binding IsApplicant}">
-                <Label Text="(3.01) First Name" />
-                <Label Text="{Binding Member.FirstName}"/>
-                <Label Text="(3.01) Middle Name" />
-                <Label Text="{Binding Member.MiddleName}"/>
-                <Label Text="(3.01) Surname" />
-                <Label Text="{Binding Member.Surname}"/>
-
-                <Label Text="(3.01) Phone Number" />
-                <Label Text="{Binding Member.PhoneNumber}"/>
-
-                <Label Text="(3.02 A) Type of Identification Document?"  />
-                <Label Text="{Binding IdentificationDocumentType.Description}" />
-
-                <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsDocument}">
-                    <Label Text="(3.02 B)Identification Number" />
-                    <Label Text="{Binding Member.IdentificationNumber}"/>
-                </StackLayout>
-
-                <Label Text="(3.03)What is the Member's relationship to the head of this Household?"  />
-                <Picker  Title="Select " ItemsSource="{Binding Relationships}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding Relationship}" />
-
-                <Label Text="(3.04)What is the Member's sex?" />
-                <Label Text="{Binding Sex.Description}" />
-
-                <Label Text="(3.05)What is the Member's Date Of Birth?" />
-                <Label Text="{Binding Member.DateOfBirth}"/>
-            </VerticalStackLayout>
-
+           
             <Label IsVisible="{Binding IsOver5}" Text="(3.06)What is the Member's Marital Status?" />
             <Picker  IsVisible="{Binding IsOver5}"  Title="Select " ItemsSource="{Binding MaritalStatuses}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding MaritalStatus}" />
 
@@ -96,7 +68,7 @@
                             <ViewCell>
                                 <FlexLayout Wrap="Wrap" StyleClass="full" Padding="0"  HeightRequest="0"  Margin="0">
                                     <Switch StyleClass="tenth,SauBlue,pull-left" IsToggled="{Binding IsSelected}" />
-                                    <Label  StyleClass="SauBlue,half,medium,pull=left" Margin="0,15,0,0"  Text="{Binding  Item.Description}" />
+                                    <Label  StyleClass="SauBlue,half,medium,pull=left" Margin="0,15,0,0"  Text="{Binding  Description}" />
                                 </FlexLayout>
                             </ViewCell>
                         </DataTemplate>

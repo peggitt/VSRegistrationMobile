@@ -17,7 +17,7 @@ namespace HSNP.Mobile.ViewModels
         public AddNewHouseholdViewModel(IApi api, INavigation navigation) : base(navigation)
         {
             _api = api;
-            GetItems();
+            _ = GetItems();
             _hhValidator = new AddHouseholdValidator();
             _hhMValidator = new AddHouseholdMemberValidator();
         }
@@ -89,11 +89,31 @@ namespace HSNP.Mobile.ViewModels
         [ObservableProperty]
         private SystemCodeDetail sex;
 
-        public async void GetItems()
+        public async Task GetItems()
         {
             CountyName = App.User.CountyId.ToString();
             Constituencies = await App.db.Table<Constituency>().ToListAsync();
-            // Villages = await App.db.Table<Village>().ToListAsync();
+
+            if (App.HouseholdId != null)
+            {
+                Household = await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
+                HouseholdMember = await App.db.Table<HouseholdMember>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
+
+                //   Village = await App.db.Table<Village>().FirstOrDefaultAsync(i=>i.Id== Household.VillageId);
+
+                //  Villages = await App.db.Table<Village>().Where(i=>i.SubLocationId== Village.SubLocationId).ToListAsync();
+                //    SubLocations = await App.db.Table<SubLocation>().Where(i => i.ConstituencyId == Village.SubLocationId).ToListAsync();
+                //    Constituency = Constituencies.FirstOrDefault();
+            }
+            else
+            {
+                Household = new Household { HouseholdId = Guid.NewGuid().ToString(), CreatedOn = DateTime.UtcNow };
+                HouseholdMember = new HouseholdMember { Id = Guid.NewGuid().ToString(), IsApplicant = true, CreatedOn = DateTime.UtcNow };
+                Household.ApplicantId = HouseholdMember.Id;
+                HouseholdMember.HouseholdId = Household.HouseholdId;
+
+            }
+
             if (Constituencies == null || !Constituencies.Any())
             {
                 await Application.Current.MainPage.DisplayAlert("Geo locations missing", "Go to Sync page and update Apps settings", "OK");
@@ -102,25 +122,24 @@ namespace HSNP.Mobile.ViewModels
             }
            
             AreaTypes = await App.db.Table<SystemCodeDetail>().Where(i=>i.ComboCode== "RuralUrban").ToListAsync();
+            AreaType = AreaTypes.SingleOrDefault(i => i.Id == Household.AreaTypeId);
+
             BooleanAnswers = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "YesNo").ToListAsync();
 
             IdentificationDocumentTypes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Identification").ToListAsync();
+            IdentificationDocumentType = IdentificationDocumentTypes.SingleOrDefault(i => i.Id == HouseholdMember.IdTypeId);
+
             Sexes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Sex").ToListAsync();
+            Sex = Sexes.SingleOrDefault(i => i.Id == HouseholdMember.SexId);
+
             Relationships = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Relationship").ToListAsync();
+            Relationship = Relationships.SingleOrDefault(i => i.Id == HouseholdMember.RelationshipId);
+           
 
-            if (App.HouseholdId != null)
-            {
-                Household =await App.db.Table<Household>().FirstAsync(i=>i.HouseholdId== App.HouseholdId);
-                HouseholdMember =await App.db.Table<HouseholdMember>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
+            IsBeneficiaryHH = BooleanAnswers.SingleOrDefault(i=>i.Id == Household.IsBeneficiaryHHId);
+           
 
-            }
-            else
-            {
-                Household = new Household { HouseholdId = Guid.NewGuid().ToString(), CreatedOn = DateTime.UtcNow };
-                HouseholdMember = new HouseholdMember { Id = Guid.NewGuid().ToString(), IsApplicant = true, CreatedOn = DateTime.UtcNow };
-                Household.ApplicantId = HouseholdMember.Id;
-                HouseholdMember.HouseholdId = Household.HouseholdId;
-            }
+        
         }
         public async void GetSubLocations(int id)
         {
@@ -148,21 +167,26 @@ namespace HSNP.Mobile.ViewModels
             var hhValidationResult = _hhValidator.Validate(Household);
             var hhMvalidationResult = _hhMValidator.Validate(HouseholdMember);
 
+            HouseholdMember.IdTypeId = IdentificationDocumentType?.Id;
+            HouseholdMember.SexId = Sex?.Id;
+           
+
             if (!string.IsNullOrEmpty(errors) || !hhValidationResult.IsValid || !hhMvalidationResult.IsValid)
             {
                 var validateMessage = GetErrorListFromValidationResult(hhValidationResult);
                 await Application.Current.MainPage.DisplayAlert("Error",$"{errors}{validateMessage}{hhMvalidationResult}", "OK");
                 return;
             }
-            Household.IsBeneficiaryHH = IsBeneficiaryHH.Id;
+            Household.IsBeneficiaryHHId = IsBeneficiaryHH.Id;
             Household.VillageId = Village.Id;
             Household.AreaTypeId = AreaType.Id;
             
             App.Database.AddOrUpdate(Household);
             App.Database.AddOrUpdate(HouseholdMember);
             App.HouseholdId = Household.HouseholdId;
-           // await Navigation.PushAsync(new MembersPage(Household.HouseholdId));
-             await Shell.Current.GoToAsync($"/{nameof(DwellingAddEditPage)}?HouseholdId={Household.HouseholdId}");
+            // await Navigation.PushAsync(new MembersPage(Household.HouseholdId));
+            await Toast.SendToast("Geographic identification information successfully");
+            await Shell.Current.GoToAsync($"/{nameof(DwellingAddEditPage)}?HouseholdId={Household.HouseholdId}");
         }
 	}
 }

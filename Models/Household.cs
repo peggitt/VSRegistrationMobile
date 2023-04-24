@@ -10,7 +10,7 @@ namespace HSNP.Models
         public string UserName { get; set; }
         public string VillageId { get; set; }
         public string EntryDate { get; set; }
-        public int? IsBeneficiaryHH { get; set; }
+        public int? IsBeneficiaryHHId { get; set; }
         public string BeneficiaryGroup { get; set; }
         public int? CTOVC { get; set; }
         public int? HSNP { get; set; }
@@ -50,7 +50,9 @@ namespace HSNP.Models
 
         public DateTime CreatedOn { get; set; }
         public int? HouseholdMembers { get; set; }
-        
+
+        public bool IsComplete { get; set; }
+
     }
     public class HouseholdMember
     {
@@ -62,6 +64,7 @@ namespace HSNP.Models
         public string MiddleName { get; set; }
         public string Surname { get; set; }
         public string IdNumber { get; set; }
+        public int? IdTypeId { get; set; }
         public bool IsApplicant { get; set; }
         public bool IsComplete { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -90,6 +93,7 @@ namespace HSNP.Models
         public bool MentalDisability { get; set; }
         public bool SelfcareDisability { get; set; }
         public bool Need24HrCare { get; set; }
+        public int? Need24HrCareId { get; set; }
         public string EntryDate { get; set; }
         public string Idno { get; set; }
         public string RetypedIdno { get; set; }
@@ -112,9 +116,7 @@ namespace HSNP.Models
         public string Serialno { get; set; }
         public string WaitingCardNo { get; set; }
         public string PspaccountId { get; set; }
-
-       
-        
+      
         
     }
 

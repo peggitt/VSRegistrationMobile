@@ -8,10 +8,9 @@ public partial class RegistrationViewModel : BaseViewModel
 {
 
     private readonly IApi _api;
-    public RegistrationViewModel(INavigation navigation, IApi api) : base(navigation)
+    public RegistrationViewModel(bool complete=false) 
     {
-        _api = api;
-        GetItems();
+        GetItems(complete);
        
     }
 
@@ -28,10 +27,10 @@ public partial class RegistrationViewModel : BaseViewModel
         set { _sales = value; OnPropertyChanged(); }
     }
 
-    public async void GetItems()
+    public async void GetItems(bool complete)
     {
-        var test= await App.db.Table<HouseholdMember>().ToListAsync();
-        HouseholdMembers = await App.db.Table<HouseholdMember>().OrderByDescending(i=>i.CreatedOn).Where(i => i.IsApplicant == true && i.IsComplete==false).ToListAsync();
+        var householdIds= (await App.db.Table<Household>().Where(i => i.IsComplete == complete).ToListAsync()).Select(i=>i.HouseholdId);
+        HouseholdMembers = await App.db.Table<HouseholdMember>().OrderByDescending(i=>i.CreatedOn).Where(i => i.IsApplicant == true && householdIds.Contains(i.HouseholdId)).ToListAsync();
         HeightRequest = 100 + HouseholdMembers.Count() * 50;
         //Sales = new ObservableRangeCollection<HouseholdMember>();
         //  Sales.AddRange(HouseholdMembers);

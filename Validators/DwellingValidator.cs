@@ -14,7 +14,7 @@ namespace HSNP.Mobile.Validators
             RuleFor(x => x.RoofMaterialId).NotNull().WithMessage("(2.03) is required\n");
             RuleFor(x => x.WallMaterialId).NotNull().WithMessage("(2.04) is required\n");
             RuleFor(x => x.FloorMaterialId).NotNull().WithMessage("(2.05) is required\n");
-            // RuleFor(x => x.DwellingRiskId).NotNull().WithMessage("(2.06) is required");
+            RuleFor(x => x.DwellingRiskId).NotNull().WithMessage("(2.06) is required");
             RuleFor(x => x.DrinkWaterId).NotNull().WithMessage("(2.07) is required\n");
             RuleFor(x => x.HHToiletId).NotNull().WithMessage("(2.08) is required\n");
             RuleFor(x => x.CookFuelId).NotNull().WithMessage("(2.09) is required\n");

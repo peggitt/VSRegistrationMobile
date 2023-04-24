@@ -21,12 +21,12 @@
 			<StackLayout>
 				
 				<Label Text="(2.01) How many habitable ROOMS does this dwelling unit contain?" />
-				<Entry Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.HabitableRooms}" />
+				<Entry Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.NoMainRooms}" />
 				<Label Text="(2.02) TENURE status of the dwelling unit and/or surrounding terrain/land" />
-				<Label Text="(a) Is dwelling unit and/or surrounding terrain/land Owner Occupied?" />
+				<Label Text="(a) If owner occupied, state whether" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding OwnershipOptions}" SelectedItem="{Binding OwnershipOption}" />
-				<Label Text="(2.02 b) TENURE status" />
-				<Picker Title="Select tenure status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding TenureStatuses}" SelectedItem="{Binding TenureStatus}" />
+				<Label Text="(2.02 b) If rented/provided, state whether:" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding TenureStatuses}" SelectedItem="{Binding TenureStatus}" />
 				<Entry IsVisible="{Binding TenureStatus, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Tenure Status" Text="{Binding HouseholdCharacteristic.TenureStatusOther}" />
 				<Label Text="DOMINANT  MATERIAL OF THE MAIN DWELLING UNIT" />
 				<Label Style="{StaticResource BolHalfMedium}" Text="(2.03) ROOF?" />
@@ -36,7 +36,7 @@
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding WallMaterials}" SelectedItem="{Binding WallMaterial}" Style="{StaticResource BolHalfMedium}" />
 				<Entry MaxLength="100" IsVisible="{Binding WallMaterial, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Wall Material" Text="{Binding HouseholdCharacteristic.WallMaterialOther}" />
 				<Label Style="{StaticResource BolHalfMedium}" Text="(2.05) FLOOR ?" />
-				<Picker Title="Floor " ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding FloorMaterials}" SelectedItem="{Binding FloorMaterial}" Style="{StaticResource BolHalfMedium}" />
+				<Picker Title="Select " ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding FloorMaterials}" SelectedItem="{Binding FloorMaterial}" Style="{StaticResource BolHalfMedium}" />
 				<Entry MaxLength="100" IsVisible="{Binding FloorMaterial, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Floor Material" Text="{Binding HouseholdCharacteristic.FloorMaterialOther}" />
 				<Label Text="(2.06)The dwelling unit is at RISK of:?" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding DwellingRisks}" SelectedItem="{Binding DwellingRisk}" />
@@ -89,19 +89,19 @@
 				<Entry  MaxLength="2" Keyboard="Numeric" Text="{Binding Household.LiveBirths}" />
 				<Label Text="(2.27) How many DEATHS occurred in this household in the last 12 months?" />
 				<Entry Keyboard="Numeric" MaxLength="2" Text="{Binding Household.StillBirths}" />
-				<Label Text="(2.28) Currently, the CONDITIONS of your household are ?" />
-				<Picker  Title="Status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding HouseholdConditions}" SelectedItem="{Binding HouseholdConditions}" />
+				<Label Text="(2.28) Currently, the CONDITIONS of your household are?" />
+				<Picker  Title="Status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding HouseholdConditions}" SelectedItem="{Binding HouseholdCondition}" />
 				<Label Text="(2.29) In the past 7 days, did anyone in this household cut the size of the meals or skip meals because of the lack of enough money?" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding SkippedMeal}" />
 				<Label Text="(2.30) Is anyone in the household receiving benefits from any NSNP?" />
-				<Picker Title="Status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding OtherProgrammes}" SelectedItem="{Binding OtherProgramme}" />
+				<Picker Title="Status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding OtherProgramme}" />
 				<StackLayout Margin="0" Padding="0" IsVisible="{Binding IsOtherProgramme}" VerticalOptions="StartAndExpand">
 					<Label Text="Select up to 3 Programmes " />
 					<ListView    HeightRequest="250"     ItemsSource="{Binding Programmes}"     VerticalOptions="StartAndExpand">
 						<ListView.ItemTemplate>
 							<DataTemplate>
 								<ViewCell>
-									<FlexLayout Margin="0"                     HeightRequest="0"                     Wrap="Wrap">
+									<FlexLayout Margin="0" HeightRequest="0" Wrap="Wrap">
 										<Switch IsToggled="{Binding IsSelected}" />
 										<Label Margin="0" Text="{Binding Item.Description}" />
 									</FlexLayout>

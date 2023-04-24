@@ -1,4 +1,5 @@
-﻿using HSNP.Mobile.Views;
+﻿using CommunityToolkit.Maui.Alerts;
+using HSNP.Mobile.Views;
 using HSNP.Models;
 using HSNP.Services;
 using static Java.Util.Jar.Attributes;
@@ -40,4 +41,6 @@ public partial class MembersPage : ContentPage
      //   await Shell.Current.GoToAsync(nameof(MembersAddPage));
         //  ((DataGrid)sender).SelectedItem = null;
     }
+
+    
 }

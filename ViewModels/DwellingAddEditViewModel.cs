@@ -32,6 +32,11 @@ namespace HSNP.Mobile.ViewModels
         private SystemCodeDetail wallMaterial;
 
         [ObservableProperty]
+        private List<SystemCodeDetail> dwellingRisks;
+        [ObservableProperty]
+        private SystemCodeDetail dwellingRisk;
+
+        [ObservableProperty]
         private List<SystemCodeDetail> floorMaterials;
         [ObservableProperty]
         private SystemCodeDetail floorMaterial;
@@ -64,7 +69,7 @@ namespace HSNP.Mobile.ViewModels
         [ObservableProperty]
         private SystemCodeDetail motorCycleOwned;
         [ObservableProperty]
-        private SystemCodeDetail tuktukOwned;
+        private SystemCodeDetail tukTukOwned;
        
         [ObservableProperty]
         private SystemCodeDetail refrigeratorOwned;
@@ -81,28 +86,44 @@ namespace HSNP.Mobile.ViewModels
         [ObservableProperty]
         private string otherProgrammeNames;
 
+       
+
+        [ObservableProperty]
+        private List<SystemCodeDetail> householdConditions;
+        [ObservableProperty]
+        private SystemCodeDetail householdCondition;
+
+        [ObservableProperty]
+        private List<SystemCodeDetail> benefitTypes;
         [ObservableProperty]
         private SystemCodeDetail benefitType;
-
+        
         [ObservableProperty]
         private HouseholdCharacteristic householdCharacteristic;
         [ObservableProperty]
         private Household household;
 
+        [ObservableProperty]
+        private List<SystemCodeDetail> tenureStatuses;
+        [ObservableProperty]
+        private SystemCodeDetail tenureStatus;
+
         private readonly HouseholdCharacteristicValidator _validator;
         private readonly HouseholdValidator _householdValidator;
         public DwellingAddEditViewModel(INavigation navigation) : base(navigation)
         {
-            GetItems();
+            _ = GetItems();
             HouseholdId = App.HouseholdId;
             _validator = new HouseholdCharacteristicValidator();
             _householdValidator = new HouseholdValidator();
         }
-        public async void GetItems()
+        public async Task GetItems()
         {
             HouseholdCharacteristic = await App.db.Table<HouseholdCharacteristic>().FirstOrDefaultAsync(i=>i.HouseholdId==HouseholdId);
+            HouseholdCharacteristic ??= new HouseholdCharacteristic { HouseholdId = HouseholdId };
             Household = await App.db.Table<Household>().FirstOrDefaultAsync(i => i.HouseholdId == HouseholdId);
-            OwnershipOptions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Tenure").ToListAsync();
+            OwnershipOptions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Tenure" && i.Id<4).ToListAsync();
+            TenureStatuses = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Tenure" && i.Id > 3).ToListAsync();
             RoofMaterials = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Roof_Material").ToListAsync();
             WallMaterials = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Wall_Material").ToListAsync();
             FloorMaterials = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Floor_material").ToListAsync();
@@ -111,6 +132,12 @@ namespace HSNP.Mobile.ViewModels
             CookingFuels = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Cooking_Fuel").ToListAsync();
             LightingFuels = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Lighting_Fuel").ToListAsync();
             BooleanAnswers = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "YesNo").ToListAsync();
+            DwellingRisks = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_DwellingRisk").ToListAsync();
+            HouseholdConditions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Condition").ToListAsync();
+            BenefitTypes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Condition").ToListAsync();
+            
+
+
 
         }
        [RelayCommand]
@@ -136,36 +163,33 @@ namespace HSNP.Mobile.ViewModels
             Household.HouseholdCutMealId = SkippedMeal?.Id;
             Household.BenefitTypeId = BenefitType?.Id;
 
-           // IsReceivingOtherSocialAssistanceId = IsReceivingOtherSocialAssistance?.Id,
+            // IsReceivingOtherSocialAssistanceId = IsReceivingOtherSocialAssistance?.Id,
             //BenefitTypeId = BenefitType?.Id
 
-            HouseholdCharacteristic = new HouseholdCharacteristic
-            {
-                HouseholdId=HouseholdId,
-                RoofMaterialId=RoofMaterial?.Id,
-                WallMaterialId = WallMaterial?.Id,
-                FloorMaterialId= FloorMaterial?.Id,
-                DrinkWaterId= WaterSource?.Id,
-                HHToiletId= WasteDisposal?.Id,
-                CookFuelId = CookingFuel?.Id,
-                LightfuelId=LightingFuel?.Id,
-                TVOwnedId=TVOwned?.Id,
-                MotorCycleOwnedId= MotorCycleOwned?.Id,
-                TuktukOwnedId= TuktukOwned?.Id,
-                RefrigeratorOwnedId= RefrigeratorOwned?.Id,
-                MobileOwnedId= MobileOwned?.Id,
-                CarOwnedId = CarOwned?.Id,
-                BicycleOwnedId= BicycleOwned?.Id,
-               
-              
-            };
-           
+            HouseholdCharacteristic.HouseholdId = HouseholdId;
+            HouseholdCharacteristic.RoofMaterialId = RoofMaterial?.Id;
+            HouseholdCharacteristic.WallMaterialId = WallMaterial?.Id;
+            HouseholdCharacteristic.FloorMaterialId = FloorMaterial?.Id;
+            HouseholdCharacteristic.DwellingRiskId = DwellingRisk?.Id;
+            HouseholdCharacteristic.DrinkWaterId = WaterSource?.Id;
+            HouseholdCharacteristic.HHToiletId = WasteDisposal?.Id;
+            HouseholdCharacteristic.CookFuelId = CookingFuel?.Id;
+            HouseholdCharacteristic.LightfuelId = LightingFuel?.Id;
+            HouseholdCharacteristic.TVOwnedId = TVOwned?.Id;
+            HouseholdCharacteristic.MotorCycleOwnedId = MotorCycleOwned?.Id;
+            HouseholdCharacteristic.TuktukOwnedId = TukTukOwned?.Id;
+            HouseholdCharacteristic.RefrigeratorOwnedId = RefrigeratorOwned?.Id;
+            HouseholdCharacteristic.MobileOwnedId = MobileOwned?.Id;
+            HouseholdCharacteristic.CarOwnedId = CarOwned?.Id;
+            HouseholdCharacteristic.BicycleOwnedId = BicycleOwned?.Id;
+
             var hhValidationResult = _householdValidator.Validate(Household);
             var validationResult = _validator.Validate(HouseholdCharacteristic);
             if (validationResult.IsValid && hhValidationResult.IsValid)
             {
                 App.Database.AddOrUpdate(Household);
                 App.Database.AddOrUpdate(HouseholdCharacteristic);
+                await Toast.SendToast("Dwelling and household information successfully");
                 await Shell.Current.GoToAsync($"{nameof(MembersPage)}?HouseholdId={HouseholdId}");
             }
             else

@@ -25,7 +25,7 @@
                     <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
                 </ShellContent.Icon>
             </ShellContent>
-            <ShellContent Title="Complete" ContentTemplate="{DataTemplate views:RegistrationPage}"  Route="CompleteRegistrationPage">
+            <ShellContent Title="Complete" ContentTemplate="{DataTemplate views:RegistrationCompletePage}"  Route="RegistrationCompletePage">
                 <ShellContent.Icon>
                     <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
                 </ShellContent.Icon>

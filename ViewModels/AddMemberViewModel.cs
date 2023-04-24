@@ -1,6 +1,7 @@
 ﻿using Android.Util.Proto;
 using HSNP.Interfaces;
 using HSNP.Models;
+using Java.Lang.Reflect;
 
 namespace HSNP.Mobile.ViewModels;
 
@@ -90,38 +91,63 @@ public partial class AddMemberViewModel : BaseViewModel
     private SystemCodeDetail workType;
     [ObservableProperty]
     private SystemCodeDetail jobOption;
-    
+
+    [ObservableProperty]
+    private List<SystemCodeDetail> identificationDocumentTypes;
+    [ObservableProperty]
+    private SystemCodeDetail identificationDocumentType;
 
     public AddMemberViewModel(INavigation navigation, IApi api,string id,string memberId) : base(navigation)
     {
         _api = api;
         HouseholdId = App.HouseholdId;
         MemberId = App.MemberId;
-        GetItems();
+        _ = GetItems();
     }
 
     [ObservableProperty]
     private List<HouseholdMember> householdMembers;
 
-    public async void GetItems()
+    public async Task GetItems()
     {
         Member = await App.db.Table<HouseholdMember>().FirstOrDefaultAsync(i => i.Id == MemberId);
-        if (Member == null)
-            Member = new HouseholdMember { Id = Guid.NewGuid().ToString() };
+        Member ??= new HouseholdMember { Id = Guid.NewGuid().ToString() };
         MemberId = Member.Id;
-
         Caregivers= await App.db.Table<HouseholdMember>().ToListAsync();
         Spouses = await App.db.Table<HouseholdMember>().ToListAsync();
-
         BooleanAnswers = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "YesNo").ToListAsync();
+
+        IdentificationDocumentTypes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Identification").ToListAsync();
+        IdentificationDocumentType = IdentificationDocumentTypes.SingleOrDefault(i=>i.Id==Member.IdTypeId);
+
         Relationships = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Relationship").ToListAsync();
+        Relationship = Relationships.SingleOrDefault(i => i.Id == Member.RelationshipId);
+
         Sexes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Sex").ToListAsync();
+        Sex = Sexes.SingleOrDefault(i => i.Id == Member.SexId);
+
         MaritalStatuses = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Marital").ToListAsync();
+        MaritalStatus = MaritalStatuses.SingleOrDefault(i => i.Id == Member.SexId);
+
         Disabilities = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Disability").ToListAsync();
+
         LearningStatuses = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_School").ToListAsync();
+        LearningStatus = LearningStatuses.SingleOrDefault(i => i.Id == Member.LearningInstitutionId);
+
         EducationLevels = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_School_Grade").ToListAsync();
+        EducationLevel = EducationLevels.SingleOrDefault(i => i.Id == Member.LearningInstitutionId);
+
         WorkTypes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Work_last_7days").ToListAsync();
-       
+        WorkType = WorkTypes.SingleOrDefault(i => i.Id == Member.WorkLast7daysId);
+
+        SpouseInHousehold = BooleanAnswers.SingleOrDefault(i => i.Id == Member.SpouseStatusId);
+        FatherAlive = BooleanAnswers.SingleOrDefault(i => i.Id == Member.FatherAliveId);
+        MotherAlive = BooleanAnswers.SingleOrDefault(i => i.Id == Member.MotherAliveId);
+        ChronicIllness = BooleanAnswers.SingleOrDefault(i => i.Id == Member.ChronicIllnessId);
+        HasDisability = BooleanAnswers.SingleOrDefault(i => i.Id == Member.DisabilityId);
+
+        DisabilityCareStatus = BooleanAnswers.SingleOrDefault(i => i.Id == Member.Need24HrCareId);
+
     }
 
     [RelayCommand]
@@ -136,30 +162,30 @@ public partial class AddMemberViewModel : BaseViewModel
             await Shell.Current.DisplayAlert("Error", errors, "OK");
             return;
         }
-        Member = new HouseholdMember
-        {
-            RelationshipId=Relationship?.Id,
-            SexId=Sex?.Id,
-            MaritalStatusId=MaritalStatus?.Id,
-            SpouseStatusId= SpouseInHousehold?.Id,
-            SpouseId=Spouse?.Id,
-            FatherAliveId=FatherAlive?.Id,
-            MotherAliveId=MotherAlive?.Id,
-            ChronicIllnessId=ChronicIllness?.Id,
-            DisabilityId=HasDisability?.Id,
-            Need24HrCare=DisabilityCareStatus.Description.Equals("Yes"),
-            CaregiverId=Caregiver?.Id,
-            LearningInstitutionId= LearningStatus?.Id,
-            HighestGradeCodeId = EducationLevel?.Id,
-            WorkLast7daysId=WorkType?.Id,
-            WorkingInFormalJobId = JobOption?.Id
 
-        };
+        Member.IdTypeId = IdentificationDocumentType?.Id;
+        Member.RelationshipId = Relationship?.Id;
+        Member.SexId = Sex?.Id;
+        Member.MaritalStatusId = MaritalStatus?.Id;
+        Member.SpouseStatusId = SpouseInHousehold?.Id;
+        Member.SpouseId = Spouse?.Id;
+        Member.FatherAliveId = FatherAlive?.Id;
+        Member.MotherAliveId = MotherAlive?.Id;
+        Member.ChronicIllnessId = ChronicIllness?.Id;
+        Member.DisabilityId = HasDisability?.Id;
+        Member.Need24HrCare = DisabilityCareStatus.Description.Equals("Yes");
+        Member.Need24HrCareId = DisabilityCareStatus?.Id;
+        Member.CaregiverId = Caregiver?.Id;
+        Member.LearningInstitutionId = LearningStatus?.Id;
+        Member.HighestGradeCodeId = EducationLevel?.Id;
+        Member.WorkLast7daysId = WorkType?.Id;
+        Member.WorkingInFormalJobId = JobOption?.Id;
         Member.Id = MemberId;
         Member.HouseholdId = HouseholdId;
-  
+        Member.IsComplete = true;
         App.Database.AddOrUpdate(Member);
         // await Navigation.PushAsync(new MembersPage(Household.HouseholdId));
+        await Toast.SendToast("Household member information saved successfully");
         await Shell.Current.GoToAsync($"/{nameof(MembersPage)}?HouseholdId={Member.HouseholdId}");
     }
 }

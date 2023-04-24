@@ -1,0 +1,5 @@
+(2.28) Currently, the CONDITIONS of your household are?
+
+(2.30) Is anyone in the household receiving benefits from any NSNP?
+
+(3.02 A)Type of Identification Document

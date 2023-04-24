@@ -9,7 +9,7 @@
         <ToolbarItem Clicked="AddNew_OnClicked" Text="+ New"  />
     </ContentPage.ToolbarItems>
     <VerticalStackLayout>
-        <Label IsVisible="False" Text="{Binding HeightRequest}" />
+
         <dataGrid:DataGrid 
     ItemsSource="{Binding HouseholdMembers}" 
     SelectionEnabled="True" 
@@ -33,14 +33,14 @@
                 </dataGrid:PaletteCollection>
             </dataGrid:DataGrid.RowsBackgroundColorPalette>
             <dataGrid:DataGrid.HeaderLabelStyle>
-    <Style TargetType="Label">
-        <Setter Property="TextColor" Value="#FFF"></Setter>
-       <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
-       <Setter Property="VerticalTextAlignment" Value="Center"></Setter>
+                <Style TargetType="Label">
+                    <Setter Property="TextColor" Value="#FFF"></Setter>
+                    <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                    <Setter Property="VerticalTextAlignment" Value="Center"></Setter>
                     <Setter Property="FontAttributes" Value="Bold"></Setter>
-                     <Setter Property="FontSize" Value="14"></Setter>
-    </Style>
-</dataGrid:DataGrid.HeaderLabelStyle>
+                    <Setter Property="FontSize" Value="14"></Setter>
+                </Style>
+            </dataGrid:DataGrid.HeaderLabelStyle>
         </dataGrid:DataGrid>
     </VerticalStackLayout>
 </ContentPage>

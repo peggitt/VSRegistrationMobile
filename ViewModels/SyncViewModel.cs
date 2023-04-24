@@ -50,13 +50,13 @@ namespace HSNP.ViewModels
                 var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(lm), Encoding.UTF8, "application/json");
             try
             {
-                CurrentStatus = "Downloading Combo Codes";
+                CurrentStatus = "Downloading System Codes";
 
                 var response = await _api.DownloadSettings(content, $"Bearer {App.User.Token}");
 
                 if (response.returnDetails != null)
                 {
-                    CurrentStatus = "Processing Combo Codes";
+                    CurrentStatus = "Processing System Codes";
                     await App.Database._database.DeleteAllAsync<SystemCodeDetail>();
                     response.returnDetails.ForEach(i => i.IdComboCode = $"{i.Id}{i.ComboCode}");
                     
@@ -64,7 +64,7 @@ namespace HSNP.ViewModels
                     {
                         App.Database.AddOrUpdate(item);
                     }
-                    await Toast.SendToastAsync("Combo Codes downloaded successfully");
+                    await Toast.SendToastAsync("System Codes downloaded successfully");
                 }
                 else
                 {
