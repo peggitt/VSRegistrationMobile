@@ -152,41 +152,50 @@ namespace HSNP.Mobile.ViewModels
         [RelayCommand]
         async void Save()
         {
-            string errors = "";
-           // if (Programme == null)
-               // errors += "Programme is required";
-
-            if (IsBeneficiaryHH == null)
-                errors += "Is Applicant Household Head is required\n";
-            if (Village == null)
-                errors += "Village is required\n";
-            if (AreaType == null)
-                errors += "Area Type is required\n";
-            if (Relationship == null)
-                errors += "Member's relationship is Required\n";
-            var hhValidationResult = _hhValidator.Validate(Household);
-            var hhMvalidationResult = _hhMValidator.Validate(HouseholdMember);
-
-            HouseholdMember.IdTypeId = IdentificationDocumentType?.Id;
-            HouseholdMember.SexId = Sex?.Id;
-           
-
-            if (!string.IsNullOrEmpty(errors) || !hhValidationResult.IsValid || !hhMvalidationResult.IsValid)
+            try
             {
-                var validateMessage = GetErrorListFromValidationResult(hhValidationResult);
-                await Application.Current.MainPage.DisplayAlert("Error",$"{errors}{validateMessage}{hhMvalidationResult}", "OK");
-                return;
+                string errors = "";
+                // if (Programme == null)
+                // errors += "Programme is required";
+
+                if (IsBeneficiaryHH == null)
+                    errors += "Is Applicant Household Head is required\n";
+                if (Village == null)
+                    errors += "Village is required\n";
+                if (AreaType == null)
+                    errors += "Area Type is required\n";
+                if (Relationship == null)
+                    errors += "Member's relationship is Required\n";
+                var hhValidationResult = _hhValidator.Validate(Household);
+                var hhMvalidationResult = _hhMValidator.Validate(HouseholdMember);
+
+                HouseholdMember.IdTypeId = IdentificationDocumentType?.Id;
+                HouseholdMember.SexId = Sex?.Id;
+                HouseholdMember.RelationshipId = Relationship?.Id;
+
+                if (!string.IsNullOrEmpty(errors) || !hhValidationResult.IsValid || !hhMvalidationResult.IsValid)
+                {
+                    var validateMessage = GetErrorListFromValidationResult(hhValidationResult);
+                    await Application.Current.MainPage.DisplayAlert("Error", $"{errors}{validateMessage}{hhMvalidationResult}", "OK");
+                    return;
+                }
+                Household.IsBeneficiaryHHId = IsBeneficiaryHH.Id;
+                Household.VillageId = Village.Id;
+                Household.AreaTypeId = AreaType.Id;
+
+                App.Database.AddOrUpdate(Household);
+                App.Database.AddOrUpdate(HouseholdMember);
+                App.HouseholdId = Household.HouseholdId;
+                // await Navigation.PushAsync(new MembersPage(Household.HouseholdId));
+                await Toast.SendToast("Geographic identification information successfully");
+              //  await Navigation.PushAsync(new DwellingAddEditPage());
+                await Shell.Current.GoToAsync($"/{nameof(DwellingAddEditPage)}?HouseholdId={Household.HouseholdId}");
             }
-            Household.IsBeneficiaryHHId = IsBeneficiaryHH.Id;
-            Household.VillageId = Village.Id;
-            Household.AreaTypeId = AreaType.Id;
+            catch(Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Sorry!", ex.Message, "Ok");
+            }
             
-            App.Database.AddOrUpdate(Household);
-            App.Database.AddOrUpdate(HouseholdMember);
-            App.HouseholdId = Household.HouseholdId;
-            // await Navigation.PushAsync(new MembersPage(Household.HouseholdId));
-            await Toast.SendToast("Geographic identification information successfully");
-            await Shell.Current.GoToAsync($"/{nameof(DwellingAddEditPage)}?HouseholdId={Household.HouseholdId}");
         }
 	}
 }

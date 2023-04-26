@@ -117,11 +117,8 @@ namespace HSNP.ViewModels
                 if (villagesResponse.returnDetails != null)
                 {
                     CurrentStatus = "Processing Villages";
-                    await App.Database._database.DeleteAllAsync<Village>();
-                    foreach (var item in villagesResponse.returnDetails)
-                    {
-                        App.Database.AddOrUpdate(item);
-                    }
+                    await App.db.DeleteAllAsync<Village>();
+                    await App.db.InsertAllAsync(villagesResponse.returnDetails);
                     await Toast.SendToastAsync("Villages downloaded successfully");
                 }
                 else

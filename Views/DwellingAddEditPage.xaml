@@ -9,6 +9,7 @@
 	<ContentPage.Resources>
 		<ResourceDictionary>
 			<convertors:BooleanConvertor x:Key="BooleanConvertor" />
+			<convertors:IntBooleanConvertor x:Key="IntBooleanConvertor" />
 		</ResourceDictionary>
 	</ContentPage.Resources>
 	<ScrollView VerticalOptions="FillAndExpand">
@@ -29,14 +30,14 @@
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding TenureStatuses}" SelectedItem="{Binding TenureStatus}" />
 				<Entry IsVisible="{Binding TenureStatus, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Tenure Status" Text="{Binding HouseholdCharacteristic.TenureStatusOther}" />
 				<Label Text="DOMINANT  MATERIAL OF THE MAIN DWELLING UNIT" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.03) ROOF?" />
-				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding RoofMaterials}" SelectedItem="{Binding RoofMaterial}" Style="{StaticResource BolHalfMedium}" />
+				<Label  Text="(2.03) ROOF?" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding RoofMaterials}" SelectedItem="{Binding RoofMaterial}"  />
 				<Entry MaxLength="100" IsVisible="{Binding RoofMaterial, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Roof Material" Text="{Binding HouseholdCharacteristic.RoofMaterialOther}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.04) WALL ?" />
-				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding WallMaterials}" SelectedItem="{Binding WallMaterial}" Style="{StaticResource BolHalfMedium}" />
+				<Label  Text="(2.04) WALL ?" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding WallMaterials}" SelectedItem="{Binding WallMaterial}"  />
 				<Entry MaxLength="100" IsVisible="{Binding WallMaterial, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Wall Material" Text="{Binding HouseholdCharacteristic.WallMaterialOther}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.05) FLOOR ?" />
-				<Picker Title="Select " ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding FloorMaterials}" SelectedItem="{Binding FloorMaterial}" Style="{StaticResource BolHalfMedium}" />
+				<Label  Text="(2.05) FLOOR ?" />
+				<Picker Title="Select " ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding FloorMaterials}" SelectedItem="{Binding FloorMaterial}"  />
 				<Entry MaxLength="100" IsVisible="{Binding FloorMaterial, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Floor Material" Text="{Binding HouseholdCharacteristic.FloorMaterialOther}" />
 				<Label Text="(2.06)The dwelling unit is at RISK of:?" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding DwellingRisks}" SelectedItem="{Binding DwellingRisk}" />
@@ -54,36 +55,36 @@
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding LightingFuels}" SelectedItem="{Binding LightingFuel}" />
 				<Entry MaxLength="100" IsVisible="{Binding LightingFuel, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Lighting Fuel" Text="{Binding HouseholdCharacteristic.LightingFuelOther}" />
 				<Label Text="Does the household OWN any of the following items?" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.11) Television" />
+				<Label  Text="(2.11) Television" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding TVOwned}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.12) Motorcycle" />
+				<Label  Text="(2.12) Motorcycle" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding MotorCycleOwned}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.13) Tuk-Tuk" />
+				<Label  Text="(2.13) Tuk-Tuk" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding TukTukOwned}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.14) Refrigerator" />
+				<Label  Text="(2.14) Refrigerator" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding RefrigeratorOwned}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.15) Car" />
+				<Label  Text="(2.15) Car" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding CarOwned}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.16) Mobile phone" />
+				<Label  Text="(2.16) Mobile phone" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding MobileOwned}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.17) Bicycle" />
+				<Label  Text="(2.17) Bicycle" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding BicycleOwned}" />
 				<Label Text="How many of each of the following livestock are currently owned" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.18) Exotic cattle" />
+				<Label  Text="(2.18) Exotic cattle" />
 				<Entry Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.ExoticCattleOwned}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.19) Indigenous cattle" />
+				<Label  Text="(2.19) Indigenous cattle" />
 				<Entry  Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.ZebuCattleOwned}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.20) Sheep" />
+				<Label  Text="(2.20) Sheep" />
 				<Entry Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.SheepOwned}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.21) Goats" />
+				<Label  Text="(2.21) Goats" />
 				<Entry Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.GoatsOwned}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.22) Camels" />
+				<Label  Text="(2.22) Camels" />
 				<Entry Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.CamelsOwned}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.23) Donkeys" />
+				<Label  Text="(2.23) Donkeys" />
 				<Entry  Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.DonkeysOwned}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.24) Pigs" />
+				<Label  Text="(2.24) Pigs" />
 				<Entry  Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.PigsOwned}" />
-				<Label Style="{StaticResource BolHalfMedium}" Text="(2.25) Chicken" />
+				<Label  Text="(2.25) Chicken" />
 				<Entry  Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.ChickenOwned}" />
 				<Label Text="(2.26) How many LIVE BIRTHS occurred in this household in the last 12 months?" />
 				<Entry  MaxLength="2" Keyboard="Numeric" Text="{Binding Household.LiveBirths}" />

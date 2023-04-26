@@ -11,9 +11,9 @@ namespace HSNP.Mobile.ViewModels
     [QueryProperty(nameof(HouseholdId), nameof(HouseholdId))]
     [QueryProperty(nameof(Id), nameof(Id))]
 
-    public partial class DwellingAddEditViewModel: BaseViewModel
+    public partial class DwellingAddEditViewModel : BaseViewModel
     {
-       
+
         [ObservableProperty]
         private string householdId;
         [ObservableProperty]
@@ -70,7 +70,7 @@ namespace HSNP.Mobile.ViewModels
         private SystemCodeDetail motorCycleOwned;
         [ObservableProperty]
         private SystemCodeDetail tukTukOwned;
-       
+
         [ObservableProperty]
         private SystemCodeDetail refrigeratorOwned;
         [ObservableProperty]
@@ -86,7 +86,7 @@ namespace HSNP.Mobile.ViewModels
         [ObservableProperty]
         private string otherProgrammeNames;
 
-       
+
 
         [ObservableProperty]
         private List<SystemCodeDetail> householdConditions;
@@ -97,7 +97,7 @@ namespace HSNP.Mobile.ViewModels
         private List<SystemCodeDetail> benefitTypes;
         [ObservableProperty]
         private SystemCodeDetail benefitType;
-        
+
         [ObservableProperty]
         private HouseholdCharacteristic householdCharacteristic;
         [ObservableProperty]
@@ -112,35 +112,44 @@ namespace HSNP.Mobile.ViewModels
         private readonly HouseholdValidator _householdValidator;
         public DwellingAddEditViewModel(INavigation navigation) : base(navigation)
         {
+
             _ = GetItems();
             HouseholdId = App.HouseholdId;
             _validator = new HouseholdCharacteristicValidator();
             _householdValidator = new HouseholdValidator();
+
+
         }
         public async Task GetItems()
         {
-            HouseholdCharacteristic = await App.db.Table<HouseholdCharacteristic>().FirstOrDefaultAsync(i=>i.HouseholdId==HouseholdId);
-            HouseholdCharacteristic ??= new HouseholdCharacteristic { HouseholdId = HouseholdId };
-            Household = await App.db.Table<Household>().FirstOrDefaultAsync(i => i.HouseholdId == HouseholdId);
-            OwnershipOptions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Tenure" && i.Id<4).ToListAsync();
-            TenureStatuses = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Tenure" && i.Id > 3).ToListAsync();
-            RoofMaterials = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Roof_Material").ToListAsync();
-            WallMaterials = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Wall_Material").ToListAsync();
-            FloorMaterials = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Floor_material").ToListAsync();
-            WaterSources = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Drinking_Water").ToListAsync();
-            WasteDisposals = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Latrine").ToListAsync();
-            CookingFuels = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Cooking_Fuel").ToListAsync();
-            LightingFuels = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Lighting_Fuel").ToListAsync();
-            BooleanAnswers = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "YesNo").ToListAsync();
-            DwellingRisks = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_DwellingRisk").ToListAsync();
-            HouseholdConditions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Condition").ToListAsync();
-            BenefitTypes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Condition").ToListAsync();
-            
+            try
+            {
+                HouseholdCharacteristic = await App.db.Table<HouseholdCharacteristic>().FirstOrDefaultAsync(i => i.HouseholdId == HouseholdId);
+                HouseholdCharacteristic ??= new HouseholdCharacteristic { HouseholdId = HouseholdId };
+                Household = await App.db.Table<Household>().FirstOrDefaultAsync(i => i.HouseholdId == HouseholdId);
+                OwnershipOptions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Tenure" && i.Id < 4).ToListAsync();
+                TenureStatuses = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Tenure" && i.Id > 3).ToListAsync();
+                RoofMaterials = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Roof_Material").ToListAsync();
+                WallMaterials = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Wall_Material").ToListAsync();
+                FloorMaterials = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Floor_material").ToListAsync();
+                WaterSources = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Drinking_Water").ToListAsync();
+                WasteDisposals = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Latrine").ToListAsync();
+                CookingFuels = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Cooking_Fuel").ToListAsync();
+                LightingFuels = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Lighting_Fuel").ToListAsync();
+                BooleanAnswers = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "YesNo").ToListAsync();
+                DwellingRisks = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_DwellingRisk").ToListAsync();
+                HouseholdConditions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Condition").ToListAsync();
+                BenefitTypes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "HH_Condition").ToListAsync();
 
 
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Sorry!", ex.ToString(), "Ok");
+            }
 
         }
-       [RelayCommand]
+        [RelayCommand]
         async void Save()
         {
             string errors = "";
@@ -156,8 +165,8 @@ namespace HSNP.Mobile.ViewModels
 
             if (!string.IsNullOrEmpty(errors))
             {
-               // await Application.Current.MainPage.DisplayAlert("Error", errors, "OK");
-               // return;
+                // await Application.Current.MainPage.DisplayAlert("Error", errors, "OK");
+                // return;
             }
 
             Household.HouseholdCutMealId = SkippedMeal?.Id;
@@ -195,10 +204,10 @@ namespace HSNP.Mobile.ViewModels
             else
             {
                 var validateMessage = GetErrorListFromValidationResult(validationResult);
-                await Application.Current.MainPage.DisplayAlert("Validation Errors",$"{hhValidationResult}{validateMessage}", "OK");
+                await Application.Current.MainPage.DisplayAlert("Validation Errors", $"{hhValidationResult}{validateMessage}", "OK");
             }
-               
+
         }
-	}
+    }
 }
 
