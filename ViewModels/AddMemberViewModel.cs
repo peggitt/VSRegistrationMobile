@@ -2,6 +2,7 @@
 using HSNP.Interfaces;
 using HSNP.Models;
 using Java.Lang.Reflect;
+using static Android.Media.TV.TvContract;
 
 namespace HSNP.Mobile.ViewModels;
 
@@ -61,8 +62,10 @@ public partial class AddMemberViewModel : BaseViewModel
     
 
 
+
     [ObservableProperty]
-    private List<SystemCodeDetail> disabilities;
+    private List<SelectableItemWrapper<SystemCodeDetail>> disabilities;
+
     [ObservableProperty]
     private SystemCodeDetail hasDisability;
 
@@ -129,7 +132,22 @@ public partial class AddMemberViewModel : BaseViewModel
         MaritalStatuses = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Marital").ToListAsync();
         MaritalStatus = MaritalStatuses.SingleOrDefault(i => i.Id == Member.SexId);
 
-        Disabilities = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Disability").ToListAsync();
+       var  disabilityOptions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Disability").ToListAsync();
+        var selected = await App.db.Table<MemberDisability>().Where(i => i.MemberId == MemberId).ToListAsync();
+        var list = new List<SelectableItemWrapper<SystemCodeDetail>>();
+
+        
+        if (!selected.Any())
+            foreach (var item in disabilityOptions)
+                list.Add(new SelectableItemWrapper<SystemCodeDetail> { Item = item, IsSelected = false });
+        else
+            foreach (var item in disabilityOptions)
+            {
+                list.Add(new SelectableItemWrapper<SystemCodeDetail>
+                { Item = item, IsSelected = selected.Any(x => x.DisabilityId == item.Id) });
+            }
+        Disabilities = list;
+
 
         LearningStatuses = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_School").ToListAsync();
         LearningStatus = LearningStatuses.SingleOrDefault(i => i.Id == Member.LearningInstitutionId);
@@ -184,6 +202,13 @@ public partial class AddMemberViewModel : BaseViewModel
         Member.HouseholdId = HouseholdId;
         Member.IsComplete = true;
         App.Database.AddOrUpdate(Member);
+        var selected = Disabilities.Where(i => i.IsSelected);
+        foreach (var disability in selected)
+        {
+            var item = new MemberDisability { MemberId = Member.Id, DisabilityId = disability.Item.Id };
+            App.Database.AddOrUpdate(item);
+
+        }
         // await Navigation.PushAsync(new MembersPage(Household.HouseholdId));
         await Toast.SendToast("Household member information saved successfully");
         await Shell.Current.GoToAsync($"/{nameof(MembersPage)}?HouseholdId={Member.HouseholdId}");

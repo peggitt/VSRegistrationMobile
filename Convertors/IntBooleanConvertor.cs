@@ -6,15 +6,21 @@ namespace HSNP.Mobile.Convertors
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null)
-            {
-                var someValue = (SystemCodeDetail)value; // Convert 'object' to whatever type you are expecting
+            try {
+                if (value != null)
+                {
+                    var someValue = (SystemCodeDetail)value; // Convert 'object' to whatever type you are expecting
 
-                if (someValue.Description.Contains("Other"))
-                    return true;
+                    if (someValue.Description.ToLower().Contains("other"))
+                        return true;
+                    return false;
+                }
                 return false;
             }
-            return false;
+            catch {
+                return false;
+            }
+            
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

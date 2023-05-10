@@ -187,9 +187,10 @@ namespace HSNP.Mobile.ViewModels
                 App.Database.AddOrUpdate(HouseholdMember);
                 App.HouseholdId = Household.HouseholdId;
                 // await Navigation.PushAsync(new MembersPage(Household.HouseholdId));
-                await Toast.SendToast("Geographic identification information successfully");
+               
               //  await Navigation.PushAsync(new DwellingAddEditPage());
                 await Shell.Current.GoToAsync($"/{nameof(DwellingAddEditPage)}?HouseholdId={Household.HouseholdId}");
+                await Toast.SendToast("Geographic identification information successfully");
             }
             catch(Exception ex)
             {

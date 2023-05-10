@@ -797,6 +797,51 @@
             "Id": 4,
             "Details": "VERY GOOD",
             "ComboCode": "HH_Condition"
+        },
+        {
+            "Id": 1,
+            "Details": "CASH",
+            "ComboCode": "HH_BenefitKind"
+        },
+        {
+            "Id": 2,
+            "Details": "IN-KIND",
+            "ComboCode": "HH_BenefitKind"
+        },
+        {
+            "Id": 1,
+            "Details": "CT-OVC",
+            "ComboCode": "HH_Programmes"
+        },
+        {
+            "Id": 2,
+            "Details": "PWSD_CT",
+            "ComboCode": "HH_Programmes"
+        },
+        {
+            "Id": 3,
+            "Details": "HSNP",
+            "ComboCode": "HH_Programmes"
+        },
+        {
+            "Id": 4,
+            "Details": "OPCT",
+            "ComboCode": "HH_Programmes"
+        },
+        {
+            "Id": 5,
+            "Details": "UHC",
+            "ComboCode": "HH_Programmes"
+        },
+        {
+            "Id": 6,
+            "Details": "Other",
+            "ComboCode": "HH_Programmes"
+        },
+        {
+            "Id": 10,
+            "Details": "None",
+            "ComboCode": "HH_Programmes"
         }
     ]
 }

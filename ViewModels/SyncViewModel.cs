@@ -130,8 +130,15 @@ namespace HSNP.ViewModels
             }
             catch (ApiException ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
+                if (ex.Message.Contains("401")){
+                    Application.Current.MainPage = new NavigationPage(new LoginPage());
+                    await Toast.SendToastAsync("Session timeout, kindly login again");
+                }
+                else {
+                    await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
+                }
 
+                
             }
             catch (Exception ex)
             {

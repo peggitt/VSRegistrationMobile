@@ -62,14 +62,14 @@
 
             <StackLayout StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding IsDisabled}">
                 <Label  Text="What Type of Disability does the member have?" />
-                <ListView RowHeight="60" HasUnevenRows="False" Margin="0"  ItemsSource="{Binding Disabilities}">
+                <ListView RowHeight="60" HasUnevenRows="False" SelectionMode="None" Margin="0"  ItemsSource="{Binding Disabilities}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <FlexLayout Wrap="Wrap" StyleClass="full" Padding="0"  HeightRequest="0"  Margin="0">
+                                <HorizontalStackLayout  >
                                     <Switch StyleClass="tenth,SauBlue,pull-left" IsToggled="{Binding IsSelected}" />
-                                    <Label  StyleClass="SauBlue,half,medium,pull=left" Margin="0,15,0,0"  Text="{Binding  Description}" />
-                                </FlexLayout>
+                                    <Label  StyleClass="SauBlue,half,medium,pull=left" Margin="0,15,0,0"  Text="{Binding  Item.Description}" />
+                                </HorizontalStackLayout>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

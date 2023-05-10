@@ -11,9 +11,12 @@ public partial class RegistrationPage : ContentPage
 	public RegistrationPage()
 	{
 		InitializeComponent();
+       // BindingContext = new RegistrationViewModel();
+    }
+    protected override void OnAppearing()
+    {
         BindingContext = new RegistrationViewModel();
     }
-   
     private void AddNew_OnClicked(object sender, EventArgs e)
     {
         App.HouseholdId = null;

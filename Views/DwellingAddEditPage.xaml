@@ -36,6 +36,7 @@
 				<Label  Text="(2.04) WALL ?" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding WallMaterials}" SelectedItem="{Binding WallMaterial}"  />
 				<Entry MaxLength="100" IsVisible="{Binding WallMaterial, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Wall Material" Text="{Binding HouseholdCharacteristic.WallMaterialOther}" />
+				
 				<Label  Text="(2.05) FLOOR ?" />
 				<Picker Title="Select " ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding FloorMaterials}" SelectedItem="{Binding FloorMaterial}"  />
 				<Entry MaxLength="100" IsVisible="{Binding FloorMaterial, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Floor Material" Text="{Binding HouseholdCharacteristic.FloorMaterialOther}" />
@@ -95,17 +96,18 @@
 				<Label Text="(2.29) In the past 7 days, did anyone in this household cut the size of the meals or skip meals because of the lack of enough money?" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding SkippedMeal}" />
 				<Label Text="(2.30) Is anyone in the household receiving benefits from any NSNP?" />
-				<Picker Title="Status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding OtherProgramme}" />
-				<StackLayout Margin="0" Padding="0" IsVisible="{Binding IsOtherProgramme}" VerticalOptions="StartAndExpand">
+				<Picker Title="Status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding ReceivingNSPPBeneficts}" />
+				<StackLayout Margin="0" Padding="0" IsVisible="{Binding IsReceivingNSPPBeneficts}" VerticalOptions="StartAndExpand">
 					<Label Text="Select up to 3 Programmes " />
-					<ListView    HeightRequest="250"     ItemsSource="{Binding Programmes}"     VerticalOptions="StartAndExpand">
+					<ListView    HeightRequest="300"   SelectionMode="None"  ItemsSource="{Binding Programmes}"  VerticalOptions="StartAndExpand">
 						<ListView.ItemTemplate>
 							<DataTemplate>
 								<ViewCell>
-									<FlexLayout Margin="0" HeightRequest="0" Wrap="Wrap">
-										<Switch IsToggled="{Binding IsSelected}" />
-										<Label Margin="0" Text="{Binding Item.Description}" />
-									</FlexLayout>
+									<HorizontalStackLayout  Margin="0" HorizontalOptions="FillAndExpand">
+										<Switch IsToggled="{Binding IsSelected}" HorizontalOptions="End" />
+										<Label Margin="0,10" HorizontalOptions="Start" Text="{Binding Item.Description}" />
+										
+									</HorizontalStackLayout>
 								</ViewCell>
 							</DataTemplate>
 						</ListView.ItemTemplate>

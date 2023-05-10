@@ -12,6 +12,7 @@ namespace HSNP.Models
         public string EntryDate { get; set; }
         public int? IsBeneficiaryHHId { get; set; }
         public string BeneficiaryGroup { get; set; }
+        public int? HHReceivingNSNPBenefictsId { get; set; } /*New*/
         public int? CTOVC { get; set; }
         public int? HSNP { get; set; }
         public int? OPCT { get; set; }
@@ -29,6 +30,7 @@ namespace HSNP.Models
         public int? StillBirths { get; set; }
         public int? OtherBenefitsAmout { get; set; }
         public int? HouseholdCutMealId { get; set; }
+
         public int? HHReceivingBenefictsId { get; set; }
         public int? BenefitTypeId{ get; set; }
         public int? DataLevelID { get; set; }
@@ -128,11 +130,17 @@ namespace HSNP.Models
         public int? NoMainRooms { get; set; }
         public int? WallMaterialId { get; set; }
         public int? RoofMaterialId { get; set; }
+        public string RoofMaterialOther { get; set; }
         public int? FloorMaterialId { get; set; }
+        public string FloorMaterialOther { get; set; }
         public int? HHToiletId { get; set; }
+        public string HHToiletOther { get; set; }
         public int? DrinkWaterId { get; set; }
+        public string DrinkWaterOther { get; set; }
         public int? LightfuelId { get; set; }
+        public string LightfuelOther { get; set; }
         public int? CookFuelId { get; set; }
+        public string CookFuelOther { get; set; }
         public int? RefrigeratorOwnedId { get; set; }
         public int? MotorCycleOwnedId { get; set; }
         public int? BicycleOwnedId { get; set; }
@@ -159,5 +167,20 @@ namespace HSNP.Models
 
     }
 
+    public class HouseholdNSNPProgramme
+    {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        public string HouseholdId { get; set; }
+        public int ProgrammeId { get; set; }
 
+    }
+    public class MemberDisability
+    {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        public string MemberId { get; set; }
+        public int DisabilityId { get; set; }
+
+    }
 }

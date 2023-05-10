@@ -93,6 +93,8 @@ namespace HSNP.Models
         public string Details { get; set; }
         public string ComboCode { get; set; }
         public string Description => Details;
+        public bool IsSelected { get; set; }
+
     }
 
     public class SettingsVm
@@ -123,5 +125,10 @@ namespace HSNP.Models
         public string detail { get; set; }
         public string ReturnPKey { get; set; }
         public List<Village> returnDetails { get; set; }
+    }
+    public class SelectableItemWrapper<T>
+    {
+        public bool IsSelected { get; set; }
+        public T Item { get; set; }
     }
 }

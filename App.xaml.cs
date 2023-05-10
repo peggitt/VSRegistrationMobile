@@ -25,9 +25,9 @@ public partial class App : Application
     {
         await Task.Delay(1000);
         var status = await CheckStatusAsync();
-        if (status.Equals("home"))
-            MainPage = new AppShell();
-        else if (status.Equals("login"))
+        //if (status.Equals("home"))
+        //    MainPage = new AppShell();
+         if (status.Equals("login"))
             MainPage = new NavigationPage(new LoginPage());
       
     }
