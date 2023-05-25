@@ -8,10 +8,10 @@ public partial class DwellingAddEditPage : ContentPage
 	public DwellingAddEditPage()
 	{
 		InitializeComponent();
-       
+        BindingContext = new DwellingAddEditViewModel(Navigation);
     }
     protected override void OnAppearing()
     {
-        BindingContext = new DwellingAddEditViewModel(Navigation);
+       // BindingContext = new DwellingAddEditViewModel(Navigation);
     }
 }

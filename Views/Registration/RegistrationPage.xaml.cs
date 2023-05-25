@@ -11,7 +11,7 @@ public partial class RegistrationPage : ContentPage
 	public RegistrationPage()
 	{
 		InitializeComponent();
-       // BindingContext = new RegistrationViewModel();
+        BindingContext = new RegistrationViewModel();
     }
     protected override void OnAppearing()
     {

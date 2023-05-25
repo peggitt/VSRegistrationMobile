@@ -15,7 +15,7 @@ public partial class RegistrationViewModel : BaseViewModel
     }
 
     [ObservableProperty]
-    private List<HouseholdMember> householdMembers;
+    private ObservableRangeCollection<HouseholdMember> householdMembers;
 
     [ObservableProperty]
     private int heightRequest;
@@ -30,7 +30,8 @@ public partial class RegistrationViewModel : BaseViewModel
     public async void GetItems(bool complete)
     {
         var householdIds= (await App.db.Table<Household>().Where(i => i.IsComplete == complete).ToListAsync()).Select(i=>i.HouseholdId);
-        HouseholdMembers = await App.db.Table<HouseholdMember>().OrderByDescending(i=>i.CreatedOn).Where(i => i.IsApplicant == true && householdIds.Contains(i.HouseholdId)).ToListAsync();
+        HouseholdMembers = new ObservableRangeCollection<HouseholdMember>();
+        HouseholdMembers.AddRange( await App.db.Table<HouseholdMember>().OrderByDescending(i=>i.CreatedOn).Where(i => i.IsApplicant == true && householdIds.Contains(i.HouseholdId)).ToListAsync());
         HeightRequest = 100 + HouseholdMembers.Count() * 50;
         //Sales = new ObservableRangeCollection<HouseholdMember>();
         //  Sales.AddRange(HouseholdMembers);
