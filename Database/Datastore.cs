@@ -37,7 +37,7 @@ namespace HSNP.Database
             _database.CreateTableAsync<HouseholdCharacteristic>().Wait();
             _database.CreateTableAsync<HouseholdNSNPProgramme>().Wait();
             _database.CreateTableAsync<MemberDisability>().Wait();
-
+            _database.CreateTableAsync<Update>().Wait();
 
         }
         public virtual void DeleteTableData<TEntity>() where TEntity : class

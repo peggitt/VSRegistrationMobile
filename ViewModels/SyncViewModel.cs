@@ -23,31 +23,42 @@ namespace HSNP.ViewModels
 {
     public partial class SyncViewModel : BaseViewModel
     {
-
-        private readonly IApi _api;
+        int count;
+        int total;
+        private IApi _api;
         public SyncViewModel(IApi api, INavigation navigation) : base(navigation)
         {
-           
-             _api = new ApiService(AppConstants.SettingsServiceUrl);
+
+            _api = new ApiService(AppConstants.SettingsServiceUrl);
+            _ = GetItems();
+
         }
-       
+
+        [ObservableProperty]
+        private string completeHouseholds;
+        [ObservableProperty]
+        private string completeUpdates;
         [ObservableProperty]
         private string currentStatus;
+        public async Task GetItems()
+        {
+            CompleteHouseholds = $"Upload Households ({await App.db.Table<Household>().CountAsync(i => i.IsComplete)})";
+            CompleteUpdates = $"Upload Updates ({await App.db.Table<Update>().CountAsync(i => i.IsComplete)})";
+        }
 
-      
         [RelayCommand]
         private async Task Download()
         {
-            
-               if (IsBusy)
-                   return;
-                IsBusy = true;
-                var lm = new 
-                {
-                    UserName = App.User.Email,
-                    CountyId=App.User.CountyId
-                };
-                var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(lm), Encoding.UTF8, "application/json");
+
+            if (IsBusy)
+                return;
+            IsBusy = true;
+            var lm = new
+            {
+                UserName = App.User.Email,
+                CountyId = App.User.CountyId
+            };
+            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(lm), Encoding.UTF8, "application/json");
             try
             {
                 CurrentStatus = "Downloading System Codes";
@@ -59,8 +70,8 @@ namespace HSNP.ViewModels
                     CurrentStatus = "Processing System Codes";
                     await App.Database._database.DeleteAllAsync<SystemCodeDetail>();
                     response.returnDetails.ForEach(i => i.IdComboCode = $"{i.Id}{i.ComboCode}");
-                    
-                    foreach (var item in response.returnDetails.OrderBy(i=>i.Id))
+
+                    foreach (var item in response.returnDetails.OrderBy(i => i.Id))
                     {
                         App.Database.AddOrUpdate(item);
                     }
@@ -130,15 +141,17 @@ namespace HSNP.ViewModels
             }
             catch (ApiException ex)
             {
-                if (ex.Message.Contains("401")){
+                if (ex.Message.Contains("401"))
+                {
                     Application.Current.MainPage = new NavigationPage(new LoginPage());
                     await Toast.SendToastAsync("Session timeout, kindly login again");
                 }
-                else {
+                else
+                {
                     await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
                 }
 
-                
+
             }
             catch (Exception ex)
             {
@@ -146,8 +159,74 @@ namespace HSNP.ViewModels
 
             }
 
-                IsBusy = false;
-            
+            IsBusy = false;
+
+        }
+
+        [RelayCommand]
+        private async Task UploadHouseholds()
+        {
+            var householdIds = await App.db.Table<Household>().Where(i => i.IsComplete).ToListAsync();
+            total = householdIds.Count();
+            if (total == 0)
+            {
+                await Application.Current.MainPage.DisplayAlert("Sorry", "No complete households found.", "OK");
+            }
+            else
+            {
+
+                bool answer = await Application.Current.MainPage.DisplayAlert("Confirm?", $"Upload {total} Household(s)?", "Yes", "No");
+                if (answer)
+                {
+                    _api = new ApiService(AppConstants.BaseApiAddress);
+                    if (IsBusy)
+                        return;
+                    IsBusy = true;
+
+                    try
+                    {
+
+                        householdIds.ForEach(i => i.UserName = App.User.Email);
+
+                        count = 1;
+                        foreach (var household in householdIds)
+                        {
+                            CurrentStatus = $"Uploading {count}/{total}";
+                            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(household), Encoding.UTF8, "application/json");
+                            var response = await _api.AddHousehold(content, $"Bearer {App.User.Token}");
+
+                            if (response.Message != null)
+                            {
+                                household.IsComplete = true;
+                                var xtics = await App.db.Table<HouseholdCharacteristic>().FirstAsync(i => i.HouseholdId == household.HouseholdId);
+                                xtics.UserName = App.User.Email;
+                                content = new StringContent(System.Text.Json.JsonSerializer.Serialize(xtics), Encoding.UTF8, "application/json");
+                                response = await _api.AddHHCharacteristicscreate(content, $"Bearer {App.User.Token}");
+                                if (response.Message != null)
+                                {
+                                }
+                                var members = await App.db.Table<HouseholdMember>().Where(i => i.HouseholdId == household.HouseholdId).ToListAsync();
+                                content = new StringContent(System.Text.Json.JsonSerializer.Serialize(members), Encoding.UTF8, "application/json");
+                                response = await _api.AddHouseholdMembers(content, $"Bearer {App.User.Token}");
+                                if (response.Message != null)
+                                {
+                                }
+                            }
+
+                            count++;
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
+
+                    }
+
+                    IsBusy = false;
+                }
+            }
+
         }
 
 

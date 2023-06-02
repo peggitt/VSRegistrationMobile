@@ -85,5 +85,18 @@ namespace HSNP.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<ApiStatus> AddHousehold(StringContent model, [Header("Authorization")] string token)
+        {
+            return await _api.AddHousehold(model, token);
+        }
+        public async Task<ApiStatus> AddHHCharacteristicscreate(StringContent model, [Header("Authorization")] string token)
+        {
+            return await _api.AddHHCharacteristicscreate(model, token);
+        }
+        public async Task<ApiStatus> AddHouseholdMembers(StringContent model, [Header("Authorization")] string token)
+        {
+            return await _api.AddHouseholdMembers(model, token);
+        }
     }
 }

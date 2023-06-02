@@ -4,9 +4,15 @@
              x:Class="HSNP.Mobile.Views.UpdatesPage"
              Title="Updates Page">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label StyleClass="heading" Text="APPLICANT DETAILS" />
+        <Label Text="Household ID"/>
+        <Entry Text="{Binding HouseholdId}"></Entry>
+        <Label Text="National ID No."/>
+        <Entry Text="{Binding NationalIdNo}"></Entry>
+        <Button Text="Next" BackgroundColor="#cca102" TextColor="Black" Command="{Binding NextCommand}"  ></Button>
+        <StackLayout IsVisible="{Binding IsBusy}" Margin="10" VerticalOptions="StartAndExpand">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" />
+            <Label TextColor="#FC7E27" FontAttributes="None" Text="{Binding CurrentStatus}" HorizontalOptions="Center" />
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

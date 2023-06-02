@@ -32,7 +32,7 @@ namespace HSNP.Models
         public int? HouseholdCutMealId { get; set; }
 
         public int? HHReceivingBenefictsId { get; set; }
-        public int? BenefitTypeId{ get; set; }
+        public int? BenefitTypeId { get; set; }
         public int? DataLevelID { get; set; }
         public string BenefitKind { get; set; }
         public string ProgrammeName { get; set; }
@@ -46,7 +46,7 @@ namespace HSNP.Models
         public string HHIDText { get; set; }
         public string PotentialDuplicate { get; set; }
 
-       
+
 
         public int? AreaTypeId { get; set; }
 
@@ -54,7 +54,7 @@ namespace HSNP.Models
         public int? HouseholdMembers { get; set; }
 
         public bool IsComplete { get; set; }
-
+        public bool Uploaded { get; set; }
     }
     public class HouseholdMember
     {
@@ -118,8 +118,8 @@ namespace HSNP.Models
         public string Serialno { get; set; }
         public string WaitingCardNo { get; set; }
         public string PspaccountId { get; set; }
-      
-        
+
+
     }
 
 
@@ -127,6 +127,7 @@ namespace HSNP.Models
     {
         [PrimaryKey]
         public string HouseholdId { get; set; }
+        public string UserName { get; set; }
         public int? NoMainRooms { get; set; }
         public int? WallMaterialId { get; set; }
         public int? RoofMaterialId { get; set; }
@@ -163,7 +164,7 @@ namespace HSNP.Models
         public int? ChickenOwned { get; set; }
         public int? PigsOwned { get; set; }
 
-       
+
 
     }
 
@@ -182,5 +183,13 @@ namespace HSNP.Models
         public string MemberId { get; set; }
         public int DisabilityId { get; set; }
 
+    }
+
+    public class Update
+    {
+        [PrimaryKey]
+        public int Id { get; set; }
+        public string HouseholdId { get; set; }
+        public bool IsComplete { get; set; }
     }
 }

@@ -12,9 +12,8 @@
         </StackLayout>
         
 		<Button Text="Update App Settings"  Command="{Binding DownloadCommand}" />
-        <Button Text="Upload Households"  Command="{Binding DownloadCommand}" />
-        <Button  Text="Download Households"  Command="{Binding DownloadCommand}" />
-        <Button Text="Upload Updates"  Command="{Binding DownloadCommand}" />
+        <Button Text="{Binding CompleteHouseholds}"  Command="{Binding UploadHouseholdsCommand}" />
+        <Button Text="{Binding CompleteUpdates}"  Command="{Binding UploadUpdatesCommand}" />
 
     </VerticalStackLayout>
 </ContentPage>
