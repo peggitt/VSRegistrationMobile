@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                             xmlns:mopupsanim="clr-namespace:Mopups.Animations;assembly=Mopups"
+                              xmlns:pages="clr-namespace:Mopups.Pages;assembly=Mopups"
+                              x:Class="HSNP.Mobile.Views.DownloadHouseholdsPage"
+                              xmlns:convertors="clr-namespace:HSNP.Mobile.Convertors"
+                              CloseWhenBackgroundIsClicked="True"
+                              Title="Download Households"
+                               Background="#90000000">
+    <pages:PopupPage.Animation>
+        <mopupsanim:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <convertors:BooleanConvertor x:Key="BooleanConvertor" />
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+    <ContentPage.Content>
+        <Border VerticalOptions="CenterAndExpand" Stroke="Silver"
+        StrokeThickness="2"
+        Background="Silver" Margin="10"
+        Padding="16,8"
+        HorizontalOptions="FillAndExpand">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="40,0,0,40" />
+            </Border.StrokeShape>
+            <VerticalStackLayout Padding="20">
+                <Label Text="(1) CONSTITUENCY"/>
+                <Picker  Title="Select" ItemsSource="{Binding Constituencies}"
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Constituency}" />
+                <Label Text="(2) SUB-LOCATION"/>
+                <Picker  Title="Select" ItemsSource="{Binding SubLocations}"
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SubLocation}" />
+                <Button Text="Download" IsVisible="{Binding IsBusy, Converter={StaticResource BooleanConvertor}}" BackgroundColor="#cca102" TextColor="Black" Command="{Binding DownloadCommand}" ></Button>
+                 <StackLayout IsVisible="{Binding IsBusy}" >
+                        <ActivityIndicator IsRunning="{Binding IsBusy}"/>
+                  </StackLayout>
+            </VerticalStackLayout>
+        </Border>
+    </ContentPage.Content>
+</pages:PopupPage>

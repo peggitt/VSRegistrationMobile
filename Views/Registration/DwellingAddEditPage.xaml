@@ -24,9 +24,6 @@
 				<Label Text="(2.01) How many habitable ROOMS does this dwelling unit contain?" />
 				<Entry Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.NoMainRooms}" />
 				<Label Text="(2.02) TENURE status of the dwelling unit and/or surrounding terrain/land" />
-				<Label Text="(a) If owner occupied, state whether" />
-				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding OwnershipOptions}" SelectedItem="{Binding OwnershipOption}" />
-				<Label Text="(2.02 b) If rented/provided, state whether:" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding TenureStatuses}" SelectedItem="{Binding TenureStatus}" />
 				<Entry IsVisible="{Binding TenureStatus, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Tenure Status" Text="{Binding HouseholdCharacteristic.TenureStatusOther}" />
 				<Label Text="DOMINANT  MATERIAL OF THE MAIN DWELLING UNIT" />
@@ -95,6 +92,7 @@
 				<Picker  Title="Status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding HouseholdConditions}" SelectedItem="{Binding HouseholdCondition}" />
 				<Label Text="(2.29) In the past 7 days, did anyone in this household cut the size of the meals or skip meals because of the lack of enough money?" />
 				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding SkippedMeal}" />
+
 				<Label Text="(2.30) Is anyone in the household receiving benefits from any NSNP?" />
 				<Picker Title="Status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding ReceivingNSPPBeneficts}" />
 				<StackLayout Margin="0" Padding="0" IsVisible="{Binding IsReceivingNSPPBeneficts}" VerticalOptions="StartAndExpand">
@@ -127,7 +125,7 @@
 				</StackLayout>
 				<StackLayout IsVisible="{Binding IsInKind}">
 					<Label Text="(2.35) Specify the benefit:" />
-					<Entry MaxLength="100" Text="{Binding Household.OtherBenefits}" />
+					<Entry MaxLength="100" Text="{Binding Household.BenefitKind}" />
 				</StackLayout>
 				<Button IsVisible="{Binding IsBusy, Converter={StaticResource BooleanConvertor}}"     Command="{Binding SaveCommand}"     Text="Next" />
 				<StackLayout IsVisible="{Binding IsBusy}" Margin="10" VerticalOptions="StartAndExpand">

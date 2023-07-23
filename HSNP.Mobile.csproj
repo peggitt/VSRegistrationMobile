@@ -59,6 +59,7 @@
 	  <PackageReference Include="akgul.Maui.DataGrid" Version="2.0.0" />
 	  <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
 	  <PackageReference Include="FluentValidation" Version="11.5.2" />
+	  <PackageReference Include="Mopups" Version="1.1.1" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Styles\Colors.xaml">

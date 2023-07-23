@@ -39,12 +39,12 @@ namespace HSNP.Interfaces
         Task<string> LogoutAsync([Header("Authorization")] string token);
 
 
-        [Post("/householdcreate")]
+        [Post("/householdmobilecreate")]
         Task<ApiStatus> AddHousehold(StringContent model, [Header("Authorization")] string token);
-        [Post("/HHCharacteristicscreate")]
+        [Post("/HHCharacteristicsmobilecreate")]
         Task<ApiStatus> AddHHCharacteristicscreate(StringContent model, [Header("Authorization")] string token);
 
-        [Post("/householdMembersCreate")]
+        [Post("/membermobilecreate")]
         Task<ApiStatus> AddHouseholdMembers(StringContent model, [Header("Authorization")] string token);
     }
 }

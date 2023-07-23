@@ -98,7 +98,7 @@ namespace HSNP.Mobile.ViewModels
             {
                 Household = await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
                 HouseholdMember = await App.db.Table<HouseholdMember>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
-
+                Household.EntryDate = DateTime.UtcNow;
                 //   Village = await App.db.Table<Village>().FirstOrDefaultAsync(i=>i.Id== Household.VillageId);
 
                 //  Villages = await App.db.Table<Village>().Where(i=>i.SubLocationId== Village.SubLocationId).ToListAsync();
@@ -118,11 +118,12 @@ namespace HSNP.Mobile.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("Geo locations missing", "Go to Sync page and update Apps settings", "OK");
                 await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync($"/{nameof(SyncPage)}");
                 return;
             }
            
             AreaTypes = await App.db.Table<SystemCodeDetail>().Where(i=>i.ComboCode== "RuralUrban").ToListAsync();
-            AreaType = AreaTypes.SingleOrDefault(i => i.Id == Household.AreaTypeId);
+            AreaType = AreaTypes.SingleOrDefault(i => i.Id == Household.RuralUrbanId);
 
             BooleanAnswers = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "YesNo").ToListAsync();
 
@@ -166,12 +167,23 @@ namespace HSNP.Mobile.ViewModels
                     errors += "Area Type is required\n";
                 if (Relationship == null)
                     errors += "Member's relationship is Required\n";
+
+
+                
+                if (Household.HouseholdAddress == null)
+                    errors += "(1.14) PHYSICAL ADDRESS is required\n";
+                if (Household.NearestChurchMqs == null)
+                    errors += "(1.16) NEAREST CHURCH/MOSQUE is required\n";
+                if (Household.NearestSchool == null)
+                    errors += "(1.17) NEAREST SCHOOL is required\n";
+                
                 var hhValidationResult = _hhValidator.Validate(Household);
                 var hhMvalidationResult = _hhMValidator.Validate(HouseholdMember);
 
                 HouseholdMember.IdTypeId = IdentificationDocumentType?.Id;
                 HouseholdMember.SexId = Sex?.Id;
                 HouseholdMember.RelationshipId = Relationship?.Id;
+                HouseholdMember.SerialNo = "1";
 
                 if (!string.IsNullOrEmpty(errors) || !hhValidationResult.IsValid || !hhMvalidationResult.IsValid)
                 {
@@ -180,9 +192,13 @@ namespace HSNP.Mobile.ViewModels
                     return;
                 }
                 Household.IsBeneficiaryHHId = IsBeneficiaryHH.Id;
+                Household.IsBeneficiaryHH = IsBeneficiaryHH.Description.Equals("Yes");
                 Household.VillageId = Village.Id;
+                Household.RuralUrbanId = AreaType.Id;
                 Household.AreaTypeId = AreaType.Id;
-
+                Household.RegisteredBy = App.User.Email;
+                await GetLocationAsync();
+                IsBusy = true;
                 App.Database.AddOrUpdate(Household);
                 App.Database.AddOrUpdate(HouseholdMember);
                 App.HouseholdId = Household.HouseholdId;
@@ -198,5 +214,47 @@ namespace HSNP.Mobile.ViewModels
             }
             
         }
-	}
+        async Task GetLocationAsync()
+        {
+            try
+            {
+                var location = await Geolocation.GetLocationAsync(new GeolocationRequest
+                {
+                    DesiredAccuracy = GeolocationAccuracy.Medium, // You can adjust the desired accuracy
+                    Timeout = TimeSpan.FromSeconds(30) // Set a timeout for the location request
+                });
+
+                if (location != null)
+                {
+                    Household.Latitude = location.Latitude;
+                    Household.Longitude = location.Longitude;
+
+                    // Do something with latitude and longitude, e.g., display on UI
+                    // You can also store these values or use them in any other way as needed.
+                }
+                else
+                {
+                    // Handle the case when the location is not available or the user denied permission.
+                }
+            }
+            catch (FeatureNotSupportedException ex)
+            {
+                // Handle not supported on device exception
+            }
+            catch (FeatureNotEnabledException ex)
+            {
+                // Handle feature not enabled on device exception
+            }
+            catch (PermissionException ex)
+            {
+                // Handle permission exception
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+            }
+            IsBusy = false;
+        }
+
+    }
 }

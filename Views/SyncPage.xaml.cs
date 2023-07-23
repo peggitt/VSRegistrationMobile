@@ -8,7 +8,6 @@ public partial class SyncPage : ContentPage
 	public SyncPage()
 	{
 		InitializeComponent();
-
-        this.BindingContext = new SyncViewModel(ApiService.Instance, Navigation);
+        BindingContext = new SyncViewModel(ApiService.Instance, Navigation);
     }
 }

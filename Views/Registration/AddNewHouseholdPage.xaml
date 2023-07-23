@@ -5,7 +5,7 @@
              Title="Add Household">
     <ScrollView VerticalOptions="FillAndExpand">
         <VerticalStackLayout VerticalOptions="FillAndExpand" StyleClass="input-form">
-           
+
             <Label StyleClass="heading" Text="APPLICANT DETAILS" />
             <Label Text="(1.01) Is Applicant Household Head"/>
             <Picker  Title="Select" ItemsSource="{Binding BooleanAnswers}"
@@ -43,7 +43,7 @@
             </DatePicker>
 
             <Label Text="(1.10) How many Members are in this Household" />
-			<Entry Keyboard="Numeric" Text="{Binding Household.HouseholdMembers}" />
+            <Entry Keyboard="Numeric" Text="{Binding Household.HouseholdMembers}" />
 
             <Label StyleClass="heading" Text="GEOGRAPHIC IDENTIFICATION" />
 
@@ -57,7 +57,7 @@
             <Picker  Title="Select" ItemsSource="{Binding Villages}"
                         ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Village}" />
             <Label Text="(1.14) PHYSICAL ADDRESS"/>
-            <Entry Text="{Binding HouseholdAddress}"></Entry>
+            <Entry Text="{Binding  Household.HouseholdAddress}"></Entry>
             <Label Text="(1.15) DURATION OF RESIDENCE IN THIS PLACE"/>
             <HorizontalStackLayout HorizontalOptions="FillAndExpand" >
                 <Label Text="(1.15 A) YEARS:"/>
@@ -75,8 +75,12 @@
             <Label Text="(1.18) AREA TYPE"/>
             <Picker  Title="Select" ItemsSource="{Binding AreaTypes}"
                         ItemDisplayBinding="{Binding Details}" SelectedItem="{Binding AreaType}" />
-
+             <StackLayout IsVisible="{Binding IsBusy}" Margin="10" VerticalOptions="StartAndExpand">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" />
+                <Label TextColor="#FC7E27" FontAttributes="None" Text="Detecting GPS coordinates" HorizontalOptions="Center" />
+            </StackLayout>
             <Button Text="Next" BackgroundColor="#cca102" TextColor="Black" Command="{Binding SaveCommand}" ></Button>
+           
         </VerticalStackLayout>
     </ScrollView>
 

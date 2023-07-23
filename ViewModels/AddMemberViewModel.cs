@@ -114,7 +114,11 @@ public partial class AddMemberViewModel : BaseViewModel
     public async Task GetItems()
     {
         Member = await App.db.Table<HouseholdMember>().FirstOrDefaultAsync(i => i.Id == MemberId);
-        Member ??= new HouseholdMember { Id = Guid.NewGuid().ToString() };
+        if(Member==null)
+        {
+            Member=new HouseholdMember { Id = Guid.NewGuid().ToString() };
+            Member.SerialNo = $"{(await App.db.Table<HouseholdMember>().CountAsync(i => i.HouseholdId == HouseholdId))+1}";
+        }
         MemberId = Member.Id;
         Caregivers= await App.db.Table<HouseholdMember>().ToListAsync();
         Spouses = await App.db.Table<HouseholdMember>().ToListAsync();
@@ -197,18 +201,29 @@ public partial class AddMemberViewModel : BaseViewModel
         Member.LearningInstitutionId = LearningStatus?.Id;
         Member.HighestGradeCodeId = EducationLevel?.Id;
         Member.WorkLast7daysId = WorkType?.Id;
-        Member.WorkingInFormalJobId = JobOption?.Id;
+        Member.WorkingId = JobOption?.Id;
         Member.Id = MemberId;
         Member.HouseholdId = HouseholdId;
         Member.IsComplete = true;
-        App.Database.AddOrUpdate(Member);
+
         var selected = Disabilities.Where(i => i.IsSelected);
+        var disabilityNames = selected.Select(i => i.Item.Details);
+        Member.VisualDisability = disabilityNames.Contains("Visual");
+        Member.HearingDisability = disabilityNames.Contains("Hearing");
+        Member.SpeechDisability = disabilityNames.Contains("Speech");
+      //  Member.DisabilityId = disabilityNames.Contains("Physical");
+        Member.MentalDisability = disabilityNames.Contains("Mental");
+        Member.SelfcareDisability = disabilityNames.Contains("Self-Care");
+
+
+
         foreach (var disability in selected)
         {
             var item = new MemberDisability { MemberId = Member.Id, DisabilityId = disability.Item.Id };
             App.Database.AddOrUpdate(item);
 
         }
+        App.Database.AddOrUpdate(Member);
         // await Navigation.PushAsync(new MembersPage(Household.HouseholdId));
         await Toast.SendToast("Household member information saved successfully");
         await Shell.Current.GoToAsync($"/{nameof(MembersPage)}?HouseholdId={Member.HouseholdId}");

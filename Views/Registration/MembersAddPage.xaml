@@ -13,6 +13,11 @@
         <VerticalStackLayout>
             <VerticalStackLayout   StyleClass="registration-form"  Padding="0" Margin="0">
 
+
+                
+                <Label Text="Member Serial Number" />
+                <Entry Text="{Binding Member.SerialNo}"/>
+
                 <Label Text="(3.01) First Name" />
                 <Entry Text="{Binding Member.FirstName}"/>
                 <Label Text="(3.01) Middle Name" />

@@ -4,6 +4,7 @@
 	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:views="clr-namespace:HSNP.Mobile.Views"
+	xmlns:updates="clr-namespace:HSNP.Mobile.Views.Updates"
 	 xmlns:fa="clr-namespace:HSNP.Mobile.Helpers">
 
 
@@ -31,12 +32,22 @@
                 </ShellContent.Icon>
             </ShellContent>
         </Tab>
-       
-        <ShellContent Title="Updates" ContentTemplate="{DataTemplate views:UpdatesPage}">
-            <ShellContent.Icon>
+       <Tab Title="Updates">
+            <Tab.Icon>
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.FileAccount}"/>
-            </ShellContent.Icon>
-        </ShellContent>
+            </Tab.Icon>
+            <ShellContent Title="New" ContentTemplate="{DataTemplate updates:UpdatesPage}" Route="UpdatesPage">
+                <ShellContent.Icon>
+                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
+                </ShellContent.Icon>
+            </ShellContent>
+            <ShellContent Title="Complete" ContentTemplate="{DataTemplate updates:CompletePage}"  Route="UpdatesCompletePage">
+                <ShellContent.Icon>
+                    <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
+                </ShellContent.Icon>
+            </ShellContent>
+        </Tab>
+      
        
         <ShellContent Title="Sync" ContentTemplate="{DataTemplate views:SyncPage}">
             <ShellContent.Icon>

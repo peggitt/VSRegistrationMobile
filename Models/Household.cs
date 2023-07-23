@@ -9,23 +9,29 @@ namespace HSNP.Models
         public string ApplicantId { get; set; }
         public string UserName { get; set; }
         public string VillageId { get; set; }
-        public string EntryDate { get; set; }
+        public DateTime EntryDate { get; set; }
         public int? IsBeneficiaryHHId { get; set; }
+        public bool IsBeneficiaryHH { get; set; }
+
         public string BeneficiaryGroup { get; set; }
         public int? HHReceivingNSNPBenefictsId { get; set; } /*New*/
-        public int? CTOVC { get; set; }
-        public int? HSNP { get; set; }
-        public int? OPCT { get; set; }
-        public int? PWSDCT { get; set; }
-        public int? UFSCT { get; set; }
-        public string OtherCT { get; set; }
+
+        public bool CTOVC { get; set; }
+        public bool HSNP { get; set; }
+        public bool OPCT { get; set; }
+        public bool PWSDCT { get; set; }
+        public bool UFSCT { get; set; }
+
+        public string OtherCT { get; set; } = "";
         public string HouseholdAddress { get; set; }
-        public string Neighbourhood { get; set; }
+
+        public string Neighbourhood { get; set; } ="";
         public string NearestChurchMqs { get; set; }
         public string NearestSchool { get; set; }
+
         public int? RuralUrbanId { get; set; }
-        public int? Longitude { get; set; }
-        public int? Latitude { get; set; }
+        public double? Longitude { get; set; }
+        public double? Latitude { get; set; }
         public int? LiveBirths { get; set; }
         public int? StillBirths { get; set; }
         public int? OtherBenefitsAmout { get; set; }
@@ -33,26 +39,24 @@ namespace HSNP.Models
 
         public int? HHReceivingBenefictsId { get; set; }
         public int? BenefitTypeId { get; set; }
-        public int? DataLevelID { get; set; }
-        public string BenefitKind { get; set; }
+        public int? DataLevelId { get; set; } = 1;
+        public string BenefitKind { get; set; } = "";
         public string ProgrammeName { get; set; }
-        public string OtherBenefits { get; set; }
-        public string Comments { get; set; }
+        
+        public string Comments { get; set; } = "";
         public string RegisteredBy { get; set; }
-        public string RegisteredOn { get; set; }
+        public DateTime RegisteredOn { get; set; } = DateTime.UtcNow;
         public string ApproverName { get; set; }
         public string ApprovedOn { get; set; }
-        public int? MarkForDownload { get; set; }
-        public string HHIDText { get; set; }
-        public string PotentialDuplicate { get; set; }
-
-
-
-        public int? AreaTypeId { get; set; }
-
+        public bool? MarkForDownload { get; set; } = true;
+        public string HHIDText { get; set; } = "";
+        public bool PotentialDuplicate { get; set; } = false;
+       
         public DateTime CreatedOn { get; set; }
         public int? HouseholdMembers { get; set; }
 
+        public int? AreaTypeId { get; set; }
+        
         public bool IsComplete { get; set; }
         public bool Uploaded { get; set; }
     }
@@ -73,15 +77,18 @@ namespace HSNP.Models
         public string Name => $"{FirstName} {MiddleName} {Surname}";
 
 
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
-        public string HhmemberRosterID => Id;
+        public string HhmemberRosterId => Id;
 
 
         public int? RelationshipId { get; set; }
         public int? SexId { get; set; }
-        public string BirthCertificate { get; set; }
-        public int? YearOfBirth { get; set; }
+        public string BirthCertificate { get; set; } = "";
+
+        public DateTime DateOfBirth { get; set; }
+
+        public string YearOfBirth => DateOfBirth.ToString("YYYY");
         public int? FatherAliveId { get; set; }
         public int? MotherAliveId { get; set; }
         public int? HighestGradeCodeId { get; set; }
@@ -99,12 +106,12 @@ namespace HSNP.Models
         public string EntryDate { get; set; }
         public string Idno { get; set; }
         public string RetypedIdno { get; set; }
-        public bool IDIprsvalid { get; set; }
-        public string Usercode { get; set; }
-        public bool IsNominatedAccHoloder { get; set; }
+        public bool IDIprsvalid => false;
+        public string UserCode { get; set; } = "";
+        public bool IsNominatedAccHoloder { get; set; } = false;
         public int? MaritalStatusId { get; set; }
         public string SpouseId { get; set; }
-        public string MobileNo { get; set; }
+        public string MobileNo { get; set; } = "";
         public string CaregiverId { get; set; }
         public int? DisabilityId { get; set; }
         public int? LearningInstitutionId { get; set; }
@@ -113,11 +120,10 @@ namespace HSNP.Models
         public bool MarkForDownload { get; set; }
         public string RegisteredBy { get; set; }
         //(3.17) Does Member's work on a formal job, teaching, public sector, NGO/FBO?
-        public int? WorkingInFormalJobId { get; set; }
-        public string Working { get; set; }
-        public string Serialno { get; set; }
-        public string WaitingCardNo { get; set; }
-        public string PspaccountId { get; set; }
+        public int? WorkingId { get; set; }
+        public string SerialNo { get; set; }
+        public string WaitingCardNo { get; set; } = "";
+        public string PspaccountId { get; set; } = "";
 
 
     }
@@ -128,6 +134,7 @@ namespace HSNP.Models
         [PrimaryKey]
         public string HouseholdId { get; set; }
         public string UserName { get; set; }
+
         public int? NoMainRooms { get; set; }
         public int? WallMaterialId { get; set; }
         public int? RoofMaterialId { get; set; }
@@ -136,10 +143,11 @@ namespace HSNP.Models
         public string FloorMaterialOther { get; set; }
         public int? HHToiletId { get; set; }
         public string HHToiletOther { get; set; }
-        public int? DrinkWaterId { get; set; }
+        public int? DrinkWaterMainId { get; set; }
         public string DrinkWaterOther { get; set; }
         public int? LightfuelId { get; set; }
         public string LightfuelOther { get; set; }
+
         public int? CookFuelId { get; set; }
         public string CookFuelOther { get; set; }
         public int? RefrigeratorOwnedId { get; set; }
@@ -151,18 +159,22 @@ namespace HSNP.Models
         public int? ShoatsOwned { get; set; }
         public int? CamelsOwned { get; set; }
         public int? DonkeysOwned { get; set; }
-        public string EntryDate { get; set; }
+        public DateTime EntryDate => DateTime.UtcNow;
         public string UserCode { get; set; }
         public int? DwellingRiskId { get; set; }
         public int? CarOwnedId { get; set; }
         public int? TuktukOwnedId { get; set; }
         public int? GoatsOwned { get; set; }
-        public int? Tenure { get; set; }
-        public int? MarkForDownload { get; set; }
+        public int? TenureId { get; set; }
+        public int? MarkForDownload { get; set; } = 0;
         public string RegisteredBy { get; set; }
         public int? MobileOwnedId { get; set; }
         public int? ChickenOwned { get; set; }
         public int? PigsOwned { get; set; }
+
+      
+        
+
 
 
 

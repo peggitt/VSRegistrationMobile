@@ -41,10 +41,19 @@ public partial class MembersViewModel : BaseViewModel
     [RelayCommand]
     async void Save()
     {
-        var household = await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
-        household.IsComplete = true;
-        await App.db.UpdateAsync(household);
-        await Toast.SendToast("Household marked as ready for upload");
+        var current = HouseholdMembers.Where(i => i.IsComplete).Count();
+        var total = (await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == HouseholdId)).HouseholdMembers;
+        if (current == total) {
+            var household = await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
+            household.IsComplete = true;
+            await App.db.UpdateAsync(household);
+            await Toast.SendToast("Household marked as ready for upload");
+        }
+        else {
+
+            await Application.Current.MainPage.DisplayAlert("Please Add all Members", $"Added members: {current} / {total}", "OK");
+        }
+        
 
     }
 }

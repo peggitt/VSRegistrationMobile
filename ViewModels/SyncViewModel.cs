@@ -15,6 +15,7 @@ using HSNP.Models;
 using HSNP.Services;
 using IntelliJ.Lang.Annotations;
 using Java.Net;
+using Mopups.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Refit;
@@ -29,7 +30,7 @@ namespace HSNP.ViewModels
         public SyncViewModel(IApi api, INavigation navigation) : base(navigation)
         {
 
-            _api = new ApiService(AppConstants.SettingsServiceUrl);
+            _api =  api;
             _ = GetItems();
 
         }
@@ -178,7 +179,7 @@ namespace HSNP.ViewModels
                 bool answer = await Application.Current.MainPage.DisplayAlert("Confirm?", $"Upload {total} Household(s)?", "Yes", "No");
                 if (answer)
                 {
-                    _api = new ApiService(AppConstants.BaseApiAddress);
+                  
                     if (IsBusy)
                         return;
                     IsBusy = true;
@@ -191,21 +192,37 @@ namespace HSNP.ViewModels
                         count = 1;
                         foreach (var household in householdIds)
                         {
+                            var str = JsonConvert.SerializeObject(household);
                             CurrentStatus = $"Uploading {count}/{total}";
                             var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(household), Encoding.UTF8, "application/json");
-                            var response = await _api.AddHousehold(content, $"Bearer {App.User.Token}");
 
+
+                            // Var Member
+                            var members = await App.db.Table<HouseholdMember>().Where(i => i.HouseholdId == household.HouseholdId).ToListAsync();
+                            members.ForEach(i => i.UserName = App.User.Email);
+                            members.ForEach(i => i.RegisteredBy = App.User.Email);
+                            
+
+                            var member = members;
+                            var xtics = await App.db.Table<HouseholdCharacteristic>().FirstAsync(i => i.HouseholdId == household.HouseholdId);
+                            xtics.UserName = App.User.Email;
+
+                           
+                            var strXtics1 = JsonConvert.SerializeObject(xtics);
+
+                            var response = await _api.AddHousehold(content, $"Bearer {App.User.Token}");
                             if (response.Message != null)
                             {
                                 household.IsComplete = true;
-                                var xtics = await App.db.Table<HouseholdCharacteristic>().FirstAsync(i => i.HouseholdId == household.HouseholdId);
-                                xtics.UserName = App.User.Email;
+                              
                                 content = new StringContent(System.Text.Json.JsonSerializer.Serialize(xtics), Encoding.UTF8, "application/json");
                                 response = await _api.AddHHCharacteristicscreate(content, $"Bearer {App.User.Token}");
                                 if (response.Message != null)
                                 {
                                 }
-                                var members = await App.db.Table<HouseholdMember>().Where(i => i.HouseholdId == household.HouseholdId).ToListAsync();
+                              
+                               
+
                                 content = new StringContent(System.Text.Json.JsonSerializer.Serialize(members), Encoding.UTF8, "application/json");
                                 response = await _api.AddHouseholdMembers(content, $"Bearer {App.User.Token}");
                                 if (response.Message != null)
@@ -216,6 +233,18 @@ namespace HSNP.ViewModels
                             count++;
                         }
 
+                    }
+                    catch (ApiException ex)
+                    {
+                        if (ex.Message.Contains("401"))
+                        {
+                            Application.Current.MainPage = new NavigationPage(new LoginPage());
+                            await Toast.SendToastAsync("Session timeout, kindly login again");
+                        }
+                        else
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Exception", ex.Message, "OK");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -228,7 +257,11 @@ namespace HSNP.ViewModels
             }
 
         }
-
+        [RelayCommand]
+        private async Task DownloadHouseholds()
+        {
+           await MopupService.Instance.PushAsync(new DownloadHouseholdsPage());
+        }
 
     }
 }

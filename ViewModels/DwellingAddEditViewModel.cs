@@ -155,7 +155,7 @@ namespace HSNP.Mobile.ViewModels
                 OwnershipOptions =  codes.Where(i => i.ComboCode == "HH_Tenure" && i.Id < 4).ToList();
                // OwnershipOption = OwnershipOptions.FirstOrDefault(i => i.Id == HouseholdCharacteristic.own);
                 TenureStatuses = codes.Where(i => i.ComboCode == "HH_Tenure" && i.Id > 3).ToList();
-                TenureStatus = TenureStatuses.FirstOrDefault(i => i.Id == HouseholdCharacteristic.Tenure);
+                TenureStatus = TenureStatuses.FirstOrDefault(i => i.Id == HouseholdCharacteristic.TenureId);
 
                 RoofMaterials = codes.Where(i => i.ComboCode == "Roof_Material").ToList();
                 RoofMaterial = RoofMaterials.FirstOrDefault(i=>i.Id==HouseholdCharacteristic.FloorMaterialId);
@@ -167,7 +167,7 @@ namespace HSNP.Mobile.ViewModels
                 FloorMaterial = FloorMaterials.FirstOrDefault(i => i.Id == HouseholdCharacteristic.FloorMaterialId);
 
                 WaterSources = codes.Where(i => i.ComboCode == "Drinking_Water").ToList();
-                WaterSource = WaterSources.FirstOrDefault(i => i.Id == HouseholdCharacteristic.DrinkWaterId);
+                WaterSource = WaterSources.FirstOrDefault(i => i.Id == HouseholdCharacteristic.DrinkWaterMainId);
 
                 WasteDisposals = codes.Where(i => i.ComboCode == "Latrine").ToList();
                 WasteDisposal = WasteDisposals.FirstOrDefault(i => i.Id == HouseholdCharacteristic.HHToiletId);
@@ -239,13 +239,15 @@ namespace HSNP.Mobile.ViewModels
             string errors = "";
             // if (Programme == null)
             // errors += "Programme is required";
-
+            if (TenureStatus == null)
+                errors += "- (2.02) is required\n";
             if (RoofMaterial == null)
                 errors += "- (2.03) is required\n";
             if (WallMaterial == null)
                 errors += "- (2.04) is required\n";
             if (FloorMaterial == null)
                 errors += "- (2.05) is required\n";
+           
 
             if (!string.IsNullOrEmpty(errors))
             {
@@ -262,11 +264,12 @@ namespace HSNP.Mobile.ViewModels
             //BenefitTypeId = BenefitType?.Id
 
             HouseholdCharacteristic.HouseholdId = HouseholdId;
+            HouseholdCharacteristic.TenureId = TenureStatus.Id;
             HouseholdCharacteristic.RoofMaterialId = RoofMaterial?.Id;
             HouseholdCharacteristic.WallMaterialId = WallMaterial?.Id;
             HouseholdCharacteristic.FloorMaterialId = FloorMaterial?.Id;
             HouseholdCharacteristic.DwellingRiskId = DwellingRisk?.Id;
-            HouseholdCharacteristic.DrinkWaterId = WaterSource?.Id;
+            HouseholdCharacteristic.DrinkWaterMainId = WaterSource?.Id;
             HouseholdCharacteristic.HHToiletId = WasteDisposal?.Id;
             HouseholdCharacteristic.CookFuelId = CookingFuel?.Id;
             HouseholdCharacteristic.LightfuelId = LightingFuel?.Id;

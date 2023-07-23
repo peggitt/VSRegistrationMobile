@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using HSNP.Constants;
 using HSNP.Interfaces;
 using HSNP.Mobile;
 using HSNP.Models;
+using HSNP.Services;
 using Refit;
 
 namespace HSNP.ViewModels
@@ -20,10 +22,10 @@ namespace HSNP.ViewModels
         private readonly IApi _api;
         public LoginViewModel(IApi api, INavigation navigation) : base(navigation)
         {
-            Email= "admin@hsnp.or.ke";
-            Password = "kubaffmita";
-          //  IsBusy = true;
-            _api = api;
+            Email= "hsnpdata@hsnp.or.ke";
+            Password = "H6lBiPd8";
+            //  IsBusy = true;
+            _api = new ApiService(AppConstants.SecurityApiAddress);
 
         }
        
@@ -104,7 +106,7 @@ namespace HSNP.ViewModels
                 }
                 catch (ApiException ex)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Sorry!", ex.ToString(), "Ok");
+                    await Application.Current.MainPage.DisplayAlert("Sorry!", ex.Content.ToString(), "Ok");
                 }
                 catch (Exception ex)
                 {
