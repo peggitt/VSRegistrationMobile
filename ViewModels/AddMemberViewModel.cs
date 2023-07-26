@@ -116,8 +116,11 @@ public partial class AddMemberViewModel : BaseViewModel
         Member = await App.db.Table<HouseholdMember>().FirstOrDefaultAsync(i => i.Id == MemberId);
         if(Member==null)
         {
-            Member=new HouseholdMember { Id = Guid.NewGuid().ToString() };
-            Member.SerialNo = $"{(await App.db.Table<HouseholdMember>().CountAsync(i => i.HouseholdId == HouseholdId))+1}";
+            Member=new HouseholdMember {
+                Id = Guid.NewGuid().ToString(),
+                SerialNo= $"{(await App.db.Table<HouseholdMember>().CountAsync(i => i.HouseholdId == HouseholdId)) + 1}"
+            };
+         
         }
         MemberId = Member.Id;
         Caregivers= await App.db.Table<HouseholdMember>().ToListAsync();

@@ -23,6 +23,7 @@
     HorizontalOptions="FillAndExpand">
        
             <dataGrid:DataGrid.Columns>
+                <dataGrid:DataGridColumn Title="Line Number" PropertyName="SerialNo"/>
                 <dataGrid:DataGridColumn Title="Name" PropertyName="Name"/>
                 <dataGrid:DataGridColumn  Title="ID Number" PropertyName="IdNumber" />
             </dataGrid:DataGrid.Columns>

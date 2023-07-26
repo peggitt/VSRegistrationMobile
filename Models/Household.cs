@@ -6,12 +6,12 @@ namespace HSNP.Models
     {
         [PrimaryKey]
         public string HouseholdId { get; set; }
-        public string ApplicantId { get; set; }
+        public string ApplicantId { get; set; } = "";
         public string UserName { get; set; }
         public string VillageId { get; set; }
         public DateTime EntryDate { get; set; }
         public int? IsBeneficiaryHHId { get; set; }
-        public bool IsBeneficiaryHH { get; set; }
+        public bool IsBeneficiaryHH { get; set; } = false;
 
         public string BeneficiaryGroup { get; set; }
         public int? HHReceivingNSNPBenefictsId { get; set; } /*New*/

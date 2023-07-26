@@ -7,8 +7,8 @@ namespace HSNP.Mobile.Validators
     {
         public AddHouseholdValidator()
         {
-            RuleFor(x => x.HouseholdMembers).NotNull().WithMessage("1.10 is required\n");
-            RuleFor(x => x.HouseholdMembers).GreaterThan(0).WithMessage("1.10 must be greater than 0\n");
+            RuleFor(x => x.HouseholdMembers).NotNull().WithMessage("(1.19) is required\n");
+            RuleFor(x => x.HouseholdMembers).GreaterThan(0).WithMessage("(1.19) must be greater than 0\n");
         }
     }
     public class AddHouseholdMemberValidator : AbstractValidator<HouseholdMember>

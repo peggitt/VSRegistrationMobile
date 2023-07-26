@@ -19,14 +19,14 @@ namespace HSNP.Mobile.ViewModels
             _api = api;
             _ = GetItems();
             _hhValidator = new AddHouseholdValidator();
-            _hhMValidator = new AddHouseholdMemberValidator();
+          //  _hhMValidator = new AddHouseholdMemberValidator();
         }
 
         [ObservableProperty]
         private Household household;
 
-        [ObservableProperty]
-        private HouseholdMember householdMember;
+        //[ObservableProperty]
+        //private HouseholdMember householdMember;
 
         [ObservableProperty]
         private List<County> counties;
@@ -97,7 +97,7 @@ namespace HSNP.Mobile.ViewModels
             if (App.HouseholdId != null)
             {
                 Household = await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
-                HouseholdMember = await App.db.Table<HouseholdMember>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
+              //  HouseholdMember = await App.db.Table<HouseholdMember>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
                 Household.EntryDate = DateTime.UtcNow;
                 //   Village = await App.db.Table<Village>().FirstOrDefaultAsync(i=>i.Id== Household.VillageId);
 
@@ -108,9 +108,9 @@ namespace HSNP.Mobile.ViewModels
             else
             {
                 Household = new Household { HouseholdId = Guid.NewGuid().ToString(), CreatedOn = DateTime.UtcNow };
-                HouseholdMember = new HouseholdMember { Id = Guid.NewGuid().ToString(), IsApplicant = true, CreatedOn = DateTime.UtcNow };
-                Household.ApplicantId = HouseholdMember.Id;
-                HouseholdMember.HouseholdId = Household.HouseholdId;
+               // HouseholdMember = new HouseholdMember { Id = Guid.NewGuid().ToString(), IsApplicant = true, CreatedOn = DateTime.UtcNow };
+               // Household.ApplicantId = HouseholdMember.Id;
+              //  HouseholdMember.HouseholdId = Household.HouseholdId;
 
             }
 
@@ -122,19 +122,19 @@ namespace HSNP.Mobile.ViewModels
                 return;
             }
            
-            AreaTypes = await App.db.Table<SystemCodeDetail>().Where(i=>i.ComboCode== "RuralUrban").ToListAsync();
+            AreaTypes = await App.db.Table<SystemCodeDetail>().Where(i=>i.ComboCode == "RuralUrban").ToListAsync();
             AreaType = AreaTypes.SingleOrDefault(i => i.Id == Household.RuralUrbanId);
 
             BooleanAnswers = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "YesNo").ToListAsync();
 
             IdentificationDocumentTypes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Identification").ToListAsync();
-            IdentificationDocumentType = IdentificationDocumentTypes.SingleOrDefault(i => i.Id == HouseholdMember.IdTypeId);
+            //IdentificationDocumentType = IdentificationDocumentTypes.SingleOrDefault(i => i.Id == HouseholdMember.IdTypeId);
 
             Sexes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Sex").ToListAsync();
-            Sex = Sexes.SingleOrDefault(i => i.Id == HouseholdMember.SexId);
+          //  Sex = Sexes.SingleOrDefault(i => i.Id == HouseholdMember.SexId);
 
             Relationships = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Relationship").ToListAsync();
-            Relationship = Relationships.SingleOrDefault(i => i.Id == HouseholdMember.RelationshipId);
+          //  Relationship = Relationships.SingleOrDefault(i => i.Id == HouseholdMember.RelationshipId);
            
 
             IsBeneficiaryHH = BooleanAnswers.SingleOrDefault(i=>i.Id == Household.IsBeneficiaryHHId);
@@ -159,14 +159,14 @@ namespace HSNP.Mobile.ViewModels
                 // if (Programme == null)
                 // errors += "Programme is required";
 
-                if (IsBeneficiaryHH == null)
-                    errors += "Is Applicant Household Head is required\n";
+                //if (IsBeneficiaryHH == null)
+                //    errors += "Is Applicant Household Head is required\n";
                 if (Village == null)
                     errors += "Village is required\n";
                 if (AreaType == null)
                     errors += "Area Type is required\n";
-                if (Relationship == null)
-                    errors += "Member's relationship is Required\n";
+                //if (Relationship == null)
+                //    errors += "Member's relationship is Required\n";
 
 
                 
@@ -178,21 +178,22 @@ namespace HSNP.Mobile.ViewModels
                     errors += "(1.17) NEAREST SCHOOL is required\n";
                 
                 var hhValidationResult = _hhValidator.Validate(Household);
-                var hhMvalidationResult = _hhMValidator.Validate(HouseholdMember);
+               // var hhMvalidationResult = _hhMValidator.Validate(HouseholdMember);
 
-                HouseholdMember.IdTypeId = IdentificationDocumentType?.Id;
-                HouseholdMember.SexId = Sex?.Id;
-                HouseholdMember.RelationshipId = Relationship?.Id;
-                HouseholdMember.SerialNo = "1";
+                //HouseholdMember.IdTypeId = IdentificationDocumentType?.Id;
+                //HouseholdMember.SexId = Sex?.Id;
+                //HouseholdMember.RelationshipId = Relationship?.Id;
+                //HouseholdMember.SerialNo = "1";
 
-                if (!string.IsNullOrEmpty(errors) || !hhValidationResult.IsValid || !hhMvalidationResult.IsValid)
+                if (!string.IsNullOrEmpty(errors) || !hhValidationResult.IsValid )
                 {
                     var validateMessage = GetErrorListFromValidationResult(hhValidationResult);
-                    await Application.Current.MainPage.DisplayAlert("Error", $"{errors}{validateMessage}{hhMvalidationResult}", "OK");
+                   // await Application.Current.MainPage.DisplayAlert("Error", $"{errors}{validateMessage}{hhMvalidationResult}", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Error", $"{errors}{validateMessage}", "OK");
                     return;
                 }
-                Household.IsBeneficiaryHHId = IsBeneficiaryHH.Id;
-                Household.IsBeneficiaryHH = IsBeneficiaryHH.Description.Equals("Yes");
+              //  Household.IsBeneficiaryHHId = IsBeneficiaryHH.Id;
+               // Household.IsBeneficiaryHH = IsBeneficiaryHH.Description.Equals("Yes");
                 Household.VillageId = Village.Id;
                 Household.RuralUrbanId = AreaType.Id;
                 Household.AreaTypeId = AreaType.Id;
@@ -200,7 +201,7 @@ namespace HSNP.Mobile.ViewModels
                 await GetLocationAsync();
                 IsBusy = true;
                 App.Database.AddOrUpdate(Household);
-                App.Database.AddOrUpdate(HouseholdMember);
+               // App.Database.AddOrUpdate(HouseholdMember);
                 App.HouseholdId = Household.HouseholdId;
                 // await Navigation.PushAsync(new MembersPage(Household.HouseholdId));
                
