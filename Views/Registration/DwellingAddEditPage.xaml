@@ -95,7 +95,10 @@
 
 				<Label Text="(2.30) Is anyone in the household receiving benefits from any NSNP?" />
 				<Picker Title="Status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding ReceivingNSPPBeneficts}" />
-				<StackLayout Margin="0" Padding="0" IsVisible="{Binding IsReceivingNSPPBeneficts}" VerticalOptions="StartAndExpand">
+
+			
+
+				<StackLayout Margin="0" Padding="0" IsVisible="{Binding IsReceivingNSPPBeneficts}" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
 					<Label Text="Select up to 3 Programmes " />
 					<ListView    HeightRequest="300"   SelectionMode="None"  ItemsSource="{Binding Programmes}"  VerticalOptions="StartAndExpand">
 						<ListView.ItemTemplate>
@@ -111,15 +114,20 @@
 						</ListView.ItemTemplate>
 					</ListView>
 				</StackLayout>
+				
 				<Label Text="(2.31) Is anyone in this household receiving benefits from any other Social Assistance Programme or any other external support?" />
-				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding IsReceivingOtherSocialAssistance}" />
-				<StackLayout IsVisible="{Binding IsRecievingSocialItem}">
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding ReceivingOtherSocialAssistance}" />
+
+				<StackLayout IsVisible="{Binding IsReceivingOtherSocialAssistance}">
 					<Label Text="(2.32) Name of the Programmes Above " />
 					<Entry MaxLength="100" Text="{Binding Household.ProgrammeName}" />
 					<Label Text="(2.33) What type of BENEFIT do you receive?" />
-					<Picker     Title="Status"     ItemDisplayBinding="{Binding Description}"     ItemsSource="{Binding BenefitTypes}"     SelectedItem="{Binding BenefitType}" />
+					<Picker     Title="Status"     ItemDisplayBinding="{Binding Description}"
+								ItemsSource="{Binding BenefitTypes}"     SelectedItem="{Binding BenefitType}" />
+					
+					
 				</StackLayout>
-				<StackLayout IsVisible="{Binding IsNotInKind}">
+				<StackLayout IsVisible="{Binding IsCash}">
 					<Label Text="(2.34) How MUCH was the benefit in the last receipt? (KSHs)" />
 					<Entry     MaxLength="6"     Keyboard="Numeric"     Text="{Binding Household.OtherBenefitsAmout}" />
 				</StackLayout>

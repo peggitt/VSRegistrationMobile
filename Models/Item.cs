@@ -19,7 +19,12 @@ namespace HSNP.Models
         public bool ResultStatus { get; set; }
         public string Error { get; set; }
         public string ErrorDescription { get; set; }
-     
+
+        public int status { get; set; }
+        public string detail { get; set; }
+        public string ReturnPKey { get; set; }
+        public string Household_Id { get; set; }
+
     }
     public class ResetPasswordVm
     {

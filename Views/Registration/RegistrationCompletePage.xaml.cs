@@ -8,21 +8,35 @@ public partial class RegistrationCompletePage : ContentPage
 	public RegistrationCompletePage()
 	{
         InitializeComponent();
+      //  BindingContext = new RegistrationViewModel(true);
+    }
+    protected override void OnAppearing()
+    {
         BindingContext = new RegistrationViewModel(true);
     }
-
-    private void AddNew_OnClicked(object sender, EventArgs e)
+    private void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        App.HouseholdId = null;
-        App.MemberId = null;
-        Navigation.PushAsync(new AddNewHouseholdPage());
+        if (sender is CollectionView collectionView)
+        {
+            // Get the selected item (if any) from the event arguments
+            if (e.CurrentSelection.FirstOrDefault() is Household selectedItem)
+            {
+                App.HouseholdId = selectedItem.HouseholdId;
+                // Shell.Current.GoToAsync("//Household");
+                Shell.Current.GoToAsync($"/{nameof(AddNewHouseholdPage)}?HouseholdId={selectedItem.HouseholdId}");
+            }
+
+            // Clear the selection to allow re-selection of the same item
+            // collectionView.SelectedItem = null;
+        }
     }
+
 
     async void DataGrid_ItemSelected(Object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.Count() > 0)
         {
-            HouseholdMember selected = (HouseholdMember)e.CurrentSelection.FirstOrDefault();
+            var selected = (Household)e.CurrentSelection.FirstOrDefault();
             App.HouseholdId = selected.HouseholdId;
             await Shell.Current.GoToAsync("//Household");
 

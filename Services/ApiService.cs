@@ -98,5 +98,9 @@ namespace HSNP.Services
         {
             return await _api.AddHouseholdMembers(model, token);
         }
+        public async Task<ApiStatus> DownloadHouseholds(StringContent model, [Header("Authorization")] string token)
+        {
+            return await _api.DownloadHouseholds(model, token);
+        }
     }
 }

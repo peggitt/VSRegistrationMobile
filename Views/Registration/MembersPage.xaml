@@ -4,11 +4,17 @@
              x:Class="HSNP.Mobile.Views.MembersPage"
              xmlns:dataGrid="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
              Shell.PresentationMode="Animated"
+             xmlns:convertors="clr-namespace:HSNP.Mobile.Convertors"
              Title="Household Members">
       <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="AddNew_OnClicked" Text="+ New"  />
     </ContentPage.ToolbarItems>
-  
+  <ContentPage.Resources>
+		<ResourceDictionary>
+			<convertors:BooleanConvertor x:Key="BooleanConvertor" />
+			<convertors:IntBooleanConvertor x:Key="IntBooleanConvertor" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
     <VerticalStackLayout>
         <Label HorizontalOptions="CenterAndExpand" StyleClass="heading" Text="{Binding MembersCount}"></Label>
        <dataGrid:DataGrid 
@@ -34,7 +40,7 @@
                 </dataGrid:PaletteCollection>
             </dataGrid:DataGrid.RowsBackgroundColorPalette>
         </dataGrid:DataGrid>
-    <Button x:Name="btnComplete" IsEnabled="{Binding IsComplete}"
+    <Button x:Name="btnComplete" IsEnabled="{Binding IsComplete}" IsVisible="{Binding HideCompleteButton, Converter={StaticResource BooleanConvertor}}" 
                   Text="Mark as Complete" Command="{Binding  SaveCommand}"></Button>
     </VerticalStackLayout>
 </ContentPage>

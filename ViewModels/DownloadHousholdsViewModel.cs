@@ -67,27 +67,27 @@ namespace HSNP.ViewModels
                 {
                     CurrentStatus = "Downloading Households";
                     int count = 0;
-                    /*
-                    var response = await _api.DownloadSettings(content, $"Bearer {App.User.Token}");
+                
+                    var response = await _api.DownloadHouseholds(content, $"Bearer {App.User.Token}");
 
-                    if (response.returnDetails != null)
-                    {
-                        CurrentStatus = "Processing System Codes";
-                        await App.Database._database.DeleteAllAsync<SystemCodeDetail>();
-                        response.returnDetails.ForEach(i => i.IdComboCode = $"{i.Id}{i.ComboCode}");
+                    //if (response.returnDetails != null)
+                    //{
+                    //    CurrentStatus = "Processing System Codes";
+                    //    await App.Database._database.DeleteAllAsync<SystemCodeDetail>();
+                    //    response.returnDetails.ForEach(i => i.IdComboCode = $"{i.Id}{i.ComboCode}");
 
-                        foreach (var item in response.returnDetails.OrderBy(i => i.Id))
-                        {
-                            App.Database.AddOrUpdate(item);
-                        }
-                        await Toast.SendToastAsync("System Codes downloaded successfully");
-                    }
-                    else
-                    {
+                    //    foreach (var item in response.returnDetails.OrderBy(i => i.Id))
+                    //    {
+                    //        App.Database.AddOrUpdate(item);
+                    //    }
+                    //    await Toast.SendToastAsync("System Codes downloaded successfully");
+                    //}
+                    //else
+                    //{
 
-                        await Toast.SendToastAsync(response.detail);
-                    }
-                    */
+                    //    await Toast.SendToastAsync(response.detail);
+                    //}
+                    
 
                     await Application.Current.MainPage.DisplayAlert("Download Complete", $"{count} households downloaded","OK");
                 }

@@ -46,5 +46,10 @@ namespace HSNP.Interfaces
 
         [Post("/membermobilecreate")]
         Task<ApiStatus> AddHouseholdMembers(StringContent model, [Header("Authorization")] string token);
+
+        [Post("/householdviewdownload")]
+        Task<ApiStatus> DownloadHouseholds(StringContent model, [Header("Authorization")] string token);
+
+ 
     }
 }

@@ -118,6 +118,18 @@ namespace HSNP.Mobile.ViewModels
         private List<SystemCodeDetail> benefitTypes;
         [ObservableProperty]
         private SystemCodeDetail benefitType;
+        partial void OnBenefitTypeChanged(SystemCodeDetail value)
+        {
+            IsCash = value?.Description == "CASH";
+            IsInKind = !IsCash;
+        }
+
+        [ObservableProperty]
+        private bool isCash;
+
+        [ObservableProperty]
+        private bool isInKind;
+        
 
         [ObservableProperty]
         private HouseholdCharacteristic householdCharacteristic;
@@ -154,7 +166,7 @@ namespace HSNP.Mobile.ViewModels
                 Household = await App.db.Table<Household>().FirstOrDefaultAsync(i => i.HouseholdId == HouseholdId);
                 OwnershipOptions =  codes.Where(i => i.ComboCode == "HH_Tenure" && i.Id < 4).ToList();
                // OwnershipOption = OwnershipOptions.FirstOrDefault(i => i.Id == HouseholdCharacteristic.own);
-                TenureStatuses = codes.Where(i => i.ComboCode == "HH_Tenure" && i.Id > 3).ToList();
+                TenureStatuses = codes.Where(i => i.ComboCode == "HH_Tenure").ToList();
                 TenureStatus = TenureStatuses.FirstOrDefault(i => i.Id == HouseholdCharacteristic.TenureId);
 
                 RoofMaterials = codes.Where(i => i.ComboCode == "Roof_Material").ToList();
@@ -177,11 +189,13 @@ namespace HSNP.Mobile.ViewModels
                 CookingFuel = CookingFuels.FirstOrDefault(i => i.Id == HouseholdCharacteristic.CookFuelId);
 
                 LightingFuels = codes.Where(i => i.ComboCode == "Lighting_Fuel").ToList();
-                LightingFuel = LightingFuels.FirstOrDefault(i => i.Id == HouseholdCharacteristic.LightfuelId);
+                LightingFuel = LightingFuels.FirstOrDefault(i => i.Id == HouseholdCharacteristic.LightFuelId);
 
                 BooleanAnswers = codes.Where(i => i.ComboCode == "YesNo").ToList();
                 DwellingRisks = codes.Where(i => i.ComboCode == "HH_DwellingRisk").ToList();
                 DwellingRisk = DwellingRisks.FirstOrDefault(i => i.Id == HouseholdCharacteristic.DwellingRiskId);
+
+                
 
                HouseholdConditions = codes.Where(i => i.ComboCode == "HH_Condition").ToList();
               //  HouseholdCondition = HouseholdConditions.FirstOrDefault(i => i.Id == HouseholdCharacteristic.con);
@@ -191,6 +205,16 @@ namespace HSNP.Mobile.ViewModels
 
                 ReceivingNSPPBeneficts = BooleanAnswers.FirstOrDefault(i => i.Id == Household.HHReceivingNSNPBenefictsId);
                 ReceivingOtherSocialAssistance = BooleanAnswers.FirstOrDefault(i => i.Id == Household.HHReceivingBenefictsId);
+
+                SkippedMeal = BooleanAnswers.FirstOrDefault(i => i.Id == Household.HouseholdCutMealId);
+
+                TVOwned= BooleanAnswers.FirstOrDefault(i => i.Id == HouseholdCharacteristic.TVOwnedId);
+                MotorCycleOwned = BooleanAnswers.FirstOrDefault(i => i.Id == HouseholdCharacteristic.MotorcycleOwnedId);
+                TukTukOwned = BooleanAnswers.FirstOrDefault(i => i.Id == HouseholdCharacteristic.TuktukOwnedId);
+                RefrigeratorOwned = BooleanAnswers.FirstOrDefault(i => i.Id == HouseholdCharacteristic.RefrigeratorOwnedId);
+                CarOwned = BooleanAnswers.FirstOrDefault(i => i.Id == HouseholdCharacteristic.CarOwnedId);
+                MobileOwned = BooleanAnswers.FirstOrDefault(i => i.Id == HouseholdCharacteristic.MobileOwnedId);
+                BicycleOwned = BooleanAnswers.FirstOrDefault(i => i.Id == HouseholdCharacteristic.BicycleOwnedId);
 
                 var selectedProgs= await App.db.Table<HouseholdNSNPProgramme>().Where(i=>i.HouseholdId==HouseholdId).ToListAsync();
                 var list = new List<SelectableItemWrapper<SystemCodeDetail>>();
@@ -260,11 +284,10 @@ namespace HSNP.Mobile.ViewModels
             Household.HouseholdCutMealId = SkippedMeal?.Id;
             Household.BenefitTypeId = BenefitType?.Id;
 
-            // IsReceivingOtherSocialAssistanceId = IsReceivingOtherSocialAssistance?.Id,
-            //BenefitTypeId = BenefitType?.Id
+          
 
             HouseholdCharacteristic.HouseholdId = HouseholdId;
-            HouseholdCharacteristic.TenureId = TenureStatus.Id;
+            HouseholdCharacteristic.TenureId = TenureStatus?.Id;
             HouseholdCharacteristic.RoofMaterialId = RoofMaterial?.Id;
             HouseholdCharacteristic.WallMaterialId = WallMaterial?.Id;
             HouseholdCharacteristic.FloorMaterialId = FloorMaterial?.Id;
@@ -272,9 +295,9 @@ namespace HSNP.Mobile.ViewModels
             HouseholdCharacteristic.DrinkWaterMainId = WaterSource?.Id;
             HouseholdCharacteristic.HHToiletId = WasteDisposal?.Id;
             HouseholdCharacteristic.CookFuelId = CookingFuel?.Id;
-            HouseholdCharacteristic.LightfuelId = LightingFuel?.Id;
+            HouseholdCharacteristic.LightFuelId = LightingFuel?.Id;
             HouseholdCharacteristic.TVOwnedId = TVOwned?.Id;
-            HouseholdCharacteristic.MotorCycleOwnedId = MotorCycleOwned?.Id;
+            HouseholdCharacteristic.MotorcycleOwnedId = MotorCycleOwned?.Id;
             HouseholdCharacteristic.TuktukOwnedId = TukTukOwned?.Id;
             HouseholdCharacteristic.RefrigeratorOwnedId = RefrigeratorOwned?.Id;
             HouseholdCharacteristic.MobileOwnedId = MobileOwned?.Id;

@@ -19,6 +19,9 @@ public partial class MembersViewModel : BaseViewModel
     [ObservableProperty]
     private bool isComplete;
 
+    [ObservableProperty]
+    private bool hideCompleteButton;
+
     public MembersViewModel() 
     {
         HouseholdId = App.HouseholdId;
@@ -37,6 +40,8 @@ public partial class MembersViewModel : BaseViewModel
         var total = (await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == HouseholdId)).HouseholdMembers;
         IsComplete = current == total;
         MembersCount = $"{current} / {total}";
+
+        HideCompleteButton= (await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId)).IsComplete;
     }
     [RelayCommand]
     async void Save()
@@ -47,6 +52,7 @@ public partial class MembersViewModel : BaseViewModel
             var household = await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
             household.IsComplete = true;
             await App.db.UpdateAsync(household);
+            HideCompleteButton = true;
             await Toast.SendToast("Household marked as ready for upload");
         }
         else {

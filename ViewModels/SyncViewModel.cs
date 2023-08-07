@@ -14,6 +14,7 @@ using HSNP.Mobile;
 using HSNP.Models;
 using HSNP.Services;
 using IntelliJ.Lang.Annotations;
+using Java.Lang.Reflect;
 using Java.Net;
 using Mopups.Services;
 using Newtonsoft.Json;
@@ -30,7 +31,7 @@ namespace HSNP.ViewModels
         public SyncViewModel(IApi api, INavigation navigation) : base(navigation)
         {
 
-            _api =  api;
+            _api = api;
             _ = GetItems();
 
         }
@@ -175,11 +176,11 @@ namespace HSNP.ViewModels
             }
             else
             {
-
-                bool answer = await Application.Current.MainPage.DisplayAlert("Confirm?", $"Upload {total} Household(s)?", "Yes", "No");
+                var countLabel = total > 1 ? "s" : "";
+                bool answer = await Application.Current.MainPage.DisplayAlert("Confirm?", $"Upload {total} Household{countLabel}?", "Yes", "No");
                 if (answer)
                 {
-                  
+
                     if (IsBusy)
                         return;
                     IsBusy = true;
@@ -190,6 +191,7 @@ namespace HSNP.ViewModels
                         householdIds.ForEach(i => i.UserName = App.User.Email);
 
                         count = 1;
+                        string errors = "";
                         foreach (var household in householdIds)
                         {
                             var str = JsonConvert.SerializeObject(household);
@@ -201,34 +203,66 @@ namespace HSNP.ViewModels
                             var members = await App.db.Table<HouseholdMember>().Where(i => i.HouseholdId == household.HouseholdId).ToListAsync();
                             members.ForEach(i => i.UserName = App.User.Email);
                             members.ForEach(i => i.RegisteredBy = App.User.Email);
-                            
 
-                            var member = members;
+
+                            var mm = members.First();
+                            var strMember = JsonConvert.SerializeObject(mm);
+
                             var xtics = await App.db.Table<HouseholdCharacteristic>().FirstAsync(i => i.HouseholdId == household.HouseholdId);
                             xtics.UserName = App.User.Email;
+                            xtics.RegisteredBy = App.User.Email;
+                            xtics.UserCode = App.User.Email;
 
-                           
                             var strXtics1 = JsonConvert.SerializeObject(xtics);
 
                             var response = await _api.AddHousehold(content, $"Bearer {App.User.Token}");
-                            if (response.Message != null)
+
+                            if (response.status == 202)
                             {
                                 household.IsComplete = true;
-                              
-                                content = new StringContent(System.Text.Json.JsonSerializer.Serialize(xtics), Encoding.UTF8, "application/json");
-                                response = await _api.AddHHCharacteristicscreate(content, $"Bearer {App.User.Token}");
-                                if (response.Message != null)
-                                {
-                                }
-                              
-                               
+                            }
+                            else
+                            {
+                                errors += response.detail;
+                                await Application.Current.MainPage.DisplayAlert("Exception", errors, "OK");
+                            }
 
-                                content = new StringContent(System.Text.Json.JsonSerializer.Serialize(members), Encoding.UTF8, "application/json");
+                            content = new StringContent(System.Text.Json.JsonSerializer.Serialize(xtics), Encoding.UTF8, "application/json");
+                            response = await _api.AddHHCharacteristicscreate(content, $"Bearer {App.User.Token}");
+                            if (response.status == 202)
+                            {
+                              
+                            }
+                            else
+                            {
+                                errors += response.detail;
+                                await Application.Current.MainPage.DisplayAlert("Exception", errors, "OK");
+                            }
+
+                            foreach (var member in members)
+                            {
+                                strMember = JsonConvert.SerializeObject(member);
+                                content = new StringContent(System.Text.Json.JsonSerializer.Serialize(member), Encoding.UTF8, "application/json");
                                 response = await _api.AddHouseholdMembers(content, $"Bearer {App.User.Token}");
-                                if (response.Message != null)
+                                if (response.status == 202)
                                 {
+                                    App.Database.Delete(member);
+                                }
+                                else
+                                {
+                                    errors += response.detail;
+                                    await Application.Current.MainPage.DisplayAlert("Exception", errors, "OK");
                                 }
                             }
+
+                            if (string.IsNullOrEmpty(errors)) {
+                                // Delete Household
+                                  App.Database.Delete(xtics);
+                                App.Database.Delete(household);
+                                CompleteHouseholds = $"Upload Households ({await App.db.Table<Household>().CountAsync(i => i.IsComplete)})";
+
+                            }
+
 
                             count++;
                         }
@@ -243,7 +277,7 @@ namespace HSNP.ViewModels
                         }
                         else
                         {
-                            await Application.Current.MainPage.DisplayAlert("Exception", ex.Message, "OK");
+                            await Application.Current.MainPage.DisplayAlert("Exception", ex.Content, "OK");
                         }
                     }
                     catch (Exception ex)
@@ -260,7 +294,7 @@ namespace HSNP.ViewModels
         [RelayCommand]
         private async Task DownloadHouseholds()
         {
-           await MopupService.Instance.PushAsync(new DownloadHouseholdsPage());
+            await MopupService.Instance.PushAsync(new DownloadHouseholdsPage());
         }
 
     }

@@ -18,6 +18,9 @@ public partial class RegistrationViewModel : BaseViewModel
     private ObservableRangeCollection<HouseholdMember> householdMembers;
 
     [ObservableProperty]
+    private ObservableRangeCollection<Household> households;
+
+    [ObservableProperty]
     private int heightRequest;
 
     private ObservableRangeCollection<HouseholdMember> _sales;
@@ -29,11 +32,24 @@ public partial class RegistrationViewModel : BaseViewModel
 
     public async void GetItems(bool complete)
     {
-        var householdIds= (await App.db.Table<Household>().Where(i => i.IsComplete == complete).ToListAsync()).Select(i=>i.HouseholdId);
-        HouseholdMembers = new ObservableRangeCollection<HouseholdMember>();
-        HouseholdMembers.AddRange( await App.db.Table<HouseholdMember>().OrderByDescending(i=>i.CreatedOn).Where(i => i.IsApplicant == true && householdIds.Contains(i.HouseholdId)).ToListAsync());
-        HeightRequest = 100 + HouseholdMembers.Count() * 50;
-        //Sales = new ObservableRangeCollection<HouseholdMember>();
-        //  Sales.AddRange(HouseholdMembers);
+        try {
+
+           
+            var households = await App.db.Table<Household>().Where(i => i.IsComplete == complete).ToListAsync();
+            Households = new ObservableRangeCollection<Household>();
+            Households.AddRange(households);
+
+            //var householdIds = households.Select(i => i.HouseholdId);
+
+            //HouseholdMembers = new ObservableRangeCollection<HouseholdMember>();
+            //HouseholdMembers.AddRange(await App.db.Table<HouseholdMember>().OrderByDescending(i => i.CreatedOn).Where(i => i.SerialNo == "1" && householdIds.Contains(i.HouseholdId)).ToListAsync());
+            //HeightRequest = 100 + HouseholdMembers.Count() * 50;
+
+        }
+        catch (Exception ex) {
+           await Application.Current.MainPage.DisplayAlert("Sorry!", ex.ToString(), "Ok");
+        }
+
+
     }
 }

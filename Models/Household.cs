@@ -39,6 +39,8 @@ namespace HSNP.Models
 
         public int? HHReceivingBenefictsId { get; set; }
         public int? BenefitTypeId { get; set; }
+        public string OtherBenefits { get; set; } = "";
+        
         public int? DataLevelId { get; set; } = 1;
         public string BenefitKind { get; set; } = "";
         public string ProgrammeName { get; set; }
@@ -55,10 +57,16 @@ namespace HSNP.Models
         public DateTime CreatedOn { get; set; }
         public int? HouseholdMembers { get; set; }
 
-        public int? AreaTypeId { get; set; }
-        
         public bool IsComplete { get; set; }
         public bool Uploaded { get; set; }
+
+        /*Do we still need this*/
+        public int? DurationYears { get; set; }
+        public int? DurationMonths { get; set; }
+        public string PhoneNumber { get; set; }
+
+        public string ApplicantName { get; set; }
+        public string Village { get; set; }
     }
     public class HouseholdMember
     {
@@ -73,57 +81,65 @@ namespace HSNP.Models
         public int? IdTypeId { get; set; }
         public bool IsApplicant { get; set; }
         public bool IsComplete { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
         public string Name => $"{FirstName} {MiddleName} {Surname}";
 
 
         public string UserName { get; set; }
 
-        public string HhmemberRosterId => Id;
+        public string HHMemberRosterId => Id;
 
 
         public int? RelationshipId { get; set; }
         public int? SexId { get; set; }
         public string BirthCertificate { get; set; } = "";
 
+
         public DateTime DateOfBirth { get; set; }
 
-        public string YearOfBirth => DateOfBirth.ToString("YYYY");
+
+
+        public int YearOfBirth => DateOfBirth.Year;
         public int? FatherAliveId { get; set; }
         public int? MotherAliveId { get; set; }
         public int? HighestGradeCodeId { get; set; }
-        public int? WorkLast7daysId { get; set; }
-        public int? ChronicIllnessId { get; set; }
-        public int? ChronicIllYrs { get; set; }
-        public int? ChronicIllMths { get; set; }
+        public int? Worklast7daysId { get; set; }
+        public int? ChronicillnessId { get; set; }
+        public int ChronicillYrs { get; set; }
+        public int ChronicillMths { get; set; }
         public bool VisualDisability { get; set; }
         public bool HearingDisability { get; set; }
         public bool SpeechDisability { get; set; }
         public bool MentalDisability { get; set; }
-        public bool SelfcareDisability { get; set; }
+        public bool SelfCareDisability { get; set; }
+
+
         public bool Need24HrCare { get; set; }
         public int? Need24HrCareId { get; set; }
         public string EntryDate { get; set; }
         public string Idno { get; set; }
-        public string RetypedIdno { get; set; }
-        public bool IDIprsvalid => false;
+        public string RetypedIdNo { get; set; } = "";
+        public bool IDIPRSValid => false;
         public string UserCode { get; set; } = "";
-        public bool IsNominatedAccHoloder { get; set; } = false;
+        public bool isNominatedAccHoloder { get; set; } = false;
         public int? MaritalStatusId { get; set; }
         public string SpouseId { get; set; }
         public string MobileNo { get; set; } = "";
         public string CaregiverId { get; set; }
         public int? DisabilityId { get; set; }
         public int? LearningInstitutionId { get; set; }
-        public int? MonthEarnings { get; set; }
+        public int? MonthEarnings { get; set; } = 0;
         public int? SpouseStatusId { get; set; }
         public bool MarkForDownload { get; set; }
         public string RegisteredBy { get; set; }
         //(3.17) Does Member's work on a formal job, teaching, public sector, NGO/FBO?
-        public int? WorkingId { get; set; }
+        public int? WorkingId { get; set; } = 0;
         public string SerialNo { get; set; }
         public string WaitingCardNo { get; set; } = "";
-        public string PspaccountId { get; set; } = "";
+        public string PSPAccountId { get; set; } = "";
+
+        /*Temp*/
+        public bool SelfCareDisabilityId => SelfCareDisability;
 
 
     }
@@ -145,32 +161,35 @@ namespace HSNP.Models
         public string HHToiletOther { get; set; }
         public int? DrinkWaterMainId { get; set; }
         public string DrinkWaterOther { get; set; }
-        public int? LightfuelId { get; set; }
+        public int? LightFuelId { get; set; }
         public string LightfuelOther { get; set; }
 
         public int? CookFuelId { get; set; }
         public string CookFuelOther { get; set; }
         public int? RefrigeratorOwnedId { get; set; }
-        public int? MotorCycleOwnedId { get; set; }
+        public int? MotorcycleOwnedId { get; set; }
         public int? BicycleOwnedId { get; set; }
         public int? TVOwnedId { get; set; }
-        public int? ZebuCattleOwned { get; set; }
-        public int? ExoticCattleOwned { get; set; }
-        public int? ShoatsOwned { get; set; }
-        public int? CamelsOwned { get; set; }
-        public int? DonkeysOwned { get; set; }
+        public int ZebuCattleOwned { get; set; }
+        public int ExoticCattleOwned { get; set; }
+
+        public int SheepOwned { get; set; }
+
+        public int ShoatsOwned => SheepOwned;
+        public int CamelsOwned { get; set; }
+        public int DonkeysOwned { get; set; }
         public DateTime EntryDate => DateTime.UtcNow;
         public string UserCode { get; set; }
         public int? DwellingRiskId { get; set; }
         public int? CarOwnedId { get; set; }
         public int? TuktukOwnedId { get; set; }
-        public int? GoatsOwned { get; set; }
+        public int GoatsOwned { get; set; }
         public int? TenureId { get; set; }
         public int? MarkForDownload { get; set; } = 0;
         public string RegisteredBy { get; set; }
         public int? MobileOwnedId { get; set; }
-        public int? ChickenOwned { get; set; }
-        public int? PigsOwned { get; set; }
+        public int ChickenOwned { get; set; }
+        public int PigsOwned { get; set; }
 
       
         

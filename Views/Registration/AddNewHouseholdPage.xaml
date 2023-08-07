@@ -6,7 +6,7 @@
     <ScrollView VerticalOptions="FillAndExpand">
         <VerticalStackLayout VerticalOptions="FillAndExpand" StyleClass="input-form">
 
-            <!--<Label StyleClass="heading" Text="APPLICANT DETAILS" />
+           <Label StyleClass="heading" Text="APPLICANT DETAILS" />
             <Label Text="(1.01) Is Applicant Household Head"/>
             <Picker  Title="Select" ItemsSource="{Binding BooleanAnswers}"
                         ItemDisplayBinding="{Binding Details}" SelectedItem="{Binding IsBeneficiaryHH}" />
@@ -21,8 +21,8 @@
             <Entry Text="{Binding HouseholdMember.Surname}"></Entry>
 
             <Label Text="(1.05) Phone Number" />
-            <Entry Text="{Binding HouseholdMember.PhoneNumber}"></Entry>
-
+            <Entry Text="{Binding Household.PhoneNumber}"></Entry>
+             <!--
             <Label Text="(1.06) Type of Identification Document" />
             <Picker Title="Select " x:Name="IdentificationDocumentTypeId" ItemsSource="{Binding IdentificationDocumentTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding IdentificationDocumentType}" />
 
@@ -41,8 +41,8 @@
             <DatePicker StyleClass="half" x:Name="DateOfBirth" VerticalOptions="CenterAndExpand"  Date="{Binding HouseholdMember.DateOfBirth}">
                 <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
             </DatePicker>
-
-           -->
+            -->
+           
 
             <Label StyleClass="heading" Text="GEOGRAPHIC IDENTIFICATION" />
 

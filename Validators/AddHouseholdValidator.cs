@@ -20,5 +20,7 @@ namespace HSNP.Mobile.Validators
             RuleFor(x => x.Surname).NotNull().WithMessage("Surname is required\n");
         }
     }
+
+
 }
 

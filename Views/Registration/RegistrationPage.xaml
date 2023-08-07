@@ -8,16 +8,66 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="AddNew_OnClicked" Text="+ New"  />
     </ContentPage.ToolbarItems>
-    <VerticalStackLayout>
+    <ContentPage.Resources>
+        <Style TargetType="StackLayout">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#f2c417" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
 
-        <dataGrid:DataGrid 
+    <VerticalStackLayout>
+      
+
+
+
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
+            <Label Padding="5" Text="Name" FontAttributes="Bold" HorizontalOptions="FillAndExpand" TextColor="Black" />
+             <BoxView Color="Silver" WidthRequest="1" />
+            <Label Padding="5" Text="Village" FontAttributes="Bold"  HorizontalOptions="FillAndExpand" TextColor="Black" />
+            <!-- Add more headers as needed -->
+        </StackLayout>
+
+        <!-- Rows using CollectionView -->
+        <CollectionView ItemsSource="{Binding Households}" SelectionMode="Single" SelectionChanged="OnCollectionViewSelectionChanged">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout HorizontalOptions="FillAndExpand">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <BoxView Color="Silver" WidthRequest="1" VerticalOptions="FillAndExpand" />
+                            <Label Padding="5" Text="{Binding ApplicantName}" HorizontalOptions="FillAndExpand" />
+                            <BoxView Color="Silver" WidthRequest="1" />
+                            <Label Padding="5" Text="{Binding Village}" HorizontalOptions="FillAndExpand" />
+                            <BoxView Color="Silver" WidthRequest="1" />
+
+                        </StackLayout>
+                        <BoxView Color="Silver" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+
+                    </StackLayout>
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        
+        <!--<dataGrid:DataGrid 
     ItemsSource="{Binding HouseholdMembers}" 
     SelectionEnabled="True" 
-    HeaderHeight="50" BorderColor="#CCCCCC"
-    ItemSelected="DataGrid_ItemSelected" 
-    HeaderBackground="#000"
-  
-    RowHeight="50"
+    HeaderHeight="50" BorderColor="#CCCCCC" ItemSelected="DataGrid_ItemSelected"  HeaderBackground="#000" RowHeight="50"
     HeightRequest="{Binding HeightRequest}"
     VerticalOptions="StartAndExpand" 
     HorizontalOptions="FillAndExpand">
@@ -41,6 +91,7 @@
                     <Setter Property="FontSize" Value="14"></Setter>
                 </Style>
             </dataGrid:DataGrid.HeaderLabelStyle>
-        </dataGrid:DataGrid>
+        </dataGrid:DataGrid>-->
+
     </VerticalStackLayout>
 </ContentPage>

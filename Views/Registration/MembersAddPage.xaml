@@ -25,12 +25,16 @@
                 <Label Text="(3.01) Surname" />
                 <Entry Text="{Binding Member.Surname}"/>
 
-                <Label Text="(3.02 A)Type of Identification Document" />
+                <Label Text="(3.02 A) Type of Identification Document" />
                 <Picker Title="Select " x:Name="IdentificationDocumentTypeId" ItemsSource="{Binding IdentificationDocumentTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding IdentificationDocumentType}" />
 
                 <StackLayout   Padding="0" Margin="0" IsVisible="{Binding IsDocument}">
-                    <Label Text="(3.02 B)Identification Number" />
+                    <Label Text="(3.02 B) Identification Number" />
                     <Entry Text="{Binding Member.IdNumber}"/>
+
+                    <Label Text="(3.02 C) Confirm Identification Number" />
+                    <Entry Text="{Binding Member.RetypedIdNo}"/>
+                    
                 </StackLayout>
 
                 <Label Text="(3.03)What is the Member's relationship to the head of this household?" />
@@ -51,9 +55,10 @@
                 <Label Text="(3.07 A)Does the member's spouse live in this household?"  />
                 <Picker Title="Select " ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SpouseInHousehold}" />
                 <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsSpouseInHH}">
-                    <Label Text="(3.07 B)Select Spouse"  />
-                    <Label Text="(If you haven't entered the Spouse details, select the member as the spouse and come back and edit.)" StyleClass="full,medium,multiline" />
-                    <Picker Title="Select " ItemsSource="{Binding Spouses}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding Spouse}" />
+                    <Label Text="(3.07 B) Line Number of the Spouse"  />
+                     <Entry Text="{Binding Member.SpouseId}"/>
+                    <!--<Label Text="(If you haven't entered the Spouse details, select the member as the spouse and come back and edit.)" StyleClass="full,medium,multiline" />
+                    <Picker Title="Select " ItemsSource="{Binding Spouses}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding Spouse}" />-->
                 </StackLayout>
             </StackLayout>
             <Label Text="(3.08)Is the Father Alive?" />
@@ -86,7 +91,8 @@
                 <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsNeedCare}">
                     <Label Text="(3.13)(CHECK 3.05 (DOB), if AGE is between 0 and 17 OR older than 65, AND check 3.12 if answer is YES, then ask…)"  />
                     <Label  Text="Who is the Member's main Care giver? (LINE NUMBER) (If NONE, Leave BLANK)" />
-                    <Picker Title="Select "  ItemsSource="{Binding Caregivers}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding CareGiver}" />
+                       <Entry Text="{Binding Member.CaregiverId}"/>
+                    <!--<Picker Title="Select "  ItemsSource="{Binding Caregivers}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding CareGiver}" />-->
                 </StackLayout>
             </StackLayout>
             <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsOver3}">
