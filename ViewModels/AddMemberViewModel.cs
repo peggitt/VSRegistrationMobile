@@ -42,6 +42,19 @@ public partial class AddMemberViewModel : BaseViewModel
     private SystemCodeDetail maritalStatus;
 
     [ObservableProperty]
+    private bool isMarried;
+
+    [ObservableProperty]
+    private bool isNotMarried;
+
+    partial void OnMaritalStatusChanged(SystemCodeDetail value)
+    {
+        var possibleCodes = "Married Monogamous,Married Polygamous";
+        IsMarried = possibleCodes.Contains(value.Description);
+        IsNotMarried = !IsMarried;
+    }
+
+    [ObservableProperty]
     private List<SystemCodeDetail> booleanAnswers;
 
     [ObservableProperty]
