@@ -49,7 +49,7 @@ public partial class AddMemberViewModel : BaseViewModel
 
     partial void OnMaritalStatusChanged(SystemCodeDetail value)
     {
-        var possibleCodes = "Married Monogamous,Married Polygamous";
+        var possibleCodes = "Married - Monogamous,Married - Polygamous";
         IsMarried = possibleCodes.Contains(value.Description);
         IsNotMarried = !IsMarried;
     }
@@ -63,8 +63,15 @@ public partial class AddMemberViewModel : BaseViewModel
     private HouseholdMember spouse;
 
     [ObservableProperty]
+    private bool isSpouseInHH;
+
+    [ObservableProperty]
     private SystemCodeDetail spouseInHousehold;
-    
+    partial void OnSpouseInHouseholdChanged(SystemCodeDetail value)
+    {
+        IsSpouseInHH = value.Description.Equals("Yes");
+    }
+
 
     [ObservableProperty]
     private SystemCodeDetail fatherAlive;
@@ -85,8 +92,27 @@ public partial class AddMemberViewModel : BaseViewModel
     private SystemCodeDetail hasDisability;
 
     [ObservableProperty]
+    private bool isDisabled;
+    partial void OnHasDisabilityChanged(SystemCodeDetail value)
+    {
+        IsDisabled = value.Description.Equals("Yes");
+    }
+
+
+
+    [ObservableProperty]
     private SystemCodeDetail disabilityCareStatus;
+
+    [ObservableProperty]
+    private bool disabilityRequire24Care;
+    partial void OnDisabilityCareStatusChanged(SystemCodeDetail value)
+    {
+        //  var date = DateTime.Parse(DateOfBirth);
+        var date = DateOfBirth;
+        DisabilityRequire24Care = value.Description.Equals("Yes") && (date > seventyYearsAgo || date < seventeenYearsAgo); ;
     
+    }
+
 
     [ObservableProperty]
     private List<HouseholdMember> caregivers;

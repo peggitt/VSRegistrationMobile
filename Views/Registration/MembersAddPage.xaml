@@ -88,8 +88,7 @@
                 <Label Text="(3.12) Does the disability require 24-hour care?"  />
                 <Picker Title="Select " ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding DisabilityCareStatus}" />
 
-                <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsNeedCare}">
-                    <Label Text="(3.13)(CHECK 3.05 (DOB), if AGE is between 0 and 17 OR older than 65, AND check 3.12 if answer is YES, then ask…)"  />
+                <StackLayout  Padding="0" Margin="0" IsVisible="{Binding DisabilityRequire24Care}">
                     <Label  Text="Who is the Member's main Care giver? (LINE NUMBER) (If NONE, Leave BLANK)" />
                        <Entry Text="{Binding Member.CaregiverId}"/>
                     <!--<Picker Title="Select "  ItemsSource="{Binding Caregivers}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding CareGiver}" />-->
