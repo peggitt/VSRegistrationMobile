@@ -7,8 +7,8 @@ namespace HSNP.Constants
     
     public static class AppConstants
     {
-        public static string BaseApiAddress => "http://197.254.7.126:7300";
-        public static string SecurityApiAddress => "http://197.254.7.126:7200";
+        public static string BaseApiAddress => "http://app.hsnpmis.or.ke:7300";
+        public static string SecurityApiAddress => "http://app.hsnpmis.or.ke:7200";
 
         public const string DatabaseFilename = "HSNPSQLite.db3";
 
