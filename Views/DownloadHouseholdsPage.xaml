@@ -44,6 +44,8 @@
                 <Button Text="Download" IsVisible="{Binding IsBusy, Converter={StaticResource BooleanConvertor}}" BackgroundColor="#cca102" TextColor="Black" Command="{Binding DownloadCommand}" ></Button>
                  <StackLayout IsVisible="{Binding IsBusy}" >
                         <ActivityIndicator IsRunning="{Binding IsBusy}"/>
+                       <Label TextColor="#FC7E27" FontAttributes="None"
+                                   Text="{Binding CurrentStatus}" HorizontalOptions="Center" />
                   </StackLayout>
             </VerticalStackLayout>
         </Border>

@@ -12,11 +12,11 @@
             Title="Menus"  
             FlyoutDisplayOptions="AsMultipleItems">
 
-        <ShellContent x:Name="shelltab_0" Title="Home" ContentTemplate="{DataTemplate views:MainPage}">
+        <!--<ShellContent x:Name="shelltab_0" Title="Home" ContentTemplate="{DataTemplate views:MainPage}">
             <ShellContent.Icon>
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.HomeAccount}"/>
             </ShellContent.Icon>
-        </ShellContent>
+        </ShellContent>-->
         <Tab Title="Registration"  x:Name="shelltab_1">
             <Tab.Icon>
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
@@ -60,7 +60,8 @@
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.Logout}"/>
             </ShellContent.Icon>
         </ShellContent>
-         <Tab  x:Name="shelltab_2" Title="Registration Details" FlyoutItemIsVisible="False" Route="Household">
+
+        <Tab  x:Name="shelltab_2" Title="Registration Details" FlyoutItemIsVisible="False" Route="Household">
             <ShellContent Title="Household Details" ContentTemplate="{DataTemplate views:AddNewHouseholdPage}" Route="HouseholdDetails">
                 <ShellContent.Icon>
                     <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>

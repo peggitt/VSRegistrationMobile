@@ -35,7 +35,7 @@ public partial class RegistrationViewModel : BaseViewModel
         try {
 
            
-            var households = await App.db.Table<Household>().Where(i => i.IsComplete == complete).ToListAsync();
+            var households = await App.db.Table<Household>().Where(i => i.IsComplete == complete && i.MarkForDownload==false).ToListAsync();
             Households = new ObservableRangeCollection<Household>();
             Households.AddRange(households);
 

@@ -11,7 +11,7 @@ namespace HSNP.Mobile.ViewModels
     [QueryProperty(nameof(HouseholdId), nameof(HouseholdId))]
     [QueryProperty(nameof(Id), nameof(Id))]
 
-    public partial class DwellingAddEditViewModel : BaseViewModel
+    public partial class UpdateDwellingViewModel : BaseViewModel
     {
 
         [ObservableProperty]
@@ -147,7 +147,7 @@ namespace HSNP.Mobile.ViewModels
 
         [ObservableProperty]
         private List<SelectableItemWrapper<SystemCodeDetail>> programmes;
-        public DwellingAddEditViewModel(INavigation navigation) : base(navigation)
+        public UpdateDwellingViewModel(INavigation navigation) : base(navigation)
         {
 
             _ = GetItems();
@@ -320,7 +320,7 @@ namespace HSNP.Mobile.ViewModels
                 App.Database.AddOrUpdate(Household);
                 App.Database.AddOrUpdate(HouseholdCharacteristic);
                 await Toast.SendToast("Dwelling and household information successfully");
-                await Shell.Current.GoToAsync($"{nameof(MembersPage)}?HouseholdId={HouseholdId}");
+                await Shell.Current.GoToAsync($"{nameof(UpdatesMembersPage)}?HouseholdId={HouseholdId}");
             }
             else
             {

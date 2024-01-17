@@ -8,7 +8,7 @@
         <Label Text="Household ID"/>
         <Entry Text="{Binding HouseholdId}"></Entry>
         <Label Text="National ID No."/>
-        <Entry Text="{Binding NationalIdNo}"></Entry>
+        <Entry Text="{Binding NationalIdNo}" Keyboard="Numeric"></Entry>
         <Button Text="Next" BackgroundColor="#cca102" TextColor="Black" Command="{Binding NextCommand}"  ></Button>
         <StackLayout IsVisible="{Binding IsBusy}" Margin="10" VerticalOptions="StartAndExpand">
             <ActivityIndicator IsRunning="{Binding IsBusy}" />

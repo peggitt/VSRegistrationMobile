@@ -46,10 +46,21 @@ namespace HSNP.ViewModels
                 await Toast.SendToastAsync("Household ID or National ID No. is required");
             }
             else {
+                var household = new Household();
+                if(NationalIdNo!=null)
+                {
+                    var householdId= (await App.db.Table<HouseholdMember>().FirstOrDefaultAsync(i => i.IdNo== NationalIdNo))?.HouseholdId;
+                    var test = await App.db.Table<HouseholdMember>().ToListAsync();
+                    household = await App.db.Table<Household>().FirstOrDefaultAsync(i => i.HouseholdId==householdId);
+                }
+                else
+                {
+                    household = await App.db.Table<Household>().FirstOrDefaultAsync(i => i.HouseholdId == HouseholdId);
+                }
             
-            var householdIds = await App.db.Table<Household>().Where(i => i.IsComplete).ToListAsync();
-            total = householdIds.Count();
-                if (total != 100)
+       
+         
+                if (household == null)
                 {
                     if (!string.IsNullOrEmpty(HouseholdId) && !string.IsNullOrEmpty(HouseholdId))
                         await Application.Current.MainPage.DisplayAlert("Sorry", $"Household with Household ID {HouseholdId} and  National ID No. {NationalIdNo} not found.", "OK");
@@ -60,47 +71,12 @@ namespace HSNP.ViewModels
                 }
                 else
                 {
-
-                    bool answer = await Application.Current.MainPage.DisplayAlert("Confirm?", $"Upload {total} Household(s)?", "Yes", "No");
-                    if (answer)
-                    {
-                        _api = new ApiService(AppConstants.BaseApiAddress);
-                        if (IsBusy)
-                            return;
-                        IsBusy = true;
-
                         try
                         {
 
-                            householdIds.ForEach(i => i.UserName = App.User.Email);
 
-                            count = 1;
-                            foreach (var household in householdIds)
-                            {
-                                CurrentStatus = $"Uploading {count}/{total}";
-                                var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(household), Encoding.UTF8, "application/json");
-                                var response = await _api.AddHousehold(content, $"Bearer {App.User.Token}");
-
-                                if (response.Message != null)
-                                {
-                                    household.IsComplete = true;
-                                    var xtics = await App.db.Table<HouseholdCharacteristic>().FirstAsync(i => i.HouseholdId == household.HouseholdId);
-                                    xtics.UserName = App.User.Email;
-                                    content = new StringContent(System.Text.Json.JsonSerializer.Serialize(xtics), Encoding.UTF8, "application/json");
-                                    response = await _api.AddHHCharacteristicscreate(content, $"Bearer {App.User.Token}");
-                                    if (response.Message != null)
-                                    {
-                                    }
-                                    var members = await App.db.Table<HouseholdMember>().Where(i => i.HouseholdId == household.HouseholdId).ToListAsync();
-                                    content = new StringContent(System.Text.Json.JsonSerializer.Serialize(members), Encoding.UTF8, "application/json");
-                                    response = await _api.AddHouseholdMembers(content, $"Bearer {App.User.Token}");
-                                    if (response.Message != null)
-                                    {
-                                    }
-                                }
-
-                                count++;
-                            }
+                            App.HouseholdId = household.HouseholdId;
+                           await Shell.Current.GoToAsync($"/{nameof(UpdateHouseholdPage)}?HouseholdId={household.HouseholdId}");
 
                         }
                         catch (Exception ex)
@@ -108,9 +84,7 @@ namespace HSNP.ViewModels
                             await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
 
                         }
-
-                        IsBusy = false;
-                    }
+                    
                 }
             }
 

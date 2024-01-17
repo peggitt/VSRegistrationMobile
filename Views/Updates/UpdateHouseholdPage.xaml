@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSNP.Mobile.Views.UpdateHouseholdPage"
+             Title="Update Household">
+    <ScrollView VerticalOptions="FillAndExpand">
+        <VerticalStackLayout VerticalOptions="FillAndExpand" StyleClass="input-form">
+
+           <Label StyleClass="heading" Text="APPLICANT DETAILS" />
+            <Label Text="(1.01) Is Applicant Household Head"/>
+            <Picker  Title="Select" ItemsSource="{Binding BooleanAnswers}"
+                        ItemDisplayBinding="{Binding Details}" SelectedItem="{Binding IsBeneficiaryHH}" />
+
+            <Label Text="(1.02) First Name"/>
+            <Entry Text="{Binding HouseholdMember.FirstName}"></Entry>
+
+            <Label Text="(1.03) Middle Name"/>
+            <Entry Text="{Binding HouseholdMember.MiddleName}"></Entry>
+
+            <Label Text="(1.04) Surname"/>
+            <Entry Text="{Binding HouseholdMember.Surname}"></Entry>
+
+            <Label Text="(1.05) Phone Number" />
+            <Entry Text="{Binding Household.PhoneNumber}"></Entry>
+             <!--
+            <Label Text="(1.06) Type of Identification Document" />
+            <Picker Title="Select " x:Name="IdentificationDocumentTypeId" ItemsSource="{Binding IdentificationDocumentTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding IdentificationDocumentType}" />
+
+            <StackLayout Padding="0" Margin="0" IsVisible="{Binding IsDocument}">
+                <Label Text="(1.06 B) Identification Number" />
+                <Entry Text="{Binding HouseholdMember.IdNumber}"/>
+            </StackLayout>
+
+            <Label Text="(1.07) What is the Member's relationship to the head of this household?" />
+            <Picker  Title="Select " x:Name="RelationshipIdX1" ItemsSource="{Binding Relationships}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding Relationship}" />
+
+            <Label Text="(1.08) What is the Member's sex?" />
+            <Picker  Title="Select " x:Name="SexId" ItemsSource="{Binding Sexes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding Sex}" />
+
+            <Label Text="(1.09) What is the Member's Date Of Birth?" />
+            <DatePicker StyleClass="half" x:Name="DateOfBirth" VerticalOptions="CenterAndExpand"  Date="{Binding HouseholdMember.DateOfBirth}">
+                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+            </DatePicker>
+            -->
+           
+
+            <Label StyleClass="heading" Text="GEOGRAPHIC IDENTIFICATION" />
+
+            <Label Text="(1.11) CONSTITUENCY"/>
+            <Picker  Title="Select" ItemsSource="{Binding Constituencies}"
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Constituency}" />
+            <Label Text="(1.12) SUB-LOCATION"/>
+            <Picker  Title="Select" ItemsSource="{Binding SubLocations}"
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SubLocation}" />
+            <Label Text="(1.13) VILLAGE"/>
+            <Picker  Title="Select" ItemsSource="{Binding Villages}"
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Village}" />
+            <Label Text="(1.14) PHYSICAL ADDRESS"/>
+            <Entry Text="{Binding  Household.HouseholdAddress}"></Entry>
+            <Label Text="(1.15) DURATION OF RESIDENCE IN THIS PLACE"/>
+            <HorizontalStackLayout HorizontalOptions="FillAndExpand" >
+                <Label Text="(1.15 A) YEARS:"/>
+                <Entry Text="{Binding Household.DurationYears}"  WidthRequest="200" HorizontalOptions="EndAndExpand" Keyboard="Numeric"></Entry>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="FillAndExpand">
+                <Label Text="(1.15B) MONTHS:"/>
+                <Entry Text="{Binding Household.DurationMonths}" WidthRequest="200" HorizontalOptions="FillAndExpand" Keyboard="Numeric"></Entry>
+            </HorizontalStackLayout>
+            <Label Text="(1.16) NEAREST CHURCH/MOSQUE"/>
+            <Entry Text="{Binding Household.NearestChurchMqs}"></Entry>
+            <Label Text="(1.17) NEAREST SCHOOL"/>
+            <Entry Text="{Binding Household.NearestSchool}"></Entry>
+
+            <Label Text="(1.18) AREA TYPE"/>
+            <Picker  Title="Select" ItemsSource="{Binding AreaTypes}"
+                        ItemDisplayBinding="{Binding Details}" SelectedItem="{Binding AreaType}" />
+             <Label Text="(1.19) How many Members are in this Household" />
+            <Entry Keyboard="Numeric" Text="{Binding Household.HouseholdMembers}" />
+
+
+             <StackLayout IsVisible="{Binding IsBusy}" Margin="10" VerticalOptions="StartAndExpand">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" />
+                <Label TextColor="#FC7E27" FontAttributes="None" Text="Detecting GPS coordinates" HorizontalOptions="Center" />
+            </StackLayout>
+            <Button Text="Next" BackgroundColor="#cca102" TextColor="Black" Command="{Binding SaveCommand}" ></Button>
+           
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

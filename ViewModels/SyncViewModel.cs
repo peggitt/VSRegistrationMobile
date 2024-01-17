@@ -41,11 +41,14 @@ namespace HSNP.ViewModels
         [ObservableProperty]
         private string completeUpdates;
         [ObservableProperty]
+        private string downloadedHouseholds;
+        [ObservableProperty]
         private string currentStatus;
         public async Task GetItems()
         {
             CompleteHouseholds = $"Upload Households ({await App.db.Table<Household>().CountAsync(i => i.IsComplete)})";
             CompleteUpdates = $"Upload Updates ({await App.db.Table<Update>().CountAsync(i => i.IsComplete)})";
+            DownloadedHouseholds = $"Download Households ({await App.db.Table<Household>().CountAsync(i => i.MarkForDownload==true)})";
         }
 
         [RelayCommand]

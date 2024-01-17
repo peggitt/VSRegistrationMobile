@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSNP.Mobile.Views.UpdateMemberPage"
+              xmlns:convertors="clr-namespace:HSNP.Mobile.Convertors"
+             Title="Update Household Member">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convertors:BooleanConvertor x:Key="BooleanConvertor" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout>
+            <VerticalStackLayout   StyleClass="registration-form"  Padding="0" Margin="0">
+
+
+                
+                <Label Text="Member Line Number" />
+                <Entry Text="{Binding Member.SerialNo}"/>
+
+                <Label Text="(3.01) First Name" />
+                <Entry Text="{Binding Member.FirstName}"/>
+                <Label Text="(3.01) Middle Name" />
+                <Entry Text="{Binding Member.MiddleName}"/>
+                <Label Text="(3.01) Surname" />
+                <Entry Text="{Binding Member.Surname}"/>
+
+                <Label Text="(3.02 A) Type of Identification Document" />
+                <Picker Title="Select " x:Name="IdentificationDocumentTypeId" ItemsSource="{Binding IdentificationDocumentTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding IdentificationDocumentType}" />
+
+                <StackLayout   Padding="0" Margin="0" IsVisible="{Binding IsDocument}">
+                    <Label Text="(3.02 B) Identification Number" />
+                    <Entry Text="{Binding Member.IdNumber}"/>
+
+                    <Label Text="(3.02 C) Confirm Identification Number" />
+                    <Entry Text="{Binding Member.RetypedIdNo}"/>
+                    
+                </StackLayout>
+
+                <Label Text="(3.03)What is the Member's relationship to the head of this household?" />
+                <Picker  Title="Select " x:Name="RelationshipIdX1" ItemsSource="{Binding Relationships}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding Relationship}" />
+
+                <Label Text="(3.04)What is the Member's sex?" />
+                <Picker  Title="Select " x:Name="SexId" ItemsSource="{Binding Sexes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding Sex}" />
+                <Label Text="(3.05)What is the Member's Date Of Birth?" />
+                <DatePicker StyleClass="half" x:Name="DateOfBirth" VerticalOptions="CenterAndExpand"  Date="{Binding DateOfBirth}">
+                    <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                </DatePicker>
+            </VerticalStackLayout>
+           
+            <Label IsVisible="{Binding IsOver5}" Text="(3.06)What is the Member's Marital Status?" />
+            <Picker  IsVisible="{Binding IsOver5}"  Title="Select " ItemsSource="{Binding MaritalStatuses}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding MaritalStatus}" />
+
+            <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsMarried}">
+                <Label Text="(3.07 A)Does the member's spouse live in this household?"  />
+                <Picker Title="Select " ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SpouseInHousehold}" />
+                <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsSpouseInHH}">
+                    <Label Text="(3.07 B) Line Number of the Spouse"  />
+                     <Entry Text="{Binding Member.SpouseId}"/>
+                    <!--<Label Text="(If you haven't entered the Spouse details, select the member as the spouse and come back and edit.)" StyleClass="full,medium,multiline" />
+                    <Picker Title="Select " ItemsSource="{Binding Spouses}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding Spouse}" />-->
+                </StackLayout>
+            </StackLayout>
+            <Label Text="(3.08)Is the Father Alive?" />
+            <Picker Title="Select" ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding FatherAlive}" />
+            <Label Text="(3.09)Is the Mother Alive?" />
+            <Picker Title="Select" ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding MotherAlive}" />
+            <Label Text="(3.10)Does the Member  suffer from a chronic illness?"  />
+            <Picker Title="Select " ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding ChronicIllness}" />
+            <Label Text="(3.11)Does the Member  have a disability? "  />
+            <Picker Title="Select " ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding HasDisability}" />
+
+            <StackLayout StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding IsDisabled}">
+                <Label  Text="What Type of Disability does the member have?" />
+                <ListView RowHeight="60" HasUnevenRows="False" SelectionMode="None" Margin="0"  ItemsSource="{Binding Disabilities}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <HorizontalStackLayout  >
+                                    <Switch StyleClass="tenth,SauBlue,pull-left" IsToggled="{Binding IsSelected}" />
+                                    <Label  StyleClass="SauBlue,half,medium,pull=left" Margin="0,15,0,0"  Text="{Binding  Item.Description}" />
+                                </HorizontalStackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Label Text="(3.12) Does the disability require 24-hour care?"  />
+                <Picker Title="Select " ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding DisabilityCareStatus}" />
+
+                <StackLayout  Padding="0" Margin="0" IsVisible="{Binding DisabilityRequire24Care}">
+                    <Label  Text="Who is the Member's main Care giver? (LINE NUMBER) (If NONE, Leave BLANK)" />
+                       <Entry Text="{Binding Member.CaregiverId}"/>
+                    <!--<Picker Title="Select "  ItemsSource="{Binding Caregivers}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding CareGiver}" />-->
+                </StackLayout>
+            </StackLayout>
+            <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsOver3}">
+                <Label Text="(3.14)What is the school or learning institution attendance status of Member? (for all members  aged 3 and older) "  />
+                <Picker Title="Select " ItemsSource="{Binding LearningStatuses}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding LearningStatus}" />
+            </StackLayout>
+            <StackLayout  Padding="0" Margin="0" IsVisible="{Binding WentToSchool}">
+                <Label Text="(3.15) What is the highest Std/Form/Level reached by Member?"  />
+                <Picker Title="Select "  ItemsSource="{Binding EducationLevels}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding EducationLevel}" />
+            </StackLayout>
+
+            <StackLayout  Padding="0" Margin="0" IsVisible="{Binding IsOver5}">
+                <Label Text="(3.16) What was Member's mainly doing during the last seven days? (for all aged 5 and older)?"  />
+                <Picker Title="Select " ItemsSource="{Binding WorkTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding WorkType}" />
+                <Label Text="(3.17) Does Member's work on a formal job, teaching, public sector, NGO/FBO?"  />
+                <Picker Title="Select " ItemsSource="{Binding BooleanAnswers}" ItemDisplayBinding="{Binding Description}"   SelectedItem="{Binding JobOption}" />
+            </StackLayout>
+            <StackLayout StyleClass="StandardSpacing, StandardPadding">
+                <Button IsVisible="{Binding IsBusy, Converter={StaticResource BooleanConvertor}}"
+                  Text="Save Member Details" Command="{Binding  SaveCommand}"
+                  StyleClass="btn-success, full,BgKenyaGreen,White">
+                </Button>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" StyleClass="quarter" />
+                <Label Text="{Binding Message}" IsVisible="{Binding IsBusy}" VerticalOptions="Center"  HorizontalOptions="Center" StyleClass="three-quarter" />
+            </StackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
