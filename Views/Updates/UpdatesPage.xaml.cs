@@ -9,7 +9,18 @@ public partial class UpdatesPage : ContentPage
 	public UpdatesPage()
 	{
 		InitializeComponent();
-        BindingContext = new UpdatesViewModel(ApiService.Instance,Navigation);
+    }
+    protected override void OnAppearing()
+    {
+        try
+        {
+            BindingContext = new UpdatesViewModel(false);
+        }
+        catch (Exception ex)
+        {
+            Application.Current.MainPage.DisplayAlert("Sorry!", ex.ToString(), "Ok");
+        }
+
     }
     private void AddNew_OnClicked(object sender, EventArgs e)
     {
@@ -23,7 +34,8 @@ public partial class UpdatesPage : ContentPage
         {
             HouseholdMember selected = (HouseholdMember)e.CurrentSelection.FirstOrDefault();
             App.HouseholdId = selected.HouseholdId;
-            await Shell.Current.GoToAsync("//Household");
+            // await Shell.Current.GoToAsync("//Household");
+            await Shell.Current.GoToAsync($"/{nameof(UpdateHouseholdPage)}?HouseholdId={selected.HouseholdId}");
 
         }
 

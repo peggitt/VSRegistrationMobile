@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HSNP.Mobile.Views.LoginPage"
              Title="LoginPage" Padding="20"  NavigationPage.HasNavigationBar="False">
+    <StackLayout VerticalOptions="FillAndExpand">
     <VerticalStackLayout VerticalOptions="FillAndExpand">
         <StackLayout IsVisible="{Binding IsBusy}" Margin="10" VerticalOptions="StartAndExpand">
             <ActivityIndicator IsRunning="{Binding IsBusy}" />
@@ -26,7 +27,10 @@
             </Label>
 
 
-
+            
         </StackLayout>
+        
     </VerticalStackLayout>
+         <Label HorizontalTextAlignment="Center" Text="App Version 1.0" VerticalOptions="End"></Label>
+        </StackLayout>
 </ContentPage>

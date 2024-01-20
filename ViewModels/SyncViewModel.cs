@@ -46,8 +46,9 @@ namespace HSNP.ViewModels
         private string currentStatus;
         public async Task GetItems()
         {
-            CompleteHouseholds = $"Upload Households ({await App.db.Table<Household>().CountAsync(i => i.IsComplete)})";
-            CompleteUpdates = $"Upload Updates ({await App.db.Table<Update>().CountAsync(i => i.IsComplete)})";
+            CompleteHouseholds = $"Upload Households ({await App.db.Table<Household>().CountAsync(i => i.IsComplete==true && i.MarkForDownload!=true)})";
+            CompleteUpdates = $"Upload Updates ({await App.db.Table<Household>().CountAsync(i => i.IsComplete==true && i.MarkForDownload==true)})";
+
             DownloadedHouseholds = $"Download Households ({await App.db.Table<Household>().CountAsync(i => i.MarkForDownload==true)})";
         }
 
@@ -171,7 +172,7 @@ namespace HSNP.ViewModels
         [RelayCommand]
         private async Task UploadHouseholds()
         {
-            var householdIds = await App.db.Table<Household>().Where(i => i.IsComplete).ToListAsync();
+            var householdIds = await App.db.Table<Household>().Where(i => i.IsComplete==true && i.MarkForDownload!=true).ToListAsync();
             total = householdIds.Count();
             if (total == 0)
             {
@@ -262,7 +263,7 @@ namespace HSNP.ViewModels
                                 // Delete Household
                                   App.Database.Delete(xtics);
                                 App.Database.Delete(household);
-                                CompleteHouseholds = $"Upload Households ({await App.db.Table<Household>().CountAsync(i => i.IsComplete)})";
+                                CompleteHouseholds = $"Upload Households ({await App.db.Table<Household>().CountAsync(i => i.IsComplete==true)})";
 
                             }
 
@@ -300,5 +301,132 @@ namespace HSNP.ViewModels
             await MopupService.Instance.PushAsync(new DownloadHouseholdsPage());
         }
 
+        [RelayCommand]
+        private async Task UploadUpdates()
+        {
+            var householdIds = await App.db.Table<Household>().Where(i => i.IsComplete == true && i.MarkForDownload==true).ToListAsync();
+            total = householdIds.Count();
+            if (total == 0)
+            {
+                await Application.Current.MainPage.DisplayAlert("Sorry", "No complete households found.", "OK");
+            }
+            else
+            {
+                var countLabel = total > 1 ? "s" : "";
+                bool answer = await Application.Current.MainPage.DisplayAlert("Confirm?", $"Upload {total} Household{countLabel}?", "Yes", "No");
+                if (answer)
+                {
+
+                    if (IsBusy)
+                        return;
+                    IsBusy = true;
+
+                    try
+                    {
+
+                        householdIds.ForEach(i => i.UserName = App.User.Email);
+
+                        count = 1;
+                        string errors = "";
+                        foreach (var household in householdIds)
+                        {
+                            var str = JsonConvert.SerializeObject(household);
+                            CurrentStatus = $"Uploading {count}/{total}";
+                            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(household), Encoding.UTF8, "application/json");
+
+
+                            // Var Member
+                            var members = await App.db.Table<HouseholdMember>().Where(i => i.HouseholdId == household.HouseholdId).ToListAsync();
+                            members.ForEach(i => i.UserName = App.User.Email);
+                            members.ForEach(i => i.RegisteredBy = App.User.Email);
+
+
+                            var mm = members.First();
+                            var strMember = JsonConvert.SerializeObject(mm);
+
+                            var xtics = await App.db.Table<HouseholdCharacteristic>().FirstAsync(i => i.HouseholdId == household.HouseholdId);
+                            xtics.UserName = App.User.Email;
+                            xtics.RegisteredBy = App.User.Email;
+                            xtics.UserCode = App.User.Email;
+
+                            var strXtics1 = JsonConvert.SerializeObject(xtics);
+
+                            var response = await _api.UpdateHousehold(content, $"Bearer {App.User.Token}");
+
+                            if (response.status == 202)
+                            {
+                                household.IsComplete = true;
+                            }
+                            else
+                            {
+                                errors += response.detail;
+                                await Application.Current.MainPage.DisplayAlert("Exception", errors, "OK");
+                            }
+
+                            content = new StringContent(System.Text.Json.JsonSerializer.Serialize(xtics), Encoding.UTF8, "application/json");
+                            response = await _api.UpdateHHCharacteristicscreate(content, $"Bearer {App.User.Token}");
+                            if (response.status == 202)
+                            {
+
+                            }
+                            else
+                            {
+                                errors += response.detail;
+                                await Application.Current.MainPage.DisplayAlert("Exception", errors, "OK");
+                            }
+
+                            foreach (var member in members)
+                            {
+                                strMember = JsonConvert.SerializeObject(member);
+                                content = new StringContent(System.Text.Json.JsonSerializer.Serialize(member), Encoding.UTF8, "application/json");
+                                response = await _api.UpdateHouseholdMembers(content, $"Bearer {App.User.Token}");
+                                if (response.status == 202)
+                                {
+                                    App.Database.Delete(member);
+                                }
+                                else
+                                {
+                                    errors += response.detail;
+                                    await Application.Current.MainPage.DisplayAlert("Exception", errors, "OK");
+                                }
+                            }
+
+                            if (string.IsNullOrEmpty(errors))
+                            {
+                                // Delete Household
+                                App.Database.Delete(xtics);
+                                App.Database.Delete(household);
+                                CompleteHouseholds = $"Upload Households ({await App.db.Table<Household>().CountAsync(i => i.IsComplete == true)})";
+
+                            }
+
+
+                            count++;
+                        }
+
+                    }
+                    catch (ApiException ex)
+                    {
+                        if (ex.Message.Contains("401"))
+                        {
+                            Application.Current.MainPage = new NavigationPage(new LoginPage());
+                            await Toast.SendToastAsync("Session timeout, kindly login again");
+                        }
+                        else
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Exception", ex.Content, "OK");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
+
+                    }
+
+                    IsBusy = false;
+                }
+            }
+
+        }
     }
 }

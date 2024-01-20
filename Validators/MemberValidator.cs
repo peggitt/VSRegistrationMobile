@@ -13,12 +13,12 @@ namespace HSNP.Mobile.Validators
 
          
 
-            RuleFor(x => x.MotherAliveId).NotNull().WithMessage("(3.08)Is the Father Alive is required\n");
-            RuleFor(x => x.FatherAliveId).NotNull().WithMessage("(3.09)Is the Mother Alive is required\n");
+            RuleFor(x => x.FatherAliveId).NotNull().WithMessage("(3.08)Is the Father Alive is required\n");
+            RuleFor(x => x.MotherAliveId).NotNull().WithMessage("(3.09)Is the Mother Alive is required\n");
 
             RuleFor(x => x.DisabilityId).NotNull().WithMessage("(3.11) Does the Member  have a disability is required\n");
 
-            RuleFor(x => x.WorkingId).NotNull().WithMessage("(3.09)Is the Mother Alive is required\n");
+           // RuleFor(x => x.WorkingId).NotNull().WithMessage("\n");
 
 
             // RuleFor(x => x.FloorMaterialId).NotNull().WithMessage("(2.05) is required\n");

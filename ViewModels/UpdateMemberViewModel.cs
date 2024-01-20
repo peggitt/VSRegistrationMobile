@@ -259,75 +259,77 @@ public partial class UpdateMemberViewModel : BaseViewModel
     [RelayCommand]
     async void Save()
     {
-        var errors="";
-        if (DisabilityCareStatus == null)
-            errors += "(3.12) is required";
-        if (Member.IdNumber!=Member.RetypedIdNo)
-            errors += "Identification Number and confirm Identification Number should match";
-        
-
-        if (!string.IsNullOrEmpty(errors))
+        try
         {
-            await Shell.Current.DisplayAlert("Error", errors, "OK");
-            return;
-        }
-
-        Member.DateOfBirth = DateOfBirth;
-        Member.IdTypeId = IdentificationDocumentType?.Id;
-        Member.RelationshipId = Relationship?.Id;
-        Member.SexId = Sex?.Id;
-        Member.MaritalStatusId = MaritalStatus?.Id;
-        Member.SpouseStatusId = SpouseInHousehold?.Id;
-        Member.SpouseId = Spouse?.Id;
-        Member.FatherAliveId = FatherAlive?.Id;
-        Member.MotherAliveId = MotherAlive?.Id;
-        Member.ChronicillnessId = ChronicIllness?.Id;
-        Member.DisabilityId = HasDisability?.Id;
-        Member.Need24HrCare = DisabilityCareStatus.Description.Equals("Yes");
-        Member.Need24HrCareId = DisabilityCareStatus?.Id;
-        Member.CaregiverId = Caregiver?.Id;
-        Member.LearningInstitutionId = LearningStatus?.Id;
-        Member.HighestGradeCodeId = EducationLevel?.Id;
-        Member.Worklast7daysId = WorkType?.Id;
-        Member.WorkingId = JobOption?.Id;
-        Member.Id = MemberId;
-        Member.HouseholdId = HouseholdId;
-        Member.IsComplete = true;
-
-        var selected = Disabilities.Where(i => i.IsSelected);
-        var disabilityNames = selected.Select(i => i.Item.Details);
-        Member.VisualDisability = disabilityNames.Contains("Visual");
-        Member.HearingDisability = disabilityNames.Contains("Hearing");
-        Member.SpeechDisability = disabilityNames.Contains("Speech");
-      //  Member.DisabilityId = disabilityNames.Contains("Physical");
-        Member.MentalDisability = disabilityNames.Contains("Mental");
-        Member.SelfCareDisability = disabilityNames.Contains("Self-Care");
-
-       
+            var errors = "";
+            if (HasDisability?.Description=="Yes" && DisabilityCareStatus == null)
+                errors += "(3.12) is required";
+            if (!string.IsNullOrEmpty(Member.IdNumber) && Member.IdNumber != Member.RetypedIdNo)
+                errors += "Identification Number and confirm Identification Number should match";
 
 
+            if (!string.IsNullOrEmpty(errors))
+            {
+                await Shell.Current.DisplayAlert("Error", errors, "OK");
+                return;
+            }
 
-        foreach (var disability in selected)
+            Member.DateOfBirth = DateOfBirth;
+            Member.IdTypeId = IdentificationDocumentType?.Id;
+            Member.RelationshipId = Relationship?.Id;
+            Member.SexId = Sex?.Id;
+            Member.MaritalStatusId = MaritalStatus?.Id;
+            Member.SpouseStatusId = SpouseInHousehold?.Id;
+            Member.SpouseId = Spouse?.Id;
+            Member.FatherAliveId = FatherAlive?.Id;
+            Member.MotherAliveId = MotherAlive?.Id;
+            Member.ChronicillnessId = ChronicIllness?.Id;
+            Member.DisabilityId = HasDisability?.Id;
+            Member.Need24HrCare = DisabilityCareStatus?.Description.Equals("Yes");
+            Member.Need24HrCareId = DisabilityCareStatus?.Id;
+            Member.CaregiverId = Caregiver?.Id;
+            Member.LearningInstitutionId = LearningStatus?.Id;
+            Member.HighestGradeCodeId = EducationLevel?.Id;
+            Member.Worklast7daysId = WorkType?.Id;
+            Member.WorkingId = JobOption?.Id;
+            Member.Id = MemberId;
+            Member.HouseholdId = HouseholdId;
+            Member.IsComplete = true;
+            if (Disabilities != null)
+            {
+                var selected = Disabilities.Where(i => i.IsSelected);
+                var disabilityNames = selected.Select(i => i.Item.Details);
+                Member.VisualDisability = disabilityNames.Contains("Visual");
+                Member.HearingDisability = disabilityNames.Contains("Hearing");
+                Member.SpeechDisability = disabilityNames.Contains("Speech");
+                //  Member.DisabilityId = disabilityNames.Contains("Physical");
+                Member.MentalDisability = disabilityNames.Contains("Mental");
+                Member.SelfCareDisability = disabilityNames.Contains("Self-Care");
+                foreach (var disability in selected)
+                {
+                    var item = new MemberDisability { MemberId = Member.Id, DisabilityId = disability.Item.Id };
+                    App.Database.AddOrUpdate(item);
+
+                }
+            }
+
+            var validationResult = _validator.Validate(Member);
+            if (validationResult.IsValid)
+            {
+                App.Database.AddOrUpdate(Member);
+                // await Navigation.PushAsync(new MembersPage(Household.HouseholdId));
+                await Toast.SendToast("Household member information saved successfully");
+                await Shell.Current.GoToAsync($"/{nameof(MembersPage)}?HouseholdId={Member.HouseholdId}");
+            }
+            else
+            {
+                var validateMessage = GetErrorListFromValidationResult(validationResult);
+                await Application.Current.MainPage.DisplayAlert("Validation Errors", $"{validateMessage}", "OK");
+            }
+
+        }catch(Exception ex)
         {
-            var item = new MemberDisability { MemberId = Member.Id, DisabilityId = disability.Item.Id };
-            App.Database.AddOrUpdate(item);
-
+            await Application.Current.MainPage.DisplayAlert(" rrors", $"{ex.Message}\n\n{ex.ToString()}", "OK");
         }
-
-        var validationResult = _validator.Validate(Member);
-        if (validationResult.IsValid)
-        {
-            App.Database.AddOrUpdate(Member);
-            // await Navigation.PushAsync(new MembersPage(Household.HouseholdId));
-            await Toast.SendToast("Household member information saved successfully");
-            await Shell.Current.GoToAsync($"/{nameof(MembersPage)}?HouseholdId={Member.HouseholdId}");
-        }
-        else
-        {
-            var validateMessage = GetErrorListFromValidationResult(validationResult);
-            await Application.Current.MainPage.DisplayAlert("Validation Errors", $"{validateMessage}", "OK");
-        }
-
-     
     }
 }

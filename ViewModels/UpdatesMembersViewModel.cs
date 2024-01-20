@@ -41,7 +41,7 @@ public partial class UpdatesMembersViewModel : BaseViewModel
         IsComplete = current == total;
         MembersCount = $"{current} / {total}";
 
-        HideCompleteButton= (await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId)).IsComplete;
+        HideCompleteButton = (bool)(await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId)).IsComplete;
     }
     [RelayCommand]
     async void Save()

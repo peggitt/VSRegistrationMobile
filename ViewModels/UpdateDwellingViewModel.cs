@@ -171,7 +171,7 @@ namespace HSNP.Mobile.ViewModels
                 TenureStatus = TenureStatuses.FirstOrDefault(i => i.Id == HouseholdCharacteristic.TenureId);
 
                 RoofMaterials = codes.Where(i => i.ComboCode == "Roof_Material").ToList();
-                RoofMaterial = RoofMaterials.FirstOrDefault(i=>i.Id==HouseholdCharacteristic.FloorMaterialId);
+                RoofMaterial = RoofMaterials.FirstOrDefault(i=>i.Id==HouseholdCharacteristic.RoofMaterialId);
 
                 WallMaterials = codes.Where(i => i.ComboCode == "Wall_Material").ToList();
                 WallMaterial = WallMaterials.FirstOrDefault(i => i.Id == HouseholdCharacteristic.WallMaterialId);

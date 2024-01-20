@@ -39,11 +39,11 @@ public partial class RegistrationViewModel : BaseViewModel
             Households = new ObservableRangeCollection<Household>();
             Households.AddRange(households);
 
-            //var householdIds = households.Select(i => i.HouseholdId);
+            var householdIds = households.Select(i => i.HouseholdId);
 
-            //HouseholdMembers = new ObservableRangeCollection<HouseholdMember>();
-            //HouseholdMembers.AddRange(await App.db.Table<HouseholdMember>().OrderByDescending(i => i.CreatedOn).Where(i => i.SerialNo == "1" && householdIds.Contains(i.HouseholdId)).ToListAsync());
-            //HeightRequest = 100 + HouseholdMembers.Count() * 50;
+            HouseholdMembers = new ObservableRangeCollection<HouseholdMember>();
+            HouseholdMembers.AddRange(await App.db.Table<HouseholdMember>().OrderByDescending(i => i.CreatedOn).Where(i => i.RelationshipId == 1 && householdIds.Contains(i.HouseholdId)).ToListAsync());
+            HeightRequest = 100 + HouseholdMembers.Count() * 50;
 
         }
         catch (Exception ex) {

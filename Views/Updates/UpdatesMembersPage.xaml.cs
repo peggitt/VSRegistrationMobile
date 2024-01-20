@@ -37,7 +37,7 @@ public partial class UpdatesMembersPage : ContentPage
         HouseholdMember selected = (HouseholdMember)e.CurrentSelection.FirstOrDefault();
         App.HouseholdId = selected.HouseholdId;
         App.MemberId = selected.Id;
-        await  Navigation.PushAsync(new MembersAddPage());
+        await  Navigation.PushAsync(new UpdateMemberPage());
      //   await Shell.Current.GoToAsync(nameof(MembersAddPage));
         //  ((DataGrid)sender).SelectedItem = null;
     }

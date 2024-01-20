@@ -50,7 +50,7 @@
 
             <dataGrid:DataGrid.Columns>
                 <dataGrid:DataGridColumn Title="Name" PropertyName="Name"/>
-                <dataGrid:DataGridColumn  Title="ID Number" PropertyName="IdNumber" />
+                <dataGrid:DataGridColumn  Title="ID Number" PropertyName="IdNo" />
             </dataGrid:DataGrid.Columns>
             <dataGrid:DataGrid.RowsBackgroundColorPalette>
                 <dataGrid:PaletteCollection>

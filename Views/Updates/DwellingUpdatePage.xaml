@@ -5,7 +5,7 @@
              x:Class="HSNP.Mobile.Views.DwellingUpdatePage"
 	xmlns:convertors="clr-namespace:HSNP.Mobile.Convertors"
 	xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="Household Dwelling">
+             Title="Update Household Dwelling">
 	<ContentPage.Resources>
 		<ResourceDictionary>
 			<convertors:BooleanConvertor x:Key="BooleanConvertor" />

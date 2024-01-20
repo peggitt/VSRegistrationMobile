@@ -221,7 +221,7 @@ namespace HSNP.Mobile.ViewModels
                 Household.RuralUrbanId = AreaType.Id;
                 Household.RegisteredBy = App.User.Email;
                 Household.ApplicantName = $"{HouseholdMember.FirstName} {HouseholdMember.MiddleName} {HouseholdMember.Surname}";
-
+                Household.IsComplete = false;
                 await GetLocationAsync();
 
                 App.Database.AddOrUpdate(Household);

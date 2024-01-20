@@ -97,10 +97,26 @@ namespace HSNP.ViewModels
                     // Temp End
                     await App.Database._database.Table<Household>().Where(i=>i.SubLocationId == SubLocation.Id).DeleteAsync();
                     await App.Database._database.Table<HouseholdMember>().Where(i => i.SubLocationId == SubLocation.Id).DeleteAsync();
+                    await App.Database._database.Table<HouseholdCharacteristic>().Where(i => i.SubLocationId == SubLocation.Id).DeleteAsync();
 
                     await App.db.InsertAllAsync(response.returnDetails);
-                    CurrentStatus = "Downloading Members";
 
+
+                    var detailsParms = new
+                    {
+                        UserName = App.User.Email,
+                        SublocationId = SubLocation.Id
+                    };
+
+                    var detailsContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(detailsParms), Encoding.UTF8, "application/json");
+
+                    CurrentStatus = "Downloading Households Details";
+                    var detailsResponse = await _api.DownloadHouseholdsDetails(detailsContent, $"Bearer {App.User.Token}");
+                    detailsResponse.returnDetails.ForEach(i => i.SubLocationId = SubLocation.Id);
+                    await App.db.InsertAllAsync(detailsResponse.returnDetails);
+
+
+                    CurrentStatus = "Downloading Members";
                     var parms = new
                     {
                         UserName = App.User.Email,
@@ -109,15 +125,18 @@ namespace HSNP.ViewModels
 
                     var memberContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(parms), Encoding.UTF8, "application/json");
 
-
                     var mResponse = await _api.DownloadMembers(memberContent, $"Bearer {App.User.Token}");
                     try
                     {
-                        var test1 = mResponse.returnDetails.First();
-                        test1.Id = test1.HHMemberRosterId;
+                       
                         mResponse.returnDetails.ForEach(i => i.SubLocationId = SubLocation.Id);
                         mResponse.returnDetails.ForEach(i => i.Id = i.HHMemberRosterId);
-                        await App.db.InsertAllAsync(mResponse.returnDetails);
+                        mResponse.returnDetails.ForEach(i => i.RelationshipId = i.RelationMainProviderCode);
+                        mResponse.returnDetails.ForEach(i => i.IsComplete = true);
+                        if (mResponse.returnDetails.First().Sex!=null)
+                         mResponse.returnDetails.ForEach(i => i.SexId = i.Sex);
+
+                        await App.db.InsertAllAsync(mResponse.returnDetails); 
                     }catch(Exception ex)
                     {
                         var test = ex.ToString();

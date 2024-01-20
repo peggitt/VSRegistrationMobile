@@ -57,7 +57,7 @@ namespace HSNP.Models
         public DateTime? CreatedOn { get; set; }
         public int? HouseholdMembers { get; set; }
 
-        public bool IsComplete { get; set; }
+        public bool? IsComplete { get; set; }
         public bool Uploaded { get; set; }
 
         /*Do we still need this*/
@@ -111,6 +111,7 @@ namespace HSNP.Models
             }
         }
         public int? RelationshipId { get; set; }
+       
         public int? SexId { get; set; }
         public string BirthCertificate { get; set; } = "";
 
@@ -160,6 +161,8 @@ namespace HSNP.Models
 
         /*Temp*/
         public bool? SelfCareDisabilityId => SelfCareDisability;
+        public int RelationMainProviderCode { get; set; }
+        public int? Sex { get; set; }
         /*To Identify downloaded records*/
         public int? SubLocationId { get; set; }
 
@@ -212,11 +215,11 @@ namespace HSNP.Models
         public int ChickenOwned { get; set; }
         public int PigsOwned { get; set; }
 
-      
-        
 
 
 
+
+        public int? SubLocationId { get; set; }
 
     }
 
