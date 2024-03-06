@@ -7,16 +7,16 @@
 	xmlns:updates="clr-namespace:HSNP.Mobile.Views.Updates"
 	 xmlns:fa="clr-namespace:HSNP.Mobile.Helpers">
 
-
+    
     <FlyoutItem  x:Name="shelltabbar"
             Title="Menus"  
             FlyoutDisplayOptions="AsMultipleItems">
 
-        <ShellContent x:Name="shelltab_0" Title="Home" ContentTemplate="{DataTemplate views:MainPage}">
+        <!--<ShellContent x:Name="shelltab_0" Title="Home" ContentTemplate="{DataTemplate views:MainPage}">
             <ShellContent.Icon>
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.HomeAccount}"/>
             </ShellContent.Icon>
-        </ShellContent>
+        </ShellContent>-->
         <Tab Title="Registration"  x:Name="shelltab_1">
             <Tab.Icon>
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
@@ -36,7 +36,7 @@
             <Tab.Icon>
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.FileAccount}"/>
             </Tab.Icon>
-            <ShellContent Title="New" ContentTemplate="{DataTemplate updates:UpdatesPage}" Route="UpdatesPage">
+            <ShellContent Title="Pending" ContentTemplate="{DataTemplate updates:UpdatesPage}" Route="UpdatesPage">
                 <ShellContent.Icon>
                     <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
                 </ShellContent.Icon>
@@ -60,7 +60,8 @@
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.Logout}"/>
             </ShellContent.Icon>
         </ShellContent>
-         <Tab  x:Name="shelltab_2" Title="Registration Details" FlyoutItemIsVisible="False" Route="Household">
+         
+        <Tab  x:Name="shelltab_2" Title="Registration Details" FlyoutItemIsVisible="False" Route="Household">
             <ShellContent Title="Household Details" ContentTemplate="{DataTemplate views:AddNewHouseholdPage}" Route="HouseholdDetails">
                 <ShellContent.Icon>
                     <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.NaturePeople}"/>
@@ -77,7 +78,9 @@
                 </ShellContent.Icon>
             </ShellContent>
         </Tab>
-
+       
     </FlyoutItem>
-
+    <FlyoutItem Title="App Version 1.0">
+    <!-- Your page or content here -->
+</FlyoutItem>
 </Shell>

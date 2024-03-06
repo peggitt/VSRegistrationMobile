@@ -17,6 +17,12 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(HouseholdPage), typeof(HouseholdPage));
         Routing.RegisterRoute(nameof(SyncPage), typeof(SyncPage));
 
+        // Updates Page
+        Routing.RegisterRoute(nameof(UpdateHouseholdPage), typeof(UpdateHouseholdPage));
+        Routing.RegisterRoute(nameof(UpdatesMembersPage), typeof(UpdatesMembersPage));
+        Routing.RegisterRoute(nameof(UpdateMemberPage), typeof(UpdateMemberPage));
+        Routing.RegisterRoute(nameof(DwellingUpdatePage), typeof(DwellingUpdatePage));
+        
     }
     public void SwitchtoTab(int tabIndex)
     {
