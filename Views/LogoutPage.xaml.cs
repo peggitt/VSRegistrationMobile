@@ -6,10 +6,14 @@ namespace HSNP.Mobile.Views;
 
 public partial class LogoutPage : ContentPage
 {
-	public LogoutPage()
+    public string AppVersion { get; set; }
+
+    public LogoutPage()
 	{
 		InitializeComponent();
-	}
+        AppVersion = $"App Version {AppInfo.Current.VersionString}";
+        BindingContext = this;
+    }
     async void LogoutClicked(object sender, EventArgs args)
     {
 

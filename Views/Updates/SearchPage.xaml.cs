@@ -8,6 +8,6 @@ public partial class SearchPage : ContentPage
 	public SearchPage()
 	{
 		InitializeComponent();
-        BindingContext = new UpdatesViewModel(ApiService.Instance, Navigation);
+        BindingContext = new UpdatesSearchViewModel(ApiService.Instance, Navigation);
     }
 }

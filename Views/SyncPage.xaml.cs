@@ -8,6 +8,10 @@ public partial class SyncPage : ContentPage
 	public SyncPage()
 	{
 		InitializeComponent();
+      
+    }
+    protected override void OnAppearing()
+    {
         BindingContext = new SyncViewModel(ApiService.Instance, Navigation);
     }
 }

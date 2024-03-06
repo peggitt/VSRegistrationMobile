@@ -9,7 +9,7 @@ using static Android.Media.TV.TvContract;
 namespace HSNP.Mobile.ViewModels;
 
 
-public partial class AddMemberViewModel : BaseViewModel
+public partial class UpdateMemberViewModel : BaseViewModel
 {
 
     private readonly IApi _api;
@@ -170,7 +170,7 @@ public partial class AddMemberViewModel : BaseViewModel
     public DateTime seventyYearsAgo { get; set; }
     public DateTime seventeenYearsAgo { get; set; }
 
-    public AddMemberViewModel(INavigation navigation, IApi api,string id,string memberId) : base(navigation)
+    public UpdateMemberViewModel(INavigation navigation, IApi api,string id,string memberId) : base(navigation)
     {
         _api = api;
         HouseholdId = App.HouseholdId;
@@ -192,75 +192,67 @@ public partial class AddMemberViewModel : BaseViewModel
 
     public async Task GetItems()
     {
-        try
+        Member = await App.db.Table<HouseholdMember>().FirstOrDefaultAsync(i => i.Id == MemberId);
+        if(Member==null)
         {
-            Member = await App.db.Table<HouseholdMember>().FirstOrDefaultAsync(i => i.Id == MemberId);
-            if (Member == null)
+            Member=new HouseholdMember {
+                Id = Guid.NewGuid().ToString(),
+                EntryDate=DateTime.UtcNow.ToString("yyyy-MM-dd"),
+                CreatedOn= DateTime.UtcNow.ToString("yyyy-MM-dd"),
+                SerialNo = $"{(await App.db.Table<HouseholdMember>().CountAsync(i => i.HouseholdId == HouseholdId)) + 1}"
+            };
+         
+        }
+        MemberId = Member.Id;
+        Caregivers= await App.db.Table<HouseholdMember>().ToListAsync();
+        Spouses = await App.db.Table<HouseholdMember>().ToListAsync();
+        BooleanAnswers = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "YesNo").ToListAsync();
+
+        IdentificationDocumentTypes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Identification").ToListAsync();
+        IdentificationDocumentType = IdentificationDocumentTypes.SingleOrDefault(i=>i.Id==Member.IdTypeId);
+
+        Relationships = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Relationship").ToListAsync();
+        Relationship = Relationships.SingleOrDefault(i => i.Id == Member.RelationshipId);
+
+        Sexes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Sex").ToListAsync();
+        Sex = Sexes.SingleOrDefault(i => i.Id == Member.SexId);
+
+        MaritalStatuses = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Marital").ToListAsync();
+        MaritalStatus = MaritalStatuses.SingleOrDefault(i => i.Id == Member.SexId);
+
+       var  disabilityOptions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Disability").ToListAsync();
+        var selected = await App.db.Table<MemberDisability>().Where(i => i.MemberId == MemberId).ToListAsync();
+        var list = new List<SelectableItemWrapper<SystemCodeDetail>>();
+
+        
+        if (!selected.Any())
+            foreach (var item in disabilityOptions)
+                list.Add(new SelectableItemWrapper<SystemCodeDetail> { Item = item, IsSelected = false });
+        else
+            foreach (var item in disabilityOptions)
             {
-                Member = new HouseholdMember
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    EntryDate = DateTime.UtcNow.ToString("yyyy-MM-dd"),
-                    CreatedOn = DateTime.UtcNow.ToString("yyyy-MM-dd"),
-                    SerialNo = $"{(await App.db.Table<HouseholdMember>().CountAsync(i => i.HouseholdId == HouseholdId)) + 1}"
-                };
-
+                list.Add(new SelectableItemWrapper<SystemCodeDetail>
+                { Item = item, IsSelected = selected.Any(x => x.DisabilityId == item.Id) });
             }
-            MemberId = Member.Id;
-            Caregivers = await App.db.Table<HouseholdMember>().ToListAsync();
-            Spouses = await App.db.Table<HouseholdMember>().ToListAsync();
-            BooleanAnswers = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "YesNo").ToListAsync();
-
-            IdentificationDocumentTypes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Identification").ToListAsync();
-            IdentificationDocumentType = IdentificationDocumentTypes.SingleOrDefault(i => i.Id == Member.IdTypeId);
-
-            Relationships = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Relationship").ToListAsync();
-            Relationship = Relationships.SingleOrDefault(i => i.Id == Member.RelationshipId);
-
-            Sexes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Sex").ToListAsync();
-            Sex = Sexes.SingleOrDefault(i => i.Id == Member.SexId);
-
-            MaritalStatuses = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Marital").ToListAsync();
-            MaritalStatus = MaritalStatuses.SingleOrDefault(i => i.Id == Member.SexId);
-
-            var disabilityOptions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Disability").ToListAsync();
-            var selected = await App.db.Table<MemberDisability>().Where(i => i.MemberId == MemberId).ToListAsync();
-            var list = new List<SelectableItemWrapper<SystemCodeDetail>>();
+        Disabilities = list;
 
 
-            if (!selected.Any())
-                foreach (var item in disabilityOptions)
-                    list.Add(new SelectableItemWrapper<SystemCodeDetail> { Item = item, IsSelected = false });
-            else
-                foreach (var item in disabilityOptions)
-                {
-                    list.Add(new SelectableItemWrapper<SystemCodeDetail>
-                    { Item = item, IsSelected = selected.Any(x => x.DisabilityId == item.Id) });
-                }
-            Disabilities = list;
+        LearningStatuses = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_School").ToListAsync();
+        LearningStatus = LearningStatuses.SingleOrDefault(i => i.Id == Member.LearningInstitutionId);
 
+        EducationLevels = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_School_Grade").ToListAsync();
+        EducationLevel = EducationLevels.SingleOrDefault(i => i.Id == Member.LearningInstitutionId);
 
-            LearningStatuses = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_School").ToListAsync();
-            LearningStatus = LearningStatuses.SingleOrDefault(i => i.Id == Member.LearningInstitutionId);
+        WorkTypes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Work_last_7days").ToListAsync();
+        WorkType = WorkTypes.SingleOrDefault(i => i.Id == Member.Worklast7daysId);
 
-            EducationLevels = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_School_Grade").ToListAsync();
-            EducationLevel = EducationLevels.SingleOrDefault(i => i.Id == Member.LearningInstitutionId);
+        SpouseInHousehold = BooleanAnswers.SingleOrDefault(i => i.Id == Member.SpouseStatusId);
+        FatherAlive = BooleanAnswers.SingleOrDefault(i => i.Id == Member.FatherAliveId);
+        MotherAlive = BooleanAnswers.SingleOrDefault(i => i.Id == Member.MotherAliveId);
+        ChronicIllness = BooleanAnswers.SingleOrDefault(i => i.Id == Member.ChronicillnessId);
+        HasDisability = BooleanAnswers.SingleOrDefault(i => i.Id == Member.DisabilityId);
 
-            WorkTypes = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Work_last_7days").ToListAsync();
-            WorkType = WorkTypes.SingleOrDefault(i => i.Id == Member.Worklast7daysId);
-
-            SpouseInHousehold = BooleanAnswers.SingleOrDefault(i => i.Id == Member.SpouseStatusId);
-            FatherAlive = BooleanAnswers.SingleOrDefault(i => i.Id == Member.FatherAliveId);
-            MotherAlive = BooleanAnswers.SingleOrDefault(i => i.Id == Member.MotherAliveId);
-            ChronicIllness = BooleanAnswers.SingleOrDefault(i => i.Id == Member.ChronicillnessId);
-            HasDisability = BooleanAnswers.SingleOrDefault(i => i.Id == Member.DisabilityId);
-
-            DisabilityCareStatus = BooleanAnswers.SingleOrDefault(i => i.Id == Member.Need24HrCareId);
-        }
-        catch(Exception ex)
-        {
-            await Application.Current.MainPage.DisplayAlert("Errors", $"{ex.Message}\n{ex.ToString()}", "OK");
-        }
+        DisabilityCareStatus = BooleanAnswers.SingleOrDefault(i => i.Id == Member.Need24HrCareId);
 
     }
 
@@ -334,10 +326,10 @@ public partial class AddMemberViewModel : BaseViewModel
                 var validateMessage = GetErrorListFromValidationResult(validationResult);
                 await Application.Current.MainPage.DisplayAlert("Validation Errors", $"{validateMessage}", "OK");
             }
+
         }catch(Exception ex)
         {
-            await Application.Current.MainPage.DisplayAlert("Validation Errors", $"{ex.Message}\n{ex.ToString()}", "OK");
+            await Application.Current.MainPage.DisplayAlert(" rrors", $"{ex.Message}\n\n{ex.ToString()}", "OK");
         }
-     
     }
 }

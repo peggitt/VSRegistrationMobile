@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HSNP.Mobile.Views.MembersAddPage"
+             x:Class="HSNP.Mobile.Views.UpdateMemberPage"
               xmlns:convertors="clr-namespace:HSNP.Mobile.Convertors"
-             Title="Add Household Member">
+             Title="Update Household Member">
     <ContentPage.Resources>
         <ResourceDictionary>
             <convertors:BooleanConvertor x:Key="BooleanConvertor" />

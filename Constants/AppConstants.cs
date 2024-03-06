@@ -7,6 +7,11 @@ namespace HSNP.Constants
     
     public static class AppConstants
     {
+        // Live
+      //  public static string BaseApiAddress => "http://app.hsnpmis.or.ke:5500";
+      //  public static string SecurityApiAddress => "http://app.hsnpmis.or.ke:5200";
+
+        // Test
         public static string BaseApiAddress => "http://app.hsnpmis.or.ke:7300";
         public static string SecurityApiAddress => "http://app.hsnpmis.or.ke:7200";
 

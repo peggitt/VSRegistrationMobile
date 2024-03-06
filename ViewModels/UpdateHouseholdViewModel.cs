@@ -9,12 +9,12 @@ using FluentValidation;
 
 namespace HSNP.Mobile.ViewModels
 {
-    public partial class AddNewHouseholdViewModel : BaseViewModel
+    public partial class UpdateHouseholdViewModel : BaseViewModel
     {
         private readonly IApi _api;
         private readonly AddHouseholdValidator _hhValidator;
         private readonly AddHouseholdMemberValidator _hhMValidator;
-        public AddNewHouseholdViewModel(IApi api, INavigation navigation) : base(navigation)
+        public UpdateHouseholdViewModel(IApi api, INavigation navigation) : base(navigation)
         {
             _api = api;
             _ = GetItems();
@@ -148,6 +148,11 @@ namespace HSNP.Mobile.ViewModels
                 }
 
                 IsBeneficiaryHH = BooleanAnswers.SingleOrDefault(i => i.Id == Household.IsBeneficiaryHHId);
+                if (Household.IsBeneficiaryHHId ==null)
+                {
+                    var desc = Household.IsBeneficiaryHH == true ? "Yes" : "No";
+                    IsBeneficiaryHH = BooleanAnswers.SingleOrDefault(i => i.Description == desc);
+                }
             }
             catch (Exception ex)
             {
@@ -213,10 +218,10 @@ namespace HSNP.Mobile.ViewModels
                 Household.VillageId = Village.Id;
                 Household.Village = Village.Name;
 
-                Household.RuralUrbanId=Household.AreaTypeId = AreaType.Id;
+                Household.RuralUrbanId = Household.AreaTypeId = AreaType.Id;
                 Household.RegisteredBy = App.User.Email;
                 Household.ApplicantName = $"{HouseholdMember.FirstName} {HouseholdMember.MiddleName} {HouseholdMember.Surname}";
-
+                Household.IsComplete = false;
                 await GetLocationAsync();
 
                 App.Database.AddOrUpdate(Household);
@@ -225,7 +230,7 @@ namespace HSNP.Mobile.ViewModels
                 // await Navigation.PushAsync(new MembersPage(Household.HouseholdId));
 
                 //  await Navigation.PushAsync(new DwellingAddEditPage());
-                await Shell.Current.GoToAsync($"/{nameof(DwellingAddEditPage)}?HouseholdId={Household.HouseholdId}");
+                await Shell.Current.GoToAsync($"/{nameof(DwellingUpdatePage)}?HouseholdId={Household.HouseholdId}");
                 await Toast.SendToast("Geographic identification information successfully");
             }
             catch (Exception ex)

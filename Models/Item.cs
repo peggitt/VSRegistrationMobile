@@ -44,6 +44,7 @@ namespace HSNP.Models
         public int AccessType { get; set; }
         public string hsnp_key { get; set; }
         public string detail { get; set; }
+        public int CountyId { get; set; }
     }
    
     public class Subscription
@@ -109,7 +110,28 @@ namespace HSNP.Models
         public string ReturnPKey { get; set; }
         public List<SystemCodeDetail> returnDetails { get; set; }
     }
-   
+    public class HouseholdsDownloadVm
+    {
+        public int status { get; set; }
+        public string detail { get; set; }
+        public string ReturnPKey { get; set; }
+        public List<Household> returnDetails { get; set; }
+    }
+    public class HouseholdsDetailsDownloadVm
+    {
+        public int status { get; set; }
+        public string detail { get; set; }
+        public string ReturnPKey { get; set; }
+        public List<HouseholdCharacteristic> returnDetails { get; set; }
+    }
+    
+    public class MembersDownloadVm
+    {
+        public int status { get; set; }
+        public string detail { get; set; }
+        public string ReturnPKey { get; set; }
+        public List<HouseholdMember> returnDetails { get; set; }
+    }
     public class ConstituencyVm
     {
         public int status { get; set; }

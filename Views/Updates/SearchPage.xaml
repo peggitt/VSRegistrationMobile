@@ -2,14 +2,22 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HSNP.Mobile.Views.SearchPage"
+              xmlns:convertors="clr-namespace:HSNP.Mobile.Convertors"
              Title="SearchPage">
+    <ContentPage.Resources>
+		<ResourceDictionary>
+			<convertors:BooleanConvertor x:Key="BooleanConvertor" />
+			<convertors:IntBooleanConvertor x:Key="IntBooleanConvertor" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
     <VerticalStackLayout>
         <Label StyleClass="heading" Text="APPLICANT DETAILS" />
         <Label Text="Household ID"/>
         <Entry Text="{Binding HouseholdId}"></Entry>
         <Label Text="National ID No."/>
-        <Entry Text="{Binding NationalIdNo}"></Entry>
-        <Button Text="Next" BackgroundColor="#cca102" TextColor="Black" Command="{Binding NextCommand}"  ></Button>
+        <Entry Text="{Binding NationalIdNo}" Keyboard="Numeric"></Entry>
+        <Button Text="Next" IsVisible="{Binding IsBusy, Converter={StaticResource BooleanConvertor}}"
+                BackgroundColor="#cca102" TextColor="Black" Command="{Binding NextCommand}"  ></Button>
         <StackLayout IsVisible="{Binding IsBusy}" Margin="10" VerticalOptions="StartAndExpand">
             <ActivityIndicator IsRunning="{Binding IsBusy}" />
             <Label TextColor="#FC7E27" FontAttributes="None" Text="{Binding CurrentStatus}" HorizontalOptions="Center" />

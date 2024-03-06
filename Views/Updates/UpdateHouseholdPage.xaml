@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HSNP.Mobile.Views.AddNewHouseholdPage"
-             Title="Add Household">
+             x:Class="HSNP.Mobile.Views.UpdateHouseholdPage"
+             Title="Update Household">
     <ScrollView VerticalOptions="FillAndExpand">
         <VerticalStackLayout VerticalOptions="FillAndExpand" StyleClass="input-form">
 
@@ -21,7 +21,7 @@
             <Entry Text="{Binding HouseholdMember.Surname}"></Entry>
 
             <Label Text="(1.05) Phone Number" />
-            <Entry Keyboard="Telephone"  Text="{Binding Household.PhoneNumber}"></Entry>
+            <Entry Keyboard="Telephone" Text="{Binding Household.PhoneNumber}"></Entry>
              <!--
             <Label Text="(1.06) Type of Identification Document" />
             <Picker Title="Select " x:Name="IdentificationDocumentTypeId" ItemsSource="{Binding IdentificationDocumentTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding IdentificationDocumentType}" />

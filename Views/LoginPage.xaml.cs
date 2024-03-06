@@ -9,6 +9,7 @@ public partial class LoginPage : ContentPage
 	{
 		InitializeComponent();
         this.BindingContext = new LoginViewModel(ApiService.Instance, Navigation);
+
     }
     void ForgotPinTapped(object sender, EventArgs args)
     {

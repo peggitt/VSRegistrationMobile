@@ -15,107 +15,61 @@ using HSNP.Models;
 using HSNP.Services;
 using IntelliJ.Lang.Annotations;
 using Java.Net;
+using MvvmHelpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Refit;
 
 namespace HSNP.ViewModels
 {
-    public partial class UpdatesViewModel : BaseViewModel
+    public partial class UpdatesViewModel : Mobile.ViewModels.BaseViewModel
     {
-        int count;
-        int total;
-        private IApi _api;
-        public UpdatesViewModel(IApi api, INavigation navigation) : base(navigation)
+        private readonly IApi _api;
+        public UpdatesViewModel(bool complete = false)
         {
+            GetItems(complete);
+
         }
 
         [ObservableProperty]
-        private string householdId;
-        [ObservableProperty]
-        private string nationalIdNo;
-        [ObservableProperty]
-        private string currentStatus;
-        
+        private ObservableRangeCollection<HouseholdMember> householdMembers;
 
+        [ObservableProperty]
+        private ObservableRangeCollection<Household> households;
 
-        [RelayCommand]
-        private async Task Next()
+        [ObservableProperty]
+        private int heightRequest;
+
+        private ObservableRangeCollection<HouseholdMember> _sales;
+        public ObservableRangeCollection<HouseholdMember> Sales
         {
-            if(string.IsNullOrEmpty(HouseholdId) && string.IsNullOrEmpty(NationalIdNo)) {
-                await Toast.SendToastAsync("Household ID or National ID No. is required");
-            }
-            else {
-            
-            var householdIds = await App.db.Table<Household>().Where(i => i.IsComplete).ToListAsync();
-            total = householdIds.Count();
-                if (total != 100)
-                {
-                    if (!string.IsNullOrEmpty(HouseholdId) && !string.IsNullOrEmpty(HouseholdId))
-                        await Application.Current.MainPage.DisplayAlert("Sorry", $"Household with Household ID {HouseholdId} and  National ID No. {NationalIdNo} not found.", "OK");
-                    else if (!string.IsNullOrEmpty(HouseholdId))
-                        await Application.Current.MainPage.DisplayAlert("Sorry", $"Household with Household ID {HouseholdId} not found.", "OK");
-                    else
-                        await Application.Current.MainPage.DisplayAlert("Sorry", $"Household with National ID No. {NationalIdNo} not found.", "OK");
-                }
-                else
-                {
-
-                    bool answer = await Application.Current.MainPage.DisplayAlert("Confirm?", $"Upload {total} Household(s)?", "Yes", "No");
-                    if (answer)
-                    {
-                        _api = new ApiService(AppConstants.BaseApiAddress);
-                        if (IsBusy)
-                            return;
-                        IsBusy = true;
-
-                        try
-                        {
-
-                            householdIds.ForEach(i => i.UserName = App.User.Email);
-
-                            count = 1;
-                            foreach (var household in householdIds)
-                            {
-                                CurrentStatus = $"Uploading {count}/{total}";
-                                var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(household), Encoding.UTF8, "application/json");
-                                var response = await _api.AddHousehold(content, $"Bearer {App.User.Token}");
-
-                                if (response.Message != null)
-                                {
-                                    household.IsComplete = true;
-                                    var xtics = await App.db.Table<HouseholdCharacteristic>().FirstAsync(i => i.HouseholdId == household.HouseholdId);
-                                    xtics.UserName = App.User.Email;
-                                    content = new StringContent(System.Text.Json.JsonSerializer.Serialize(xtics), Encoding.UTF8, "application/json");
-                                    response = await _api.AddHHCharacteristicscreate(content, $"Bearer {App.User.Token}");
-                                    if (response.Message != null)
-                                    {
-                                    }
-                                    var members = await App.db.Table<HouseholdMember>().Where(i => i.HouseholdId == household.HouseholdId).ToListAsync();
-                                    content = new StringContent(System.Text.Json.JsonSerializer.Serialize(members), Encoding.UTF8, "application/json");
-                                    response = await _api.AddHouseholdMembers(content, $"Bearer {App.User.Token}");
-                                    if (response.Message != null)
-                                    {
-                                    }
-                                }
-
-                                count++;
-                            }
-
-                        }
-                        catch (Exception ex)
-                        {
-                            await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
-
-                        }
-
-                        IsBusy = false;
-                    }
-                }
-            }
-
+            get => _sales;
+            set { _sales = value; OnPropertyChanged(); }
         }
 
+        public async void GetItems(bool complete)
+        {
+            try
+            {
 
+
+                var households = await App.db.Table<Household>().Where(i =>i.Editting==true && i.IsComplete == complete && i.MarkForDownload == true).Take(10).ToListAsync();
+                Households = new ObservableRangeCollection<Household>();
+                Households.AddRange(households);
+
+                var householdIds = households.Select(i => i.HouseholdId);
+
+                HouseholdMembers = new ObservableRangeCollection<HouseholdMember>();
+                HouseholdMembers.AddRange(await App.db.Table<HouseholdMember>().OrderByDescending(i => i.CreatedOn).Where(i => i.RelationshipId == 1 && householdIds.Contains(i.HouseholdId)).ToListAsync());
+                HeightRequest = 100 + HouseholdMembers.Count() * 50;
+
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Sorry!", ex.ToString(), "Ok");
+            }
+
+
+        }
     }
 }

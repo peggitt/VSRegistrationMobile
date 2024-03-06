@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HSNP.Mobile.Views.RegistrationCompletePage"
               xmlns:dataGrid="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
-             Title="RegistrationCompletePage">
+             Title="Complete Registrations">
     <VerticalStackLayout>
          <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
             <Label Padding="5" Text="Name" FontAttributes="Bold" HorizontalOptions="FillAndExpand" TextColor="Black" />

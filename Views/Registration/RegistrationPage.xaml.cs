@@ -23,11 +23,12 @@ public partial class RegistrationPage : ContentPage
         }
         
     }
-    private void AddNew_OnClicked(object sender, EventArgs e)
+    private async void AddNew_OnClicked(object sender, EventArgs e)
     {
         App.HouseholdId = null;
         App.MemberId = null;
-        Navigation.PushAsync(new AddNewHouseholdPage());
+        Shell.Current.GoToAsync($"/{nameof(AddNewHouseholdPage)}");
+        // await Shell.Current.GoToAsync("//AddNewHouseholdPage");
     }
     
     async void DataGrid_ItemSelected(Object sender,SelectionChangedEventArgs e)

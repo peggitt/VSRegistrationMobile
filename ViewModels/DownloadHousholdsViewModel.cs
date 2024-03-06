@@ -2,6 +2,7 @@
 using HSNP.Interfaces;
 using HSNP.Mobile;
 using HSNP.Models;
+using Mopups.Services;
 using Refit;
 
 namespace HSNP.ViewModels
@@ -59,17 +60,84 @@ namespace HSNP.ViewModels
                 IsBusy = true;
                 var lm = new
                 {
-                    UserName = App.User.Email,
+                    UserEmail = App.User.Email,
                     SublocationId = SubLocation.Id
                 };
+
                 var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(lm), Encoding.UTF8, "application/json");
+
+
+
+                //Uri baseUrl = new Uri("http://app.hsnpmis.or.ke:7300/householdviewdownload");
+                //   var apiEndpoint = baseUrl;
+                 
+                //   using (var httpClient = new HttpClient())
+                //   {
+
+                //       var responseData = await httpClient.PostAsync(apiEndpoint, content);
+                //       responseData.EnsureSuccessStatusCode(); // throws an exception if the status code is not in the 200 range
+                //       var responseContent = await responseData.Content.ReadAsStringAsync();
+                //       // do something with the response content
+                //   }
+                   
+
+               
                 try
                 {
                     CurrentStatus = "Downloading Households";
-                    int count = 0;
+                   
                 
                     var response = await _api.DownloadHouseholds(content, $"Bearer {App.User.Token}");
 
+                    response.returnDetails.ForEach(i => i.MarkForDownload = true);
+                    response.returnDetails.ForEach(i => i.SubLocationId = SubLocation.Id);
+                    
+                   
+                 
+                    await App.Database._database.Table<Household>().Where(i=>i.SubLocationId == SubLocation.Id && i.MarkForDownload==true).DeleteAsync();
+                    await App.Database._database.Table<HouseholdMember>().Where(i => i.SubLocationId == SubLocation.Id).DeleteAsync();
+                    await App.Database._database.Table<HouseholdCharacteristic>().Where(i => i.SubLocationId == SubLocation.Id).DeleteAsync();
+
+                    await App.db.InsertAllAsync(response.returnDetails);
+
+
+                    var detailsParms = new
+                    {
+                        UserName = App.User.Email,
+                        SublocationId = SubLocation.Id
+                    };
+
+                    var detailsContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(detailsParms), Encoding.UTF8, "application/json");
+
+                    CurrentStatus = "Downloading Households Details";
+                    var detailsResponse = await _api.DownloadHouseholdsDetails(detailsContent, $"Bearer {App.User.Token}");
+                    detailsResponse.returnDetails.ForEach(i => i.SubLocationId = SubLocation.Id);
+                    await App.db.InsertAllAsync(detailsResponse.returnDetails);
+
+
+                    CurrentStatus = "Downloading Members";
+                    var parms = new
+                    {
+                        UserName = App.User.Email,
+                        SubLocationId = SubLocation.Id
+                    };
+
+                    var memberContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(parms), Encoding.UTF8, "application/json");
+
+                    var mResponse = await _api.DownloadMembers(memberContent, $"Bearer {App.User.Token}");
+                    try
+                    {
+                       
+                        mResponse.returnDetails.ForEach(i => i.SubLocationId = SubLocation.Id);
+                        mResponse.returnDetails.ForEach(i => i.Id = i.HHMemberRosterId);                
+                        mResponse.returnDetails.ForEach(i => i.IsComplete = true);
+                      
+
+                        await App.db.InsertAllAsync(mResponse.returnDetails); 
+                    }catch(Exception ex)
+                    {
+                        var test = ex.ToString();
+                    }
                     //if (response.returnDetails != null)
                     //{
                     //    CurrentStatus = "Processing System Codes";
@@ -87,9 +155,11 @@ namespace HSNP.ViewModels
 
                     //    await Toast.SendToastAsync(response.detail);
                     //}
-                    
 
-                    await Application.Current.MainPage.DisplayAlert("Download Complete", $"{count} households downloaded","OK");
+
+                    await MopupService.Instance.PopAsync();
+                    await Application.Current.MainPage.DisplayAlert("Download Complete", $"{response.returnDetails.Count()} households downloaded","OK");
+                     await Shell.Current.GoToAsync($"/{nameof(SyncPage)}");
                 }
                 catch (ApiException ex)
                 {

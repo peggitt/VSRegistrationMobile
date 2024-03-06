@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HSNP.Mobile.Views.LogoutPage"
              Title="Logout">
-    <VerticalStackLayout>
+
+    <VerticalStackLayout VerticalOptions="Fill">
        <HorizontalStackLayout HorizontalOptions="Center">
 			 <Image Source="hsnp_logo" Margin="0,0,20,0" HorizontalOptions="Center"  HeightRequest="100" />
               <Image Source="ndma_logo" HorizontalOptions="Center" HeightRequest="90" />
@@ -12,5 +13,6 @@
             <Label Style="{StaticResource SubHeadingLabel}" HorizontalOptions="CenterAndExpand" 
                    Text="Logout of the application?" Margin="0,0,0,20" />
             <Button Text="Log out" BackgroundColor="Black" TextColor="White" Clicked="LogoutClicked"></Button>
+        <Label HorizontalTextAlignment="Center" Text="{Binding AppVersion}" VerticalOptions="EndAndExpand"></Label>
     </VerticalStackLayout>
 </ContentPage>

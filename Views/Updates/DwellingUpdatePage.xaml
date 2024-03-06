@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HSNP.Mobile.Views.DwellingUpdatePage"
+	xmlns:convertors="clr-namespace:HSNP.Mobile.Convertors"
+	xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="Update Household Dwelling">
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<convertors:BooleanConvertor x:Key="BooleanConvertor" />
+			<convertors:IntBooleanConvertor x:Key="IntBooleanConvertor" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	<ScrollView VerticalOptions="FillAndExpand">
+		<VerticalStackLayout>
+			<Label
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            StyleClass="heading" 
+                            Text="SECTION II. DWELLING AND HOUSEHOLD" />
+			<StackLayout>
+				
+				<Label Text="(2.01) How many habitable ROOMS does this dwelling unit contain?" />
+				<Entry Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.NoMainRooms}" />
+				<Label Text="(2.02) TENURE status of the dwelling unit and/or surrounding terrain/land" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding TenureStatuses}" SelectedItem="{Binding TenureStatus}" />
+				<Entry IsVisible="{Binding TenureStatus, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Tenure Status" Text="{Binding HouseholdCharacteristic.TenureStatusOther}" />
+				<Label Text="DOMINANT  MATERIAL OF THE MAIN DWELLING UNIT" />
+				<Label  Text="(2.03) ROOF?" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding RoofMaterials}" SelectedItem="{Binding RoofMaterial}"  />
+				<Entry MaxLength="100" IsVisible="{Binding RoofMaterial, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Roof Material" Text="{Binding HouseholdCharacteristic.RoofMaterialOther}" />
+				<Label  Text="(2.04) WALL ?" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding WallMaterials}" SelectedItem="{Binding WallMaterial}"  />
+				<Entry MaxLength="100" IsVisible="{Binding WallMaterial, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Wall Material" Text="{Binding HouseholdCharacteristic.WallMaterialOther}" />
+				
+				<Label  Text="(2.05) FLOOR ?" />
+				<Picker Title="Select " ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding FloorMaterials}" SelectedItem="{Binding FloorMaterial}"  />
+				<Entry MaxLength="100" IsVisible="{Binding FloorMaterial, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Floor Material" Text="{Binding HouseholdCharacteristic.FloorMaterialOther}" />
+				<Label Text="(2.06)The dwelling unit is at RISK of:?" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding DwellingRisks}" SelectedItem="{Binding DwellingRisk}" />
+				<Entry MaxLength="100" IsVisible="{Binding DwellingRisk, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Dwelling Unit Risk" Text="{Binding HouseholdCharacteristic.DwellingRiskOther}" />
+				<Label Text="(2.07)Main source of WATER?" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding WaterSources}" SelectedItem="{Binding WaterSource}" />
+				<Entry MaxLength="100" IsVisible="{Binding WaterSource, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Water Source" Text="{Binding HouseholdCharacteristic.WaterSourceOther}" />
+				<Label Text="(2.08) Main mode of HUMAN WASTE DISPOSAL?" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding WasteDisposals}" SelectedItem="{Binding WasteDisposal}" />
+				<Entry MaxLength="100" IsVisible="{Binding WasteDisposal, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Waste Disposal Mode" Text="{Binding HouseholdCharacteristic.WasteDisposalModeOther}" />
+				<Label Text="(2.09) Main type of COOKING FUEL" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding CookingFuels}" SelectedItem="{Binding CookingFuel}" />
+				<Entry MaxLength="100" IsVisible="{Binding CookingFuel, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Cooking Fuel" Text="{Binding HouseholdCharacteristic.CookingFuelOther}" />
+				<Label Text="(2.10) Main type of LIGHTING FUEL:" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding LightingFuels}" SelectedItem="{Binding LightingFuel}" />
+				<Entry MaxLength="100" IsVisible="{Binding LightingFuel, Converter={StaticResource IntBooleanConvertor}}" Placeholder="Other Lighting Fuel" Text="{Binding HouseholdCharacteristic.LightingFuelOther}" />
+				<Label Text="Does the household OWN any of the following items?" />
+				<Label  Text="(2.11) Television" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding TVOwned}" />
+				<Label  Text="(2.12) Motorcycle" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding MotorCycleOwned}" />
+				<Label  Text="(2.13) Tuk-Tuk" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding TukTukOwned}" />
+				<Label  Text="(2.14) Refrigerator" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding RefrigeratorOwned}" />
+				<Label  Text="(2.15) Car" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding CarOwned}" />
+				<Label  Text="(2.16) Mobile phone" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding MobileOwned}" />
+				<Label  Text="(2.17) Bicycle" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding BicycleOwned}" />
+				<Label Text="How many of each of the following livestock are currently owned" />
+				<Label  Text="(2.18) Exotic cattle" />
+				<Entry Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.ExoticCattleOwned}" />
+				<Label  Text="(2.19) Indigenous cattle" />
+				<Entry  Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.ZebuCattleOwned}" />
+				<Label  Text="(2.20) Sheep" />
+				<Entry Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.SheepOwned}" />
+				<Label  Text="(2.21) Goats" />
+				<Entry Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.GoatsOwned}" />
+				<Label  Text="(2.22) Camels" />
+				<Entry Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.CamelsOwned}" />
+				<Label  Text="(2.23) Donkeys" />
+				<Entry  Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.DonkeysOwned}" />
+				<Label  Text="(2.24) Pigs" />
+				<Entry  Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.PigsOwned}" />
+				<Label  Text="(2.25) Chicken" />
+				<Entry  Keyboard="Numeric" Text="{Binding HouseholdCharacteristic.ChickenOwned}" />
+				<Label Text="(2.26) How many LIVE BIRTHS occurred in this household in the last 12 months?" />
+				<Entry  MaxLength="2" Keyboard="Numeric" Text="{Binding Household.LiveBirths}" />
+				<Label Text="(2.27) How many DEATHS occurred in this household in the last 12 months?" />
+				<Entry Keyboard="Numeric" MaxLength="2" Text="{Binding Household.StillBirths}" />
+				<Label Text="(2.28) Currently, the CONDITIONS of your household are?" />
+				<Picker  Title="Status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding HouseholdConditions}" SelectedItem="{Binding HouseholdCondition}" />
+				<Label Text="(2.29) In the past 7 days, did anyone in this household cut the size of the meals or skip meals because of the lack of enough money?" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding SkippedMeal}" />
+
+				<Label Text="(2.30) Is anyone in the household receiving benefits from any NSNP?" />
+				<Picker Title="Status" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding ReceivingNSPPBeneficts}" />
+
+			
+
+				<StackLayout Margin="0" Padding="0" IsVisible="{Binding IsReceivingNSPPBeneficts}" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+					<Label Text="Select up to 3 Programmes " />
+					<ListView    HeightRequest="300"   SelectionMode="None"  ItemsSource="{Binding Programmes}"  VerticalOptions="StartAndExpand">
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<ViewCell>
+									<HorizontalStackLayout  Margin="0" HorizontalOptions="FillAndExpand">
+										<Switch IsToggled="{Binding IsSelected}" HorizontalOptions="End" />
+										<Label Margin="0,10" HorizontalOptions="Start" Text="{Binding Item.Description}" />
+										
+									</HorizontalStackLayout>
+								</ViewCell>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+				</StackLayout>
+				
+				<Label Text="(2.31) Is anyone in this household receiving benefits from any other Social Assistance Programme or any other external support?" />
+				<Picker Title="Select" ItemDisplayBinding="{Binding Description}" ItemsSource="{Binding BooleanAnswers}" SelectedItem="{Binding ReceivingOtherSocialAssistance}" />
+
+				<StackLayout IsVisible="{Binding IsReceivingOtherSocialAssistance}">
+					<Label Text="(2.32) Name of the Programmes Above " />
+					<Entry MaxLength="100" Text="{Binding Household.ProgrammeName}" />
+					<Label Text="(2.33) What type of BENEFIT do you receive?" />
+					<Picker     Title="Status"     ItemDisplayBinding="{Binding Description}"
+								ItemsSource="{Binding BenefitTypes}"     SelectedItem="{Binding BenefitType}" />
+					
+					
+				</StackLayout>
+				<StackLayout IsVisible="{Binding IsCash}">
+					<Label Text="(2.34) How MUCH was the benefit in the last receipt? (KSHs)" />
+					<Entry     MaxLength="6"     Keyboard="Numeric"     Text="{Binding Household.OtherBenefitsAmout}" />
+				</StackLayout>
+				<StackLayout IsVisible="{Binding IsInKind}">
+					<Label Text="(2.35) Specify the benefit:" />
+					<Entry MaxLength="100" Text="{Binding Household.BenefitKind}" />
+				</StackLayout>
+				<Button IsVisible="{Binding IsBusy, Converter={StaticResource BooleanConvertor}}"     Command="{Binding SaveCommand}"     Text="Next" />
+				<StackLayout IsVisible="{Binding IsBusy}" Margin="10" VerticalOptions="StartAndExpand">
+					<ActivityIndicator IsRunning="{Binding IsBusy}" />
+					<Label TextColor="#FC7E27" FontAttributes="None" Text="" HorizontalOptions="Center" />
+				</StackLayout>
+			</StackLayout>
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentPage>

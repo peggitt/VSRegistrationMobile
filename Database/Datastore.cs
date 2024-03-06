@@ -24,6 +24,7 @@ namespace HSNP.Database
 
             _database = new SQLiteAsyncConnection(dbPath, AppConstants.Flags);
             _database = new SQLiteAsyncConnection(dbPath);
+
             _database.CreateTableAsync<Setting>().Wait();
             _database.CreateTableAsync<User>().Wait();          
             _database.CreateTableAsync<SystemCode>().Wait();

@@ -48,8 +48,22 @@ namespace HSNP.Interfaces
         Task<ApiStatus> AddHouseholdMembers(StringContent model, [Header("Authorization")] string token);
 
         [Post("/householdviewdownload")]
-        Task<ApiStatus> DownloadHouseholds(StringContent model, [Header("Authorization")] string token);
+        Task<HouseholdsDownloadVm> DownloadHouseholds(StringContent model, [Header("Authorization")] string token);
 
- 
+        [Post("/HouseholdViewDetailsdownload")]
+        Task<HouseholdsDetailsDownloadVm> DownloadHouseholdsDetails(StringContent model, [Header("Authorization")] string token);
+        
+
+        [Post("/memberviewdownload")]
+        Task<MembersDownloadVm> DownloadMembers(StringContent model, [Header("Authorization")] string token);
+
+
+        [Post("/householdmobileupdate")]
+        Task<ApiStatus> UpdateHousehold(StringContent model, [Header("Authorization")] string token);
+        [Post("/HHCharacteristicsmobileupdate")]
+        Task<ApiStatus> UpdateHHCharacteristicscreate(StringContent model, [Header("Authorization")] string token);
+
+        [Post("/membermobileupdate")]
+        Task<ApiStatus> UpdateHouseholdMembers(StringContent model, [Header("Authorization")] string token);
     }
 }

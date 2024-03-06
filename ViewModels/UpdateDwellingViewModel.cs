@@ -11,7 +11,7 @@ namespace HSNP.Mobile.ViewModels
     [QueryProperty(nameof(HouseholdId), nameof(HouseholdId))]
     [QueryProperty(nameof(Id), nameof(Id))]
 
-    public partial class DwellingAddEditViewModel : BaseViewModel
+    public partial class UpdateDwellingViewModel : BaseViewModel
     {
 
         [ObservableProperty]
@@ -147,7 +147,7 @@ namespace HSNP.Mobile.ViewModels
 
         [ObservableProperty]
         private List<SelectableItemWrapper<SystemCodeDetail>> programmes;
-        public DwellingAddEditViewModel(INavigation navigation) : base(navigation)
+        public UpdateDwellingViewModel(INavigation navigation) : base(navigation)
         {
 
             _ = GetItems();
@@ -261,84 +261,73 @@ namespace HSNP.Mobile.ViewModels
         [RelayCommand]
         async void Save()
         {
-            try
+            string errors = "";
+            // if (Programme == null)
+            // errors += "Programme is required";
+            if (TenureStatus == null)
+                errors += "- (2.02) is required\n";
+            if (RoofMaterial == null)
+                errors += "- (2.03) is required\n";
+            if (WallMaterial == null)
+                errors += "- (2.04) is required\n";
+            if (FloorMaterial == null)
+                errors += "- (2.05) is required\n";
+           
+
+            if (!string.IsNullOrEmpty(errors))
             {
-                string errors = "";
-                // if (Programme == null)
-                // errors += "Programme is required";
-                if (TenureStatus == null)
-                    errors += "- (2.02) is required\n";
-                if (RoofMaterial == null)
-                    errors += "- (2.03) is required\n";
-                if (WallMaterial == null)
-                    errors += "- (2.04) is required\n";
-                if (FloorMaterial == null)
-                    errors += "- (2.05) is required\n";
-
-
-                if (!string.IsNullOrEmpty(errors))
-                {
-                    // await Application.Current.MainPage.DisplayAlert("Error", errors, "OK");
-                    // return;
-                }
-                Household.HHReceivingNSNPBenefictsId = ReceivingNSPPBeneficts?.Id;
-                Household.HHReceivingBenefictsId = ReceivingOtherSocialAssistance?.Id;
-
-                Household.HouseholdCutMealId = SkippedMeal?.Id;
-                Household.BenefitTypeId = BenefitType?.Id;
-
-
-
-                HouseholdCharacteristic.HouseholdId = HouseholdId;
-                HouseholdCharacteristic.TenureId = TenureStatus?.Id;
-                HouseholdCharacteristic.RoofMaterialId = RoofMaterial?.Id;
-                HouseholdCharacteristic.WallMaterialId = WallMaterial?.Id;
-                HouseholdCharacteristic.FloorMaterialId = FloorMaterial?.Id;
-                HouseholdCharacteristic.DwellingRiskId = DwellingRisk?.Id;
-                HouseholdCharacteristic.DrinkWaterMainId = WaterSource?.Id;
-                HouseholdCharacteristic.HHToiletId = WasteDisposal?.Id;
-                HouseholdCharacteristic.CookFuelId = CookingFuel?.Id;
-                HouseholdCharacteristic.LightFuelId = LightingFuel?.Id;
-                HouseholdCharacteristic.TVOwnedId = TVOwned?.Id;
-                HouseholdCharacteristic.MotorcycleOwnedId = MotorCycleOwned?.Id;
-                HouseholdCharacteristic.TuktukOwnedId = TukTukOwned?.Id;
-                HouseholdCharacteristic.RefrigeratorOwnedId = RefrigeratorOwned?.Id;
-                HouseholdCharacteristic.MobileOwnedId = MobileOwned?.Id;
-                HouseholdCharacteristic.CarOwnedId = CarOwned?.Id;
-                HouseholdCharacteristic.BicycleOwnedId = BicycleOwned?.Id;
-                HouseholdCharacteristic.HouseholdConditionId = HouseholdCondition?.Id;
-
-
-                foreach (var prog in Programmes.Where(i => i.IsSelected))
-                {
-                    var item = new HouseholdNSNPProgramme { HouseholdId = Household.HouseholdId, ProgrammeId = prog.Item.Id };
-                    App.Database.AddOrUpdate(item);
-
-                }
-
-
-                var hhValidationResult = _householdValidator.Validate(Household);
-                var validationResult = _validator.Validate(HouseholdCharacteristic);
-                if (validationResult.IsValid && hhValidationResult.IsValid)
-                {
-                    App.Database.AddOrUpdate(Household);
-                    App.Database.AddOrUpdate(HouseholdCharacteristic);
-                    await Toast.SendToast("Dwelling and household information successfully");
-                   // await Shell.Current.GoToAsync($"{nameof(MembersPage)}?HouseholdId={HouseholdId}");
-
-                    App.HouseholdId = HouseholdId;
-                    App.MemberId = (await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId)).ApplicantId;                   
-                    await Navigation.PushAsync(new MembersAddPage());
-                }
-                else
-                {
-                    var validateMessage = GetErrorListFromValidationResult(validationResult);
-                    await Application.Current.MainPage.DisplayAlert("Validation Errors", $"{hhValidationResult}{validateMessage}", "OK");
-                }
-            }catch(Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Errors", $"{ex.Message}\n{ex.ToString()}", "OK");
+                // await Application.Current.MainPage.DisplayAlert("Error", errors, "OK");
+                // return;
             }
+            Household.HHReceivingNSNPBenefictsId = ReceivingNSPPBeneficts?.Id;
+            Household.HHReceivingBenefictsId = ReceivingOtherSocialAssistance?.Id;
+
+            Household.HouseholdCutMealId = SkippedMeal?.Id;
+            Household.BenefitTypeId = BenefitType?.Id;
+
+          
+
+            HouseholdCharacteristic.HouseholdId = HouseholdId;
+            HouseholdCharacteristic.TenureId = TenureStatus?.Id;
+            HouseholdCharacteristic.RoofMaterialId = RoofMaterial?.Id;
+            HouseholdCharacteristic.WallMaterialId = WallMaterial?.Id;
+            HouseholdCharacteristic.FloorMaterialId = FloorMaterial?.Id;
+            HouseholdCharacteristic.DwellingRiskId = DwellingRisk?.Id;
+            HouseholdCharacteristic.DrinkWaterMainId = WaterSource?.Id;
+            HouseholdCharacteristic.HHToiletId = WasteDisposal?.Id;
+            HouseholdCharacteristic.CookFuelId = CookingFuel?.Id;
+            HouseholdCharacteristic.LightFuelId = LightingFuel?.Id;
+            HouseholdCharacteristic.TVOwnedId = TVOwned?.Id;
+            HouseholdCharacteristic.MotorcycleOwnedId = MotorCycleOwned?.Id;
+            HouseholdCharacteristic.TuktukOwnedId = TukTukOwned?.Id;
+            HouseholdCharacteristic.RefrigeratorOwnedId = RefrigeratorOwned?.Id;
+            HouseholdCharacteristic.MobileOwnedId = MobileOwned?.Id;
+            HouseholdCharacteristic.CarOwnedId = CarOwned?.Id;
+            HouseholdCharacteristic.BicycleOwnedId = BicycleOwned?.Id;
+            HouseholdCharacteristic.HouseholdConditionId = HouseholdCondition?.Id;
+
+            foreach (var prog in Programmes.Where(i => i.IsSelected)) {
+                var item = new HouseholdNSNPProgramme { HouseholdId = Household.HouseholdId, ProgrammeId = prog.Item.Id };
+                App.Database.AddOrUpdate(item);
+                
+            }
+           
+
+            var hhValidationResult = _householdValidator.Validate(Household);
+            var validationResult = _validator.Validate(HouseholdCharacteristic);
+            if (validationResult.IsValid && hhValidationResult.IsValid)
+            {
+                App.Database.AddOrUpdate(Household);
+                App.Database.AddOrUpdate(HouseholdCharacteristic);
+                await Toast.SendToast("Dwelling and household information successfully");
+                await Shell.Current.GoToAsync($"{nameof(UpdatesMembersPage)}?HouseholdId={HouseholdId}");
+            }
+            else
+            {
+                var validateMessage = GetErrorListFromValidationResult(validationResult);
+                await Application.Current.MainPage.DisplayAlert("Validation Errors", $"{hhValidationResult}{validateMessage}", "OK");
+            }
+
         }
     }
 }

@@ -4,7 +4,7 @@ using HSNP.Models;
 namespace HSNP.Mobile.ViewModels;
 
 
-public partial class MembersViewModel : BaseViewModel
+public partial class UpdatesMembersViewModel : BaseViewModel
 {
 
     private readonly IApi _api;
@@ -22,7 +22,7 @@ public partial class MembersViewModel : BaseViewModel
     [ObservableProperty]
     private bool hideCompleteButton;
 
-    public MembersViewModel() 
+    public UpdatesMembersViewModel() 
     {
         HouseholdId = App.HouseholdId;
         GetItems();
@@ -33,21 +33,15 @@ public partial class MembersViewModel : BaseViewModel
 
     public async void GetItems()
     {
-        try{
+        HouseholdMembers = await App.db.Table<HouseholdMember>().Where(i => i.HouseholdId == HouseholdId).ToListAsync();
+        HeightRequest = 100 + HouseholdMembers.Count() * 50;
 
-            HouseholdMembers = await App.db.Table<HouseholdMember>().Where(i => i.HouseholdId == HouseholdId).ToListAsync();
-            HeightRequest = 100 + HouseholdMembers.Count() * 50;
+        var current = HouseholdMembers.Where(i=>i.IsComplete).Count();
+        var total = (await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == HouseholdId)).HouseholdMembers;
+        IsComplete = current == total;
+        MembersCount = $"{current} / {total}";
 
-            var current = HouseholdMembers.Where(i => i.IsComplete).Count();
-            var total = (await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == HouseholdId)).HouseholdMembers;
-            IsComplete = current == total;
-            MembersCount = $"{current} / {total}";
-
-            HideCompleteButton = (bool)(await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId)).IsComplete;
-        }catch(Exception ex)
-        {
-            await Application.Current.MainPage.DisplayAlert("Sorry", ex.ToString(), "OK");
-        }
+        HideCompleteButton = (bool)(await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId)).IsComplete;
     }
     [RelayCommand]
     async void Save()
@@ -58,11 +52,8 @@ public partial class MembersViewModel : BaseViewModel
         }
         else
         {
-
-
             var current = HouseholdMembers.Where(i => i.IsComplete).Count();
             var total = (await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == HouseholdId)).HouseholdMembers;
-
             if (current == total)
             {
                 var household = await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
@@ -71,7 +62,6 @@ public partial class MembersViewModel : BaseViewModel
                 HideCompleteButton = true;
                 await Toast.SendToast("Household marked as ready for upload");
                 Application.Current.MainPage = new AppShell();
-                // await Shell.Current.GoToAsync($"/{nameof(RegistrationPage)}");
             }
             else
             {
