@@ -104,7 +104,7 @@ namespace HSNP.ViewModels
                     var detailsParms = new
                     {
                         UserName = App.User.Email,
-                        SublocationId = SubLocation.Id
+                        SublocationId = SubLocation.Id.ToString()
                     };
 
                     var detailsContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(detailsParms), Encoding.UTF8, "application/json");
