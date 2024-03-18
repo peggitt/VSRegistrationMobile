@@ -54,6 +54,11 @@
                 <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.Refresh}"/>
             </ShellContent.Icon>
         </ShellContent>
+          <ShellContent Title="Web MIS" ContentTemplate="{DataTemplate views:WebMISPage}">
+            <ShellContent.Icon>
+                <FontImageSource Color="Black" FontFamily="MaterialDesignIcons" Glyph="{x:Static fa:MaterialDesignIconsFont.GoogleChrome}"/>
+            </ShellContent.Icon>
+        </ShellContent>
 
         <ShellContent Title="Logout" ContentTemplate="{DataTemplate views:LogoutPage}">
             <ShellContent.Icon>

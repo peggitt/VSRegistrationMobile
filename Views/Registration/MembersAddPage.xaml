@@ -98,7 +98,7 @@
                 <Label Text="(3.14)What is the school or learning institution attendance status of Member? (for all members  aged 3 and older) "  />
                 <Picker Title="Select " ItemsSource="{Binding LearningStatuses}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding LearningStatus}" />
             </StackLayout>
-            <StackLayout  Padding="0" Margin="0" IsVisible="{Binding WentToSchool}">
+            <StackLayout  Padding="0" Margin="0" IsVisible="{Binding WentToSchool}">          
                 <Label Text="(3.15) What is the highest Std/Form/Level reached by Member?"  />
                 <Picker Title="Select "  ItemsSource="{Binding EducationLevels}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding EducationLevel}" />
             </StackLayout>

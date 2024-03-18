@@ -12,6 +12,7 @@ namespace HSNP.Models
         public string Token { get; set; }
         public Boolean IsLoggedIn { get; set; }
         public int CountyId { get; set; }
+        public string WebUrl { get; set; }
     }
 
     public class Role

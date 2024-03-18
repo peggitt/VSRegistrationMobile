@@ -120,9 +120,18 @@ public partial class AddMemberViewModel : BaseViewModel
     private HouseholdMember caregiver;
 
     [ObservableProperty]
+    private bool wentToSchool;
+
+    [ObservableProperty]
     private List<SystemCodeDetail> learningStatuses;
     [ObservableProperty]
     private SystemCodeDetail learningStatus;
+
+    partial void OnLearningStatusChanged(SystemCodeDetail value)
+    { 
+        WentToSchool = !value.Description.Contains("Never")
+            && !value.Description.Contains("DK") && !value.Description.Contains("OK");
+    }
 
     [ObservableProperty]
     private List<SystemCodeDetail> educationLevels;

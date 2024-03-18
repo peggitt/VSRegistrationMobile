@@ -45,6 +45,7 @@ namespace HSNP.Models
         public string hsnp_key { get; set; }
         public string detail { get; set; }
         public int CountyId { get; set; }
+        public string WebUrl { get; set; }
     }
    
     public class Subscription
