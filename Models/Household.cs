@@ -11,7 +11,7 @@ namespace HSNP.Models
         public string VillageId { get; set; }
         public DateTime? EntryDate { get; set; }
         public int? IsBeneficiaryHHId { get; set; }
-        public bool IsBeneficiaryHH { get; set; } = false;
+        public bool? IsBeneficiaryHH { get; set; } = false;
 
         public string BeneficiaryGroup { get; set; }
         public int? HHReceivingNSNPBenefictsId { get; set; } /*New*/

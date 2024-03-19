@@ -59,9 +59,13 @@ namespace HSNP.ViewModels
                 {
                     household = await App.db.Table<Household>().FirstOrDefaultAsync(i => i.HouseholdId == HouseholdId);
                 }
-            
-       
-         
+
+                // Temp Delete
+              //  if (household == null)
+              //  household = await App.db.Table<Household>().FirstOrDefaultAsync();
+                
+                  
+
                 if (household == null)
                 {
                     if (!string.IsNullOrEmpty(HouseholdId) && !string.IsNullOrEmpty(HouseholdId))

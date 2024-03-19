@@ -40,4 +40,21 @@ public partial class UpdatesPage : ContentPage
         }
 
     }
+    private void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is CollectionView collectionView)
+        {
+            // Get the selected item (if any) from the event arguments
+            if (e.CurrentSelection.FirstOrDefault() is HouseholdMember selectedItem)
+            {
+                App.HouseholdId = selectedItem.HouseholdId;
+             
+                Shell.Current.GoToAsync($"/{nameof(UpdateHouseholdPage)}?HouseholdId={selectedItem.HouseholdId}");
+             
+            }
+
+            // Clear the selection to allow re-selection of the same item
+            // collectionView.SelectedItem = null;
+        }
+    }
 }

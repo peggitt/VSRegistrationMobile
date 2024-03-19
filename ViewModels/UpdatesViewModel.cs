@@ -27,7 +27,7 @@ namespace HSNP.ViewModels
         private readonly IApi _api;
         public UpdatesViewModel(bool complete = false)
         {
-            GetItems(complete);
+            _ = GetItems(complete);
 
         }
 
@@ -47,7 +47,7 @@ namespace HSNP.ViewModels
             set { _sales = value; OnPropertyChanged(); }
         }
 
-        public async void GetItems(bool complete)
+        public async Task GetItems(bool complete)
         {
             try
             {

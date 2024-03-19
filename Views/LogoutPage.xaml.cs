@@ -22,10 +22,12 @@ public partial class LogoutPage : ContentPage
             user.IsLoggedIn = false;
             await App.db.UpdateAsync(user);
             await Navigation.PopToRootAsync();
-        }catch (Exception)
-        {
-
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
         }
-        Application.Current.MainPage = new NavigationPage(new LoginPage());
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Sorry!", ex.ToString(), "Ok");
+        }
+       
     }
 }

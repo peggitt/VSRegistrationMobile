@@ -112,7 +112,12 @@ namespace HSNP.Mobile.ViewModels
                 if (App.HouseholdId != null)
                 {
                     Household = await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
-                    HouseholdMember = await App.db.Table<HouseholdMember>().FirstAsync(i => i.HouseholdId == App.HouseholdId);
+                    HouseholdMember = await App.db.Table<HouseholdMember>().FirstOrDefaultAsync(i =>i.IsApplicant==true && i.HouseholdId == App.HouseholdId);
+                    if(HouseholdMember==null)
+                        HouseholdMember = await App.db.Table<HouseholdMember>().FirstOrDefaultAsync(i => i.SerialNo == "1" && i.HouseholdId == App.HouseholdId);
+                    if (HouseholdMember == null)
+                        HouseholdMember = await App.db.Table<HouseholdMember>().FirstOrDefaultAsync(i => i.HouseholdId == App.HouseholdId);
+
                     AreaType = AreaTypes.FirstOrDefault(i => i.Id == Household.RuralUrbanId);
 
                     string villageId = Household.VillageId;

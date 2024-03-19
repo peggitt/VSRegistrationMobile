@@ -31,10 +31,10 @@
 
 
 
-        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="LightGray">
-            <Label Padding="5" Text="Name" FontAttributes="Bold" HorizontalOptions="FillAndExpand" TextColor="Black" />
+         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Black">
+            <Label Padding="5" Text="Name" FontAttributes="Bold" HorizontalOptions="FillAndExpand" TextColor="White" />
              <BoxView Color="Silver" WidthRequest="1" />
-            <Label Padding="5" Text="Village" FontAttributes="Bold"  HorizontalOptions="FillAndExpand" TextColor="Black" />
+            <Label Padding="5" Text="Village" FontAttributes="Bold"  HorizontalOptions="FillAndExpand" TextColor="White" />
             <!-- Add more headers as needed -->
         </StackLayout>
 

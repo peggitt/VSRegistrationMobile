@@ -130,7 +130,7 @@ public partial class AddMemberViewModel : BaseViewModel
     partial void OnLearningStatusChanged(SystemCodeDetail value)
     { 
         WentToSchool = !value.Description.Contains("Never")
-            && !value.Description.Contains("DK") && !value.Description.Contains("OK");
+            && !value.Description.Contains("DK") && !value.Description.Contains("OK") && !value.Description.Contains("Don");
     }
 
     [ObservableProperty]

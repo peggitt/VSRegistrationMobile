@@ -274,7 +274,9 @@ namespace HSNP.Mobile.ViewModels
                     errors += "- (2.04) is required\n";
                 if (FloorMaterial == null)
                     errors += "- (2.05) is required\n";
-
+                if (ReceivingNSPPBeneficts == null)
+                    errors += "- (2.30) is required\n";
+                
 
                 if (!string.IsNullOrEmpty(errors))
                 {

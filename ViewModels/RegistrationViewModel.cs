@@ -10,7 +10,7 @@ public partial class RegistrationViewModel : BaseViewModel
     private readonly IApi _api;
     public RegistrationViewModel(bool complete=false) 
     {
-        GetItems(complete);
+        _ = GetItems(complete);
        
     }
 
@@ -30,7 +30,7 @@ public partial class RegistrationViewModel : BaseViewModel
         set { _sales = value; OnPropertyChanged(); }
     }
 
-    public async void GetItems(bool complete)
+    public async Task GetItems(bool complete)
     {
         try {
 

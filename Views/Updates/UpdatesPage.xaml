@@ -8,37 +8,35 @@
         <ToolbarItem Clicked="AddNew_OnClicked" Text="+ New"  />
     </ContentPage.ToolbarItems>
     <VerticalStackLayout>
-       <dataGrid:DataGrid 
-    ItemsSource="{Binding HouseholdMembers}" 
-    SelectionEnabled="True" 
-    HeaderHeight="50" BorderColor="#CCCCCC"
-    ItemSelected="DataGrid_ItemSelected" 
-    HeaderBackground="#000"
-  
-    RowHeight="50"
-    HeightRequest="{Binding HeightRequest}"
-    VerticalOptions="StartAndExpand" 
-    HorizontalOptions="FillAndExpand">
 
-            <dataGrid:DataGrid.Columns>
-                <dataGrid:DataGridColumn Title="Name" PropertyName="Name"/>
-                <dataGrid:DataGridColumn  Title="ID Number" PropertyName="IdNumber" />
-            </dataGrid:DataGrid.Columns>
-            <dataGrid:DataGrid.RowsBackgroundColorPalette>
-                <dataGrid:PaletteCollection>
-                    <Color>#F2F2F2</Color>
-                    <Color>#FFFFFF</Color>
-                </dataGrid:PaletteCollection>
-            </dataGrid:DataGrid.RowsBackgroundColorPalette>
-            <dataGrid:DataGrid.HeaderLabelStyle>
-                <Style TargetType="Label">
-                    <Setter Property="TextColor" Value="#FFF"></Setter>
-                    <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
-                    <Setter Property="VerticalTextAlignment" Value="Center"></Setter>
-                    <Setter Property="FontAttributes" Value="Bold"></Setter>
-                    <Setter Property="FontSize" Value="14"></Setter>
-                </Style>
-            </dataGrid:DataGrid.HeaderLabelStyle>
-        </dataGrid:DataGrid>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Black">
+            <Label Padding="5" Text="Name" FontAttributes="Bold" HorizontalOptions="FillAndExpand" TextColor="White" />
+             <BoxView Color="Silver" WidthRequest="1" />
+            <Label Padding="5" Text="Village" FontAttributes="Bold"  HorizontalOptions="FillAndExpand" TextColor="White" />
+            <!-- Add more headers as needed -->
+        </StackLayout>
+         <CollectionView ItemsSource="{Binding HouseholdMembers}" SelectionMode="Single" SelectionChanged="OnCollectionViewSelectionChanged">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout HorizontalOptions="FillAndExpand">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <BoxView Color="Silver" WidthRequest="1" VerticalOptions="FillAndExpand" />
+                            <Label Padding="5" Text="{Binding Name}" HorizontalOptions="FillAndExpand" />
+                            <BoxView Color="Silver" WidthRequest="1" />
+                            <Label Padding="5" Text="{Binding IdNumber}" HorizontalOptions="FillAndExpand" />
+                            <BoxView Color="Silver" WidthRequest="1" />
+
+                        </StackLayout>
+                        <BoxView Color="Silver" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+
+                    </StackLayout>
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
