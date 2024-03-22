@@ -15,4 +15,12 @@ public partial class LoginPage : ContentPage
     {
       //  Navigation.PushAsync(new ForgotPinPage());
     }
+
+    void TapGestureRecognizer_Tapped(System.Object sender, Microsoft.Maui.Controls.TappedEventArgs e)
+    {
+        if (TxtPassword.IsPassword == true)
+            TxtPassword.IsPassword = false;
+        else
+            TxtPassword.IsPassword = true;
+    }
 }

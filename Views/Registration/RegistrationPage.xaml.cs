@@ -19,7 +19,7 @@ public partial class RegistrationPage : ContentPage
             BindingContext = new RegistrationViewModel(false);
         }
         catch (Exception ex) {
-             Application.Current.MainPage.DisplayAlert("Sorry!", ex.ToString(), "Ok");
+             Application.Current.MainPage.DisplayAlert("Sorry!", ex.Message, "Ok");
         }
         
     }
@@ -50,7 +50,7 @@ public partial class RegistrationPage : ContentPage
                 //  ((DataGrid)sender).SelectedItem = null;
             }
         }catch(Exception ex) {
-            var error = ex.ToString();
+            var error = ex.Message;
         }
        
        

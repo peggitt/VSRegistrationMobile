@@ -14,6 +14,8 @@ namespace HSNP.Mobile.ViewModels
         private readonly IApi _api;
         private readonly AddHouseholdValidator _hhValidator;
         private readonly AddHouseholdMemberValidator _hhMValidator;
+        private static Village hhVillage;
+        private static SubLocation hhSubLocation;
         public AddNewHouseholdViewModel(IApi api, INavigation navigation) : base(navigation)
         {
             _api = api;
@@ -127,8 +129,10 @@ namespace HSNP.Mobile.ViewModels
                    
 
                     Constituency = Constituencies.FirstOrDefault(i => i.Id == constituencyId);
-                    SubLocation = subLocation;
-                    Village = village;
+                    SubLocation =hhSubLocation= subLocation;
+                    Village =hhVillage =village;
+
+
                 }
                 else
                 {
@@ -151,7 +155,7 @@ namespace HSNP.Mobile.ViewModels
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Sorry!", ex.ToString(), "Ok");
+                await Application.Current.MainPage.DisplayAlert("Sorry!", ex.Message, "Ok");
             }
 
 
@@ -159,10 +163,12 @@ namespace HSNP.Mobile.ViewModels
         public async void GetSubLocations(int id)
         {
             SubLocations = await App.db.Table<SubLocation>().Where(i => i.ConstituencyId == id).ToListAsync();
+            SubLocation = hhSubLocation;
         }
         public async void GetVillages(int id)
         {
             Villages = await App.db.Table<Village>().Where(i => i.SubLocationId == id).ToListAsync();
+            Village = hhVillage;
         }
         [RelayCommand]
         async void Save()

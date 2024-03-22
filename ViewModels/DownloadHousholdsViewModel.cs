@@ -136,7 +136,7 @@ namespace HSNP.ViewModels
                         await App.db.InsertAllAsync(mResponse.returnDetails); 
                     }catch(Exception ex)
                     {
-                        var test = ex.ToString();
+                        var test = ex.Message;
                     }
                     //if (response.returnDetails != null)
                     //{
@@ -170,12 +170,12 @@ namespace HSNP.ViewModels
                     }
                     else
                     {
-                        await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
+                        await Application.Current.MainPage.DisplayAlert("Exception", ex.Message, "OK");
                     }
                 }
                 catch (Exception ex)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
+                    await Application.Current.MainPage.DisplayAlert("Exception", ex.Message, "OK");
 
                 }
                 IsBusy = false;

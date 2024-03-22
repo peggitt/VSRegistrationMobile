@@ -336,7 +336,7 @@ public partial class UpdateMemberViewModel : BaseViewModel
 
         }catch(Exception ex)
         {
-            await Application.Current.MainPage.DisplayAlert(" rrors", $"{ex.Message}\n\n{ex.ToString()}", "OK");
+            await Application.Current.MainPage.DisplayAlert(" rrors", $"{ex.Message}\n\n{ex.Message}", "OK");
         }
     }
 }

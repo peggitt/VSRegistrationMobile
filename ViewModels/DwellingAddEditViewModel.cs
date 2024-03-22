@@ -254,7 +254,7 @@ namespace HSNP.Mobile.ViewModels
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Sorry!", ex.ToString(), "Ok");
+                await Application.Current.MainPage.DisplayAlert("Sorry!", ex.Message, "Ok");
             }
 
         }
@@ -339,7 +339,7 @@ namespace HSNP.Mobile.ViewModels
                 }
             }catch(Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Errors", $"{ex.Message}\n{ex.ToString()}", "OK");
+                await Application.Current.MainPage.DisplayAlert("Errors", $"{ex.Message}\n{ex.Message}", "OK");
             }
         }
     }

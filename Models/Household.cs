@@ -54,7 +54,7 @@ namespace HSNP.Models
         public string ApprovedOn { get; set; }
         public bool? MarkForDownload { get; set; } = false;
         public string HHIDText { get; set; } = "";
-        public bool PotentialDuplicate { get; set; } = false;
+        public bool? PotentialDuplicate { get; set; } = false;
        
         public DateTime? CreatedOn { get; set; }
         public int? HouseholdMembers { get; set; }
@@ -154,7 +154,7 @@ namespace HSNP.Models
         public int? LearningInstitutionId { get; set; }
         public decimal? MonthEarnings { get; set; } = 0;
         public int? SpouseStatusId { get; set; }
-        public bool MarkForDownload { get; set; }
+        public bool? MarkForDownload { get; set; }
         public string RegisteredBy { get; set; }
         //(3.17) Does Member's work on a formal job, teaching, public sector, NGO/FBO?
         public int? WorkingId { get; set; } = 0;

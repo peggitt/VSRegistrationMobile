@@ -46,7 +46,7 @@ public partial class MembersViewModel : BaseViewModel
             HideCompleteButton = (bool)(await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId)).IsComplete;
         }catch(Exception ex)
         {
-            await Application.Current.MainPage.DisplayAlert("Sorry", ex.ToString(), "OK");
+            await Application.Current.MainPage.DisplayAlert("Sorry", ex.Message, "OK");
         }
     }
     [RelayCommand]

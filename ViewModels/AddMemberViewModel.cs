@@ -268,7 +268,7 @@ public partial class AddMemberViewModel : BaseViewModel
         }
         catch(Exception ex)
         {
-            await Application.Current.MainPage.DisplayAlert("Errors", $"{ex.Message}\n{ex.ToString()}", "OK");
+            await Application.Current.MainPage.DisplayAlert("Errors", $"{ex.Message}\n{ex.Message}", "OK");
         }
 
     }
@@ -345,7 +345,7 @@ public partial class AddMemberViewModel : BaseViewModel
             }
         }catch(Exception ex)
         {
-            await Application.Current.MainPage.DisplayAlert("Validation Errors", $"{ex.Message}\n{ex.ToString()}", "OK");
+            await Application.Current.MainPage.DisplayAlert("Validation Errors", $"{ex.Message}\n{ex.Message}", "OK");
         }
      
     }

@@ -22,10 +22,12 @@ namespace HSNP.ViewModels
         private readonly IApi _api;
         public LoginViewModel(IApi api, INavigation navigation) : base(navigation)
         {
-            // Email= "hsnpdata@hsnp.or.ke";
-            //  Password = "H6lBiPd8";
-            Email = "";
-            Password = "";
+             Email= "hsnpdata@hsnp.or.ke";
+             Password = "H6lBiPd8";
+
+            Email = "tonyouh@gmail.com";
+            Password = "Kenya!@2024";
+
             //  IsBusy = true;
             _api = new ApiService(AppConstants.SecurityApiAddress);
 
@@ -99,6 +101,7 @@ namespace HSNP.ViewModels
                         user.CountyId = login.CountyId;
                         user.WebUrl = login.WebUrl;
                         user.Token = login.hsnp_key;
+                        user.Email = Email;
                         await App.Database._database.DeleteAllAsync<User>();
                         App.Database.AddOrUpdate(user);
                         App.User = user;
@@ -117,7 +120,7 @@ namespace HSNP.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Sorry!", ex.ToString(), "Ok");
+                    await Application.Current.MainPage.DisplayAlert("Sorry!", ex.Message, "Ok");
                 }
 
                 IsBusy = false;

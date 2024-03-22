@@ -14,6 +14,9 @@ namespace HSNP.Mobile.ViewModels
         private readonly IApi _api;
         private readonly AddHouseholdValidator _hhValidator;
         private readonly AddHouseholdMemberValidator _hhMValidator;
+        private static Village hhVillage;
+        private static SubLocation hhSubLocation;
+        
         public UpdateHouseholdViewModel(IApi api, INavigation navigation) : base(navigation)
         {
             _api = api;
@@ -32,13 +35,31 @@ namespace HSNP.Mobile.ViewModels
         private List<County> counties;
         [ObservableProperty]
         private List<Constituency> constituencies;
+
         [ObservableProperty]
         private List<SubLocation> subLocations;
         [ObservableProperty]
         private List<Village> villages;
 
         [ObservableProperty]
+        private Constituency constituency;
+
+        [ObservableProperty]
+        private SubLocation subLocation;
+
+       [ObservableProperty]
         private Village village;
+
+        private Village _selectedVillage;
+        public Village SelectedVillage
+        {
+            get { return _selectedVillage; }
+            set
+            {
+                _selectedVillage = value;
+                OnPropertyChanged(nameof(SelectedVillage));
+            }
+        }
 
         [ObservableProperty]
         private List<SystemCodeDetail> areaTypes;
@@ -62,20 +83,18 @@ namespace HSNP.Mobile.ViewModels
         [ObservableProperty]
         private string countyName;
 
-        [ObservableProperty]
-        private Constituency constituency;
+       
         partial void OnConstituencyChanged(Constituency value)
         {
             if (value != null)
                 GetSubLocations(value.Id);
         }
 
-        [ObservableProperty]
-        private SubLocation subLocation;
+      
         partial void OnSubLocationChanged(SubLocation value)
         {
             if (value != null)
-                GetVillages(value.Id);
+               GetVillages(value.Id);
         }
 
 
@@ -126,14 +145,14 @@ namespace HSNP.Mobile.ViewModels
                     var sublocationId = village.SubLocationId;
                     Villages = await App.db.Table<Village>().Where(i => i.SubLocationId == sublocationId).ToListAsync();
                   
-                    var subLocation = await App.db.Table<SubLocation>().FirstOrDefaultAsync(i => i.Id == sublocationId);
+                    var subLocation = hhSubLocation = await App.db.Table<SubLocation>().FirstOrDefaultAsync(i => i.Id == sublocationId);
                     var constituencyId = subLocation.ConstituencyId;
-                   // SubLocations = await App.db.Table<SubLocation>().Where(i => i.ConstituencyId == constituencyId).ToListAsync();
+                    SubLocations = await App.db.Table<SubLocation>().OrderBy(i=>i.Name).Where(i => i.ConstituencyId == constituencyId).ToListAsync();
                    
 
                     Constituency = Constituencies.FirstOrDefault(i => i.Id == constituencyId);
                     SubLocation = subLocation;
-                    Village = village;
+                    Village =hhVillage = village;
                 }
                 else
                 {
@@ -158,10 +177,11 @@ namespace HSNP.Mobile.ViewModels
                     var desc = Household.IsBeneficiaryHH == true ? "Yes" : "No";
                     IsBeneficiaryHH = BooleanAnswers.SingleOrDefault(i => i.Description == desc);
                 }
+               
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Sorry!", ex.ToString(), "Ok");
+                await Application.Current.MainPage.DisplayAlert("Sorry!", ex.Message, "Ok");
             }
 
 
@@ -169,10 +189,12 @@ namespace HSNP.Mobile.ViewModels
         public async void GetSubLocations(int id)
         {
             SubLocations = await App.db.Table<SubLocation>().Where(i => i.ConstituencyId == id).ToListAsync();
+            SubLocation = hhSubLocation;
         }
         public async void GetVillages(int id)
         {
             Villages = await App.db.Table<Village>().Where(i => i.SubLocationId == id).ToListAsync();
+            Village = hhVillage;
         }
         [RelayCommand]
         async void Save()

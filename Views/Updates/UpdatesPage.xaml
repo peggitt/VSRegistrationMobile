@@ -12,7 +12,7 @@
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Black">
             <Label Padding="5" Text="Name" FontAttributes="Bold" HorizontalOptions="FillAndExpand" TextColor="White" />
              <BoxView Color="Silver" WidthRequest="1" />
-            <Label Padding="5" Text="Village" FontAttributes="Bold"  HorizontalOptions="FillAndExpand" TextColor="White" />
+            <Label Padding="5" Text="ID Number" FontAttributes="Bold"  HorizontalOptions="FillAndExpand" TextColor="White" />
             <!-- Add more headers as needed -->
         </StackLayout>
          <CollectionView ItemsSource="{Binding HouseholdMembers}" SelectionMode="Single" SelectionChanged="OnCollectionViewSelectionChanged">

@@ -17,7 +17,7 @@ public partial class CompletePage : ContentPage
         }
         catch (Exception ex)
         {
-            Application.Current.MainPage.DisplayAlert("Sorry!", ex.ToString(), "Ok");
+            Application.Current.MainPage.DisplayAlert("Sorry!", ex.Message, "Ok");
         }
 
     }

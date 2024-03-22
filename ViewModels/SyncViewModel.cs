@@ -97,6 +97,7 @@ namespace HSNP.ViewModels
                 {
                     CurrentStatus = "Processing Constituencies";
                     await App.Database._database.DeleteAllAsync<Constituency>();
+                    constituenciesResponse.returnDetails = constituenciesResponse.returnDetails.OrderBy(i => i.Name).ToList();
                     foreach (var item in constituenciesResponse.returnDetails)
                     {
                         App.Database.AddOrUpdate(item);
@@ -116,6 +117,7 @@ namespace HSNP.ViewModels
                 {
                     CurrentStatus = "Processing Sub Locations";
                     await App.Database._database.DeleteAllAsync<SubLocation>();
+                    subLocationResponse.returnDetails = subLocationResponse.returnDetails.OrderBy(i => i.Name).ToList();
                     foreach (var item in subLocationResponse.returnDetails)
                     {
                         App.Database.AddOrUpdate(item);
@@ -133,6 +135,7 @@ namespace HSNP.ViewModels
 
                 if (villagesResponse.returnDetails != null)
                 {
+                    villagesResponse.returnDetails = villagesResponse.returnDetails.OrderBy(i => i.Name).ToList();
                     CurrentStatus = "Processing Villages";
                     await App.db.DeleteAllAsync<Village>();
                     await App.db.InsertAllAsync(villagesResponse.returnDetails);
@@ -154,14 +157,14 @@ namespace HSNP.ViewModels
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
+                    await Application.Current.MainPage.DisplayAlert("Exception", ex.Message, "OK");
                 }
 
 
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Exception", ex.Message, "OK");
 
             }
 
@@ -293,7 +296,7 @@ namespace HSNP.ViewModels
                             }
                             catch (Exception ex)
                             {
-                                await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
+                                await Application.Current.MainPage.DisplayAlert("Exception", ex.Message, "OK");
 
                             }
                         }
@@ -313,7 +316,7 @@ namespace HSNP.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
+                        await Application.Current.MainPage.DisplayAlert("Exception", ex.Message, "OK");
 
                     }
 
@@ -452,7 +455,7 @@ namespace HSNP.ViewModels
                             }
                             catch (Exception ex)
                             {
-                                await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
+                                await Application.Current.MainPage.DisplayAlert("Exception", ex.Message, "OK");
 
                             }
                         }
@@ -472,7 +475,7 @@ namespace HSNP.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        await Application.Current.MainPage.DisplayAlert("Exception", ex.ToString(), "OK");
+                        await Application.Current.MainPage.DisplayAlert("Exception", ex.Message, "OK");
 
                     }
 

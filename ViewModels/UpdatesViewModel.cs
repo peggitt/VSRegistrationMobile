@@ -66,7 +66,7 @@ namespace HSNP.ViewModels
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Sorry!", ex.ToString(), "Ok");
+                await Application.Current.MainPage.DisplayAlert("Sorry!", ex.Message, "Ok");
             }
 
 

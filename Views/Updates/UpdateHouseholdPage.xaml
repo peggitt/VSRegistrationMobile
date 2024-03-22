@@ -50,11 +50,16 @@
             <Picker  Title="Select" ItemsSource="{Binding Constituencies}"
                         ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Constituency}" />
             <Label Text="(1.12) SUB-LOCATION"/>
+            <Label Text="{Binding SubLocation.Name}"/>
             <Picker  Title="Select" ItemsSource="{Binding SubLocations}"
-                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SubLocation}" />
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SubLocation, Mode=TwoWay}" />
             <Label Text="(1.13) VILLAGE"/>
+             <Label Text="{Binding Village.Name}"/>
             <Picker  Title="Select" ItemsSource="{Binding Villages}"
-                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Village}" />
+                        ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Village, Mode=TwoWay}" />
+
+         
+
             <Label Text="(1.14) PHYSICAL ADDRESS"/>
             <Entry Text="{Binding  Household.HouseholdAddress}"></Entry>
             <Label Text="(1.15) DURATION OF RESIDENCE IN THIS PLACE"/>
