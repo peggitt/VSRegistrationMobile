@@ -156,6 +156,9 @@ public partial class AddMemberViewModel : BaseViewModel
     [ObservableProperty]
     private bool isOver5;
     [ObservableProperty]
+    private bool isOver18;
+
+    [ObservableProperty]
     private bool isOver3;
     [ObservableProperty]
     private bool isBetween17And70;
@@ -164,6 +167,7 @@ public partial class AddMemberViewModel : BaseViewModel
     partial void OnDateOfBirthChanged(DateTime value)
     {
         var dob = value;
+        IsOver18 = dob < seventeenYearsAgo;
         IsOver5 = dob < fiveYearsAgo;
         IsOver3 = dob < fiveYearsAgo;
         IsBetween17And70 = dob < seventeenYearsAgo || dob > seventyYearsAgo;
@@ -283,7 +287,8 @@ public partial class AddMemberViewModel : BaseViewModel
                 errors += "(3.12) is required";
             if (!string.IsNullOrEmpty(Member.IdNumber) && Member.IdNumber != Member.RetypedIdNo)
                 errors += "Identification Number and confirm Identification Number should match";
-
+            if (!IsOver18 && IdentificationDocumentType.Description == "National ID Card")
+                errors += "Members below 18 years cannot have National ID Card";
 
             if (!string.IsNullOrEmpty(errors))
             {

@@ -17,7 +17,9 @@
 	</ContentPage.Resources>
     <VerticalStackLayout>
         <Label HorizontalOptions="CenterAndExpand" StyleClass="heading" Text="{Binding MembersCount}"></Label>
-      
+      <Button x:Name="btnComplete" VerticalOptions="EndAndExpand" IsEnabled="{Binding IsComplete}"
+            IsVisible="{Binding HideCompleteButton, Converter={StaticResource BooleanConvertor}}" 
+                  Text="Mark as Complete" Command="{Binding  SaveCommand}"></Button>
        <dataGrid:DataGrid 
     ItemsSource="{Binding HouseholdMembers}" 
     SelectionEnabled="True" 
@@ -41,9 +43,7 @@
                 </dataGrid:PaletteCollection>
             </dataGrid:DataGrid.RowsBackgroundColorPalette>
         </dataGrid:DataGrid>
-    <Button x:Name="btnComplete" VerticalOptions="EndAndExpand" IsEnabled="{Binding IsComplete}"
-            IsVisible="{Binding HideCompleteButton, Converter={StaticResource BooleanConvertor}}" 
-                  Text="Mark as Complete" Command="{Binding  SaveCommand}"></Button>
+    
           
     </VerticalStackLayout>
 </ContentPage>

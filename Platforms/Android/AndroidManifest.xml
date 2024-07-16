@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.HSNP.Mobile" android:versionCode="1" android:versionName="1.8">
-	<application android:allowBackup="true"  android:usesCleartextTraffic="true" android:icon="@mipmap/hsnp_logo" android:roundIcon="@mipmap/hsnp_logo" android:supportsRtl="true" android:label="HSNP Mobile"></application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.HSNP.Mobile" android:versionCode="1" android:versionName="2.0">
+	<application android:allowBackup="true" android:usesCleartextTraffic="true" android:icon="@mipmap/hsnp_logo" android:supportsRtl="true" android:label="HSNP Mobile"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />

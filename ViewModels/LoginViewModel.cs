@@ -22,8 +22,8 @@ namespace HSNP.ViewModels
         private readonly IApi _api;
         public LoginViewModel(IApi api, INavigation navigation) : base(navigation)
         {
-             Email= "hsnpdata@hsnp.or.ke";
-             Password = "H6lBiPd8";
+           //  Email= "hsnpdata@hsnp.or.ke";
+           //  Password = "H6lBiPd8";
 
             Email = "tonyouh@gmail.com";
             Password = "Kenya!@2024";

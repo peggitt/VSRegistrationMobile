@@ -21,7 +21,7 @@
             <Entry Text="{Binding HouseholdMember.Surname}"></Entry>
 
             <Label Text="(1.05) Phone Number" />
-            <Entry Keyboard="Telephone"  Text="{Binding Household.PhoneNumber}"></Entry>
+            <Entry Keyboard="Telephone"  Text="{Binding Household.PhoneNumber}" MaxLength="10"></Entry>
              <!--
             <Label Text="(1.06) Type of Identification Document" />
             <Picker Title="Select " x:Name="IdentificationDocumentTypeId" ItemsSource="{Binding IdentificationDocumentTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding IdentificationDocumentType}" />
