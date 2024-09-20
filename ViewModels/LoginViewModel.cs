@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
-using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using System.Text;
 using HSNP.Constants;
 using HSNP.Interfaces;
 using HSNP.Mobile;
@@ -25,8 +17,8 @@ namespace HSNP.ViewModels
            //  Email= "hsnpdata@hsnp.or.ke";
            //  Password = "H6lBiPd8";
 
-            Email = "tonyouh@gmail.com";
-            Password = "Kenya!@2024";
+          //  Email = "tonyouh@gmail.com";
+          //  Password = "Kenya!@2024";
 
             //  IsBusy = true;
             _api = new ApiService(AppConstants.SecurityApiAddress);

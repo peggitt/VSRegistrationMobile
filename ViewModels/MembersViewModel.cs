@@ -31,16 +31,23 @@ public partial class MembersViewModel : BaseViewModel
     [ObservableProperty]
     private List<HouseholdMember> householdMembers;
 
+    [ObservableProperty]
+    private bool isNotComplete;
+
     public async void GetItems()
     {
         try{
 
             HouseholdMembers = await App.db.Table<HouseholdMember>().Where(i => i.HouseholdId == HouseholdId).ToListAsync();
+          
             HeightRequest = 100 + HouseholdMembers.Count() * 50;
-
+            var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
+            var screenHeight = mainDisplayInfo.Height / mainDisplayInfo.Density; // Convert to DIPs
+            HeightRequest = (int)screenHeight - 300;
             var current = HouseholdMembers.Where(i => i.IsComplete).Count();
             var total = (await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == HouseholdId)).HouseholdMembers;
             IsComplete = current == total;
+            IsNotComplete = !IsComplete;
             MembersCount = $"{current} / {total}";
 
             HideCompleteButton = (bool)(await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId)).IsComplete;

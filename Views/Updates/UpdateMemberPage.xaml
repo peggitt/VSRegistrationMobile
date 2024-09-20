@@ -29,10 +29,10 @@
                 <Picker Title="Select " x:Name="IdentificationDocumentTypeId" ItemsSource="{Binding IdentificationDocumentTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding IdentificationDocumentType}" />
 
                 <StackLayout   Padding="0" Margin="0" IsVisible="{Binding IsDocument}">
-                    <Label Text="(3.02 B) Identification Number" />
+                    <Label Text="{Binding DocumentLabel}" />
                     <Entry Text="{Binding  Member.IdNumber}"/>
 
-                    <Label Text="(3.02 C) Confirm Identification Number" />
+                   <Label Text="{Binding ConfirmDocumentLabel}" />
                     <Entry Text="{Binding Member.RetypedIdNo}"/>
                     
                 </StackLayout>

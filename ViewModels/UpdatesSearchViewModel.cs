@@ -43,7 +43,9 @@ namespace HSNP.ViewModels
         [RelayCommand]
         private async Task Next()
         {
-            if(string.IsNullOrEmpty(HouseholdId) && string.IsNullOrEmpty(NationalIdNo)) {
+           // HouseholdId= (await App.db.Table<Household>().FirstOrDefaultAsync()).HouseholdId;
+          
+            if (string.IsNullOrEmpty(HouseholdId) && string.IsNullOrEmpty(NationalIdNo)) {
                 await Toast.SendToastAsync("Household ID or National ID No. is required");
             }
             else {
@@ -52,7 +54,7 @@ namespace HSNP.ViewModels
                 if(NationalIdNo!=null)
                 {
                     var householdId= (await App.db.Table<HouseholdMember>().FirstOrDefaultAsync(i => i.IdNumber== NationalIdNo))?.HouseholdId;
-                    var test = await App.db.Table<HouseholdMember>().ToListAsync();
+                   // var test = await App.db.Table<HouseholdMember>().ToListAsync();
                     household = await App.db.Table<Household>().FirstOrDefaultAsync(i => i.HouseholdId==householdId);
                 }
                 else
@@ -86,9 +88,10 @@ namespace HSNP.ViewModels
                         household.Editting = true;
                         household.CreatedOn = DateTime.UtcNow;
                         App.Database.Update(household);
-                           await Shell.Current.GoToAsync($"/{nameof(UpdateHouseholdPage)}?HouseholdId={household.HouseholdId}");
+                        await Shell.Current.GoToAsync($"/{nameof(UpdateHouseholdPage)}?HouseholdId={household.HouseholdId}");
+                       // await Shell.Current.GoToAsync($"/{nameof(UpdatesMembersPage)}?HouseholdId={household.HouseholdId}");
 
-                        }
+                    }
                         catch (Exception ex)
                         {
                             await Application.Current.MainPage.DisplayAlert("Exception", ex.Message, "OK");

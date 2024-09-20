@@ -147,6 +147,20 @@ public partial class UpdateMemberViewModel : BaseViewModel
     private List<SystemCodeDetail> identificationDocumentTypes;
     [ObservableProperty]
     private SystemCodeDetail identificationDocumentType;
+    partial void OnIdentificationDocumentTypeChanged(SystemCodeDetail value)
+    {
+        if (value==null) return;
+   
+        IsDocument = value.Description != "None";
+        DocumentLabel = $"(3.02 B) {value.Description} Number";
+        ConfirmDocumentLabel = $"(3.02 C) Confirm {value.Description} Number";
+    }
+    [ObservableProperty]
+    private bool isDocument;
+    [ObservableProperty]
+    private string documentLabel;
+    [ObservableProperty]
+    private string confirmDocumentLabel;
 
     [ObservableProperty]
     private DateTime dateOfBirth;
@@ -194,7 +208,7 @@ public partial class UpdateMemberViewModel : BaseViewModel
         seventyYearsAgo = new DateTime(today.Year - 70, today.Month, today.Day);
         seventeenYearsAgo = new DateTime(today.Year - 17, today.Month, today.Day);
 
-        DateOfBirth = DateTime.Now;
+       
 
         _ = GetItems();
     }
@@ -205,7 +219,8 @@ public partial class UpdateMemberViewModel : BaseViewModel
     public async Task GetItems()
     {
         Member = await App.db.Table<HouseholdMember>().FirstOrDefaultAsync(i => i.Id == MemberId);
-        if(Member==null)
+      
+        if (Member==null)
         {
             Member=new HouseholdMember {
                 Id = Guid.NewGuid().ToString(),
@@ -232,7 +247,9 @@ public partial class UpdateMemberViewModel : BaseViewModel
         MaritalStatuses = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Marital").ToListAsync();
         MaritalStatus = MaritalStatuses.SingleOrDefault(i => i.Id == Member.SexId);
 
-       var  disabilityOptions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Disability").ToListAsync();
+        DateOfBirth =Member.DateOfBirth;
+
+        var  disabilityOptions = await App.db.Table<SystemCodeDetail>().Where(i => i.ComboCode == "Member_Disability").ToListAsync();
         var selected = await App.db.Table<MemberDisability>().Where(i => i.MemberId == MemberId).ToListAsync();
         var list = new List<SelectableItemWrapper<SystemCodeDetail>>();
 

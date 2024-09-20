@@ -10,6 +10,7 @@ namespace HSNP.Mobile.Views;
 public partial class MembersPage : ContentPage
 {
     string hhId;
+    MembersViewModel viewModel;
     public string HouseholdId
     {
         set
@@ -24,12 +25,20 @@ public partial class MembersPage : ContentPage
     
     protected override void OnAppearing()
     {
-        BindingContext = new MembersViewModel();
+        viewModel= new MembersViewModel();
+        BindingContext = viewModel;
     }
     private void AddNew_OnClicked(object sender, EventArgs e)
     {
-        App.MemberId = null;
-        Navigation.PushAsync(new MembersAddPage());
+        if (viewModel.IsComplete)
+        {
+            Application.Current.MainPage.DisplayAlert("Complete", $"All household members already added.", "OK");
+        }
+        else
+        {
+            App.MemberId = null;
+            Navigation.PushAsync(new MembersAddPage());
+        }
     }
     async void DataGrid_ItemSelected(Object sender, SelectionChangedEventArgs e)
     {

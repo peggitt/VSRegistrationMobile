@@ -7,7 +7,7 @@
              xmlns:convertors="clr-namespace:HSNP.Mobile.Convertors"
              Title="Household Members">
       <ContentPage.ToolbarItems>
-        <ToolbarItem Clicked="AddNew_OnClicked" Text="+ New"  />
+        <ToolbarItem Clicked="AddNew_OnClicked" IsEnabled="{Binding IsNotComplete}" Text="+ New"  />
     </ContentPage.ToolbarItems>
   <ContentPage.Resources>
 		<ResourceDictionary>

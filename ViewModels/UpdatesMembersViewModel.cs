@@ -18,6 +18,8 @@ public partial class UpdatesMembersViewModel : BaseViewModel
 
     [ObservableProperty]
     private bool isComplete;
+    [ObservableProperty]
+    private bool isNotComplete;
 
     [ObservableProperty]
     private bool hideCompleteButton;
@@ -34,11 +36,15 @@ public partial class UpdatesMembersViewModel : BaseViewModel
     public async void GetItems()
     {
         HouseholdMembers = await App.db.Table<HouseholdMember>().Where(i => i.HouseholdId == HouseholdId).ToListAsync();
-        HeightRequest = 100 + HouseholdMembers.Count() * 50;
+     
+        var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
+        var screenHeight = mainDisplayInfo.Height / mainDisplayInfo.Density; // Convert to DIPs
+        HeightRequest = (int)screenHeight - 300;
 
-        var current = HouseholdMembers.Where(i=>i.IsComplete).Count();
+        var current = HouseholdMembers.Count();
         var total = (await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == HouseholdId)).HouseholdMembers;
         IsComplete = current == total;
+        IsNotComplete = !IsComplete;
         MembersCount = $"{current} / {total}";
 
         HideCompleteButton = (bool)(await App.db.Table<Household>().FirstAsync(i => i.HouseholdId == App.HouseholdId)).IsComplete;

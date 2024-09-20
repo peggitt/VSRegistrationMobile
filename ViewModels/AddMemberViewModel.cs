@@ -149,6 +149,20 @@ public partial class AddMemberViewModel : BaseViewModel
     private List<SystemCodeDetail> identificationDocumentTypes;
     [ObservableProperty]
     private SystemCodeDetail identificationDocumentType;
+    partial void OnIdentificationDocumentTypeChanged(SystemCodeDetail value)
+    {
+        if (value == null) return;
+
+        IsDocument = value.Description != "None";
+        DocumentLabel = $"(3.02 B) {value.Description} Number";
+        ConfirmDocumentLabel = $"(3.02 C) Confirm {value.Description} Number";
+    }
+    [ObservableProperty]
+    private bool isDocument;
+    [ObservableProperty]
+    private string documentLabel;
+    [ObservableProperty]
+    private string confirmDocumentLabel;
 
     [ObservableProperty]
     private DateTime dateOfBirth;

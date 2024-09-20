@@ -20,6 +20,7 @@
       <Button x:Name="btnComplete" VerticalOptions="EndAndExpand" IsEnabled="{Binding IsComplete}"
             IsVisible="{Binding HideCompleteButton, Converter={StaticResource BooleanConvertor}}" 
                   Text="Mark as Complete" Command="{Binding  SaveCommand}"></Button>
+        <ScrollView>
        <dataGrid:DataGrid 
     ItemsSource="{Binding HouseholdMembers}" 
     SelectionEnabled="True" 
@@ -28,8 +29,8 @@
     HeaderBackground="#FC7E27"
     RowHeight="70"
     HeightRequest="{Binding HeightRequest}"
-    VerticalOptions="StartAndExpand" 
-    HorizontalOptions="FillAndExpand">
+    VerticalOptions="FillAndExpand" 
+    HorizontalOptions="StartAndExpand">
        
             <dataGrid:DataGrid.Columns>
                 <dataGrid:DataGridColumn Title="Line Number" PropertyName="SerialNo"/>
@@ -43,7 +44,7 @@
                 </dataGrid:PaletteCollection>
             </dataGrid:DataGrid.RowsBackgroundColorPalette>
         </dataGrid:DataGrid>
-    
-          
+    </ScrollView>
+         
     </VerticalStackLayout>
 </ContentPage>
