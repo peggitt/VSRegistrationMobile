@@ -12,8 +12,8 @@ namespace HSNP.Constants
        // public static string SecurityApiAddress => "http://app.hsnpmis.or.ke:5200";
 
         // Test
-        public static string BaseApiAddress => "http://app.hsnpmis.or.ke:7300";
-        public static string SecurityApiAddress => "http://app.hsnpmis.or.ke:7200";
+        public static string BaseApiAddress => "https://hsnpmis.ndma.go.ke:5600";
+        public static string SecurityApiAddress => "https://hsnpmis.ndma.go.ke:5100/";
 
         public const string DatabaseFilename = "HSNPSQLite.db3";
 

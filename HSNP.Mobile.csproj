@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-android</TargetFrameworks>
+		<TargetFrameworks>net9.0-android</TargetFrameworks>
 		<!--<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>-->
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<!--<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>-->
 		<OutputType>Exe</OutputType>
 		<RootNamespace>HSNP.Mobile</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -35,31 +35,31 @@
 	  <MauiFont Remove="Resources\Fonts\FontAwesome6FreeSolid.otf" />
 	</ItemGroup>
     <ItemGroup>
-		<MauiIcon Include="Resources\AppIcon\hsnp_logo.png" ForegroundFile="Resources\AppIcon\hsnp_logo.png" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\hsnp_logo_icon.png" ForegroundFile="Resources\AppIcon\hsnp_logo_icon.png" Color="#512BD4" />
 		<MauiSplashScreen Include="Resources\Images\hsnp_logo.png" Color="#FFFFFF" BaseSize="128,128" />
 		<MauiImage Include="Resources\Images\*" />
 		<MauiFont Include="Resources\Fonts\*" />
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup> 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="5.1.0" />
-	  <PackageReference Include="CommunityToolkit.MVVM" Version="8.1.0" />
-	  <PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.1" />
-	  <PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.1" />
-	  <PackageReference Include="Refit" Version="6.3.2" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
+	  <PackageReference Include="CommunityToolkit.MVVM" Version="8.4.0" />
+	  <PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.7" />
+	  <PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.7" />
+	  <PackageReference Include="Refit" Version="8.0.0" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	  <PackageReference Include="Refit.Newtonsoft.Json" Version="6.3.2" />
+	  <PackageReference Include="Refit.Newtonsoft.Json" Version="8.0.0" />
 	  <PackageReference Include="sqlite-net" Version="1.6.292" />
-	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
-	  <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.4" />
-	  <PackageReference Include="SQLitePCLRaw.core" Version="2.1.4" />
-	  <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.4" />
-	  <PackageReference Include="SQLitePCLRaw.provider.sqlite3" Version="2.1.4" />
-	  <PackageReference Include="Acr.UserDialogs" Version="8.0.1" />
-	  <PackageReference Include="akgul.Maui.DataGrid" Version="2.0.0" />
+	  <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+	  <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.11" />
+	  <PackageReference Include="SQLitePCLRaw.core" Version="2.1.11" />
+	  <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.11" />
+	  <PackageReference Include="SQLitePCLRaw.provider.sqlite3" Version="2.1.11" />
+	  <PackageReference Include="Acr.UserDialogs" Version="9.1.0" />
+	  <PackageReference Include="akgul.Maui.DataGrid" Version="4.0.6" />
 	  <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
-	  <PackageReference Include="FluentValidation" Version="11.5.2" />
-	  <PackageReference Include="Mopups" Version="1.1.1" />
+	  <PackageReference Include="FluentValidation" Version="11.11.0" />
+	  <PackageReference Include="Mopups" Version="1.3.2" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Styles\Colors.xaml">
@@ -88,7 +88,6 @@
 	  </MauiXaml>
 	</ItemGroup>	
 	<ItemGroup>
-	  <Folder Include="Resources\AppIcon\" />
 	  <Folder Include="Interfaces\" />
 	  <Folder Include="Models\" />
 	  <Folder Include="Database\" />
@@ -116,10 +115,11 @@
 		<framework>Flyout</framework>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	</PropertyGroup>
+	
 </Project>
